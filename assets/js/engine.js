@@ -42,6 +42,12 @@
   ];
 
   var BRIDGES = {
+    customs: {
+      label: '清关 / ISF',
+      skipCategory: '清关异常',
+      re: /isf|importer security filing|entry status|customs|clearance|held at (?:customs|the port)|清关|报关|查验|扣关/i,
+      text: "On the customs side, I'm checking the ISF and entry status with our broker and will confirm whether release is affected and what, if anything, we need from you."
+    },
     fees: {
       label: '费用 / 仓储',
       skipCategory: '费用争议',
@@ -81,7 +87,7 @@
   };
 
   function detectBridge(text, primaryCategory) {
-    var keys = ['fees', 'delivery', 'damage', 'tax', 'docs', 'compliance'];
+    var keys = ['customs', 'fees', 'delivery', 'damage', 'tax', 'docs', 'compliance'];
     for (var i = 0; i < keys.length; i++) {
       var b = BRIDGES[keys[i]];
       if (b.skipCategory === primaryCategory) continue;
@@ -180,8 +186,11 @@
 
   function scoreScenario(s, text) {
     var score = 0, lower = text.toLowerCase();
+    var acronymRe = /^(ABF|DAFF|CBSA|CARM|CBP|ISF|HTS|PGA|FDA|FCC|CPSC|CFIA|BMSB|ISPM|IEEPA|CAPE|FMC|ATL|RPP|IOR|LCL|DDP|GST|HST|PST)$/i;
+    var strongAcronym = /^(CARM|ISF|RPP|BMSB|ISPM|PGA|IEEPA|CAPE|CFIA|FMC|ATL|CROSS|NII|CET)$/i;
     (s.keywords || []).forEach(function (k) {
-      var kk = String(k || '').toLowerCase().trim();
+      var raw = String(k || '').trim();
+      var kk = raw.toLowerCase();
       if (!kk) return;
       if (CN_RE.test(kk)) {
         if (lower.indexOf(kk) !== -1) score += 2.4;
@@ -189,6 +198,9 @@
         var re = new RegExp('(^|[^a-z0-9])' + escRe(kk) + '(?=$|[^a-z0-9])', 'g');
         var m = lower.match(re);
         if (m) score += Math.min(3, m.length) * 1.7;
+        if (acronymRe.test(raw) && new RegExp('(^|[^A-Za-z0-9])' + escRe(raw) + '(?=$|[^A-Za-z0-9])', 'i').test(text)) {
+          score += strongAcronym.test(raw) ? 3.4 : 1.2;
+        }
       }
     });
     var titleWords = (s.title_en || '').toLowerCase().split(/[^a-z]+/).filter(function (w) { return w.length > 3; });
