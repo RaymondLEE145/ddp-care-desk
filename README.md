@@ -4,6 +4,8 @@
 
 > 36 条场景 · 3 条专线 · 12 类高频问题 · 每条 3 段主话术 + 2 段同题替代 · 截图自动归档
 
+**在线使用：** <https://raymondlee145.github.io/ddp-care-desk/> · **GitHub：** <https://github.com/RaymondLEE145/ddp-care-desk>
+
 ---
 
 ## 核心能力
