@@ -23,22 +23,22 @@
   ];
 
   var PORT_HINTS = [
-    [/port botany|sydney|syd\b/i, 'Port Botany, Sydney'],
-    [/melbourne|mel\b/i, 'Melbourne'],
-    [/brisbane|bne\b/i, 'Brisbane'],
-    [/fremantle|perth/i, 'Fremantle'],
-    [/vancouver|van\b/i, 'Vancouver'],
-    [/prince rupert/i, 'Prince Rupert'],
-    [/toronto|yyz/i, 'Toronto'],
-    [/montreal|yul/i, 'Montreal'],
-    [/calgary/i, 'Calgary'],
-    [/los angeles|lax\b/i, 'Los Angeles'],
-    [/long beach|lgb\b/i, 'Long Beach'],
-    [/new york|newark|nyc\b/i, 'New York / Newark'],
-    [/savannah/i, 'Savannah'],
-    [/seattle|tacoma/i, 'Seattle / Tacoma'],
-    [/houston/i, 'Houston'],
-    [/chicago/i, 'Chicago (IPI)']
+    [/port botany|sydney|syd\b|悉尼/i, 'Port Botany, Sydney'],
+    [/melbourne|mel\b|墨尔本/i, 'Melbourne'],
+    [/brisbane|bne\b|布里斯班/i, 'Brisbane'],
+    [/fremantle|perth|弗里曼特尔|珀斯/i, 'Fremantle'],
+    [/vancouver|van\b|温哥华/i, 'Vancouver'],
+    [/prince rupert|鲁珀特王子港/i, 'Prince Rupert'],
+    [/toronto|yyz|多伦多/i, 'Toronto'],
+    [/montreal|yul|蒙特利尔/i, 'Montreal'],
+    [/calgary|卡尔加里/i, 'Calgary'],
+    [/los angeles|lax\b|洛杉矶/i, 'Los Angeles'],
+    [/long beach|lgb\b|长滩/i, 'Long Beach'],
+    [/new york|newark|nyc\b|纽约|纽瓦克/i, 'New York / Newark'],
+    [/savannah|萨凡纳/i, 'Savannah'],
+    [/seattle|tacoma|西雅图|塔科马/i, 'Seattle / Tacoma'],
+    [/houston|休斯顿/i, 'Houston'],
+    [/chicago|芝加哥/i, 'Chicago (IPI)']
   ];
 
   var BRIDGES = {
@@ -126,6 +126,16 @@
   };
 
   function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  function normalizeCJK(text) {
+    var s = String(text || '');
+    for (var i = 0; i < 3; i++) {
+      s = s.replace(/([\u4e00-\u9fa5])\s+(?=[\u4e00-\u9fa5])/g, '$1')
+           .replace(/([\u4e00-\u9fa5])\s+([，。！？、；：（）《》“”‘’])/g, '$1$2')
+           .replace(/([，。！？、；：（）《》“”‘’])\s+(?=[\u4e00-\u9fa5])/g, '$1');
+    }
+    return s;
+  }
 
   function detectLang(text) {
     var cn = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
@@ -221,6 +231,7 @@
 
   function analyze(text, opts) {
     opts = opts || {};
+    text = normalizeCJK(text);
     var country = opts.country && opts.country !== 'ALL' ? opts.country : null;
     var pool = (opts.scenarios || []).filter(function (s) { return !country || s.country === country; });
     var scored = pool.map(function (s) { return { scenario: s, score: scoreScenario(s, text) }; })
@@ -308,6 +319,7 @@
 
   function generate(text, opts) {
     opts = opts || {};
+    text = normalizeCJK(text);
     var scenarios = opts.scenarios || [];
     var country = opts.country && opts.country !== 'ALL' ? opts.country : null;
     var analysis = analyze(text, { scenarios: scenarios, country: country });

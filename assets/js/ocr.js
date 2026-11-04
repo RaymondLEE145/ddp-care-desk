@@ -66,12 +66,22 @@
     return worker;
   }
 
+  function cleanText(text) {
+    var s = String(text || '');
+    for (var i = 0; i < 3; i++) {
+      s = s.replace(/([\u4e00-\u9fa5])\s+(?=[\u4e00-\u9fa5])/g, '$1')
+           .replace(/([\u4e00-\u9fa5])\s+([，。！？、；：（）《》“”‘’])/g, '$1$2')
+           .replace(/([，。！？、；：（）《》“”‘’])\s+(?=[\u4e00-\u9fa5])/g, '$1');
+    }
+    return s.replace(/\n{3,}/g, '\n\n').trim();
+  }
+
   async function recognize(file, onProgress) {
     progressHandler = onProgress || function () {};
     var canvas = await fileToCanvas(file);
     var w = await ensureWorker();
     var result = await w.recognize(canvas);
-    return String((result && result.data && result.data.text) || '').trim();
+    return cleanText(result && result.data && result.data.text);
   }
 
   function shutdown() {
