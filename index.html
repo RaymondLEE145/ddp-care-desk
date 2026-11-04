@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>CareDesk · DDP 专线售后话术中枢</title>
+<meta name="description" content="中澳 / 中加 / 中美 DDP 散货售后话术库：五段式结构、当地清关事实、WhatsApp 英文直达，支持截图识别生成三条英文回复。" />
+<meta name="theme-color" content="#0c1a28" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230c1a28'/%3E%3Cpath d='M16 24h32v20H16z' fill='none' stroke='%23e4572e' stroke-width='3'/%3E%3Cpath d='M16 30h32M28 24v20' stroke='%23f5f1e8' stroke-width='3'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="assets/css/app.css?v=11" />
+</head>
+<body>
+
+<div class="app" id="app">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#/" aria-label="CareDesk 首页">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none"><rect x="5" y="9" width="38" height="30" rx="5" stroke="currentColor" stroke-width="2.2"/><path d="M5 18h38" stroke="currentColor" stroke-width="2.2"/><path d="M17 9v30M31 9v30" stroke="currentColor" stroke-width="2.2" opacity=".55"/><circle cx="24" cy="33" r="3.2" fill="currentColor"/></svg>
+      </span>
+      <span class="brand-text">
+        <strong>CareDesk</strong>
+        <em>DDP 售后话术中枢</em>
+      </span>
+    </a>
+
+    <div class="side-label">工作区</div>
+    <nav class="nav" id="nav" aria-label="主导航">
+      <a class="nav-link" href="#/" data-route="/">
+        <span class="ico" data-icon="grid"></span><span>工作台</span>
+      </a>
+      <a class="nav-link" href="#/library" data-route="/library">
+        <span class="ico" data-icon="book"></span><span>话术库</span><span class="nav-count" id="navCount">—</span>
+      </a>
+      <a class="nav-link" href="#/reply" data-route="/reply">
+        <span class="ico" data-icon="image"></span><span>截图改话</span><span class="nav-badge">AI</span>
+      </a>
+      <a class="nav-link" href="#/saved" data-route="/saved">
+        <span class="ico" data-icon="bookmark"></span><span>我的回复</span><span class="nav-count" id="navSaved">0</span>
+      </a>
+      <div class="side-label side-label--gap">维护</div>
+      <a class="nav-link" href="#/new" data-route="/new">
+        <span class="ico" data-icon="plus"></span><span>新增话术</span>
+      </a>
+      <a class="nav-link" href="#/settings" data-route="/settings">
+        <span class="ico" data-icon="settings"></span><span>设置</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="mode-chip" id="modeChip" title="数据存储模式">
+        <span class="mode-dot"></span><span id="modeLabel">检测中…</span>
+      </div>
+      <p class="side-note">中澳 · 中加 · 中美<br />五段式售后话术 · 2026 版</p>
+      <p class="side-legal">仅作沟通参考，清关与税费以官方及报关行为准。</p>
+    </div>
+  </aside>
+
+  <div class="shell">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="打开菜单" data-icon="menu"></button>
+      <div class="crumb" id="crumb">工作台</div>
+      <div class="topbar-actions">
+        <label class="global-search" id="globalSearchWrap">
+          <span class="ico" data-icon="search"></span>
+          <input id="globalSearch" type="search" placeholder="搜索场景 / 关键词 / 客户原话" autocomplete="off" />
+          <kbd>/</kbd>
+        </label>
+        <a class="btn btn-dark btn-sm" href="#/reply"><span class="ico" data-icon="sparkles"></span>截图改话</a>
+      </div>
+    </header>
+
+    <main class="view" id="view" tabindex="-1">
+      <div class="boot" id="boot">
+        <div class="boot-mark" data-icon="container"></div>
+        <p>正在载入话术库…</p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>CareDesk · DDP 专线售后话术中枢</span>
+      <span class="footer-dot">·</span>
+      <span>话术为沟通参考，不构成法律、税务或清关建议</span>
+      <a href="#/settings">合规说明</a>
+    </footer>
+  </div>
+</div>
+
+<div class="mo-nav-backdrop" id="moBackdrop"></div>
+
+<div id="drawerRoot"></div>
+<div id="modalRoot"></div>
+<div class="toast-root" id="toastRoot" role="status" aria-live="polite"></div>
+
+<script src="assets/js/icons.js?v=11"></script>
+<script src="assets/js/engine.js?v=11"></script>
+<script src="assets/js/store.js?v=11"></script>
+<script src="assets/js/ocr.js?v=11"></script>
+<script src="assets/js/app.js?v=11"></script>
+</body>
+</html>

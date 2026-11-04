@@ -1,0 +1,16 @@
+{
+  "name": "ddp-care-desk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CareDesk — 中澳 / 中加 / 中美 DDP 散货售后话术中枢",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "preview": "node tools/static-server.js 4174"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["ddp", "lcl", "freight", "after-sales", "whatsapp"],
+  "license": "UNLICENSED"
+}

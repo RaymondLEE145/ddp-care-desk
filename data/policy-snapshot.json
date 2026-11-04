@@ -1,0 +1,182 @@
+[
+  {
+    "country": "AU",
+    "title_zh": "ICS 仍是现行系统：FCRM 明确「不替换 ICS」",
+    "detail_zh": "澳洲边境执法署（ABF）的 Future Cargo Reporting Model（FCRM）属「简化贸易系统（STS）」改革下的设计类项目，官方明示不建新系统、不替换 ICS、不改《1901 年海关法》；行业意见征集截止 2026-06-29，页面更新 2026-10-01。2026 年内不存在「ICS 停用/切换系统」的合规窗口。",
+    "effective": "2026-06-29",
+    "source_name": "Australian Border Force",
+    "source_url": "https://www.abf.gov.au/help-and-support/ics/future-cargo-reporting-model",
+    "confidence": "high"
+  },
+  {
+    "country": "AU",
+    "title_zh": "GST 10% 与 VoTI 税基公式",
+    "detail_zh": "进口 GST 税率为 10%，税基 VoTI = 海关完税价（CV）+ 关税 + 反倾销/反补贴税 + 国际运输与保险（T&I，未含于 CV 部分）+ 葡萄酒平衡税。即 CIF 基础再加关税，非 FOB。GST 可与关税同时缴纳，或经 ATO 批准递延至下期 BAS（属账期安排，非免税）。",
+    "effective": "2000-07-01",
+    "source_name": "Australian Border Force",
+    "source_url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/cost-of-importing-goods/GST-and-other-taxes",
+    "confidence": "high"
+  },
+  {
+    "country": "AU",
+    "title_zh": "进口处理费（IPC）与生物安全成本回收费",
+    "detail_zh": "ABF 页面 2026-10-20 更新版本费率：N10/N20 电子申报 ≤AUD1,000 为 0；>1,000–<10,000 为 AUD50；≥10,000 为 AUD152；纸质申报为 AUD90 / AUD192；N30 保税出库电子 AUD23、纸质 AUD63。另代 DAFF 收取生物安全 FID 费：海运每份 AUD71、空运 AUD48（依据 ACN 2026/23）。",
+    "effective": "2026-10-20",
+    "source_name": "Australian Border Force",
+    "source_url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/cost-of-importing-goods/charges/import-processing-charge/",
+    "confidence": "high"
+  },
+  {
+    "country": "AU",
+    "title_zh": "low-value 申报分界：N10 / SAC / N20",
+    "detail_zh": "货物价值 > AUD1,000 且进入国内市场须办 N10 进口申报；≤ AUD1,000 的 air/sea cargo 用 SAC 自评清关（需许可证或转 DAFF 的须用长表 SAC）；拟入保税仓且 > AUD1,000 用 N20。报关单证须保存 5 年。页面更新 2026-09-23。",
+    "effective": "2026-09-23",
+    "source_name": "Australian Border Force",
+    "source_url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/how-to-import/import-declaration",
+    "confidence": "high"
+  },
+  {
+    "country": "AU",
+    "title_zh": "豪华车税（LCT）2026-27 财年阈值",
+    "detail_zh": "2026-27 财年 LCT 阈值为 AUD80,809（节能车 AUD91,661）。自 2025-07-01 起「节能车」定义收紧为油耗 ≤3.5L/100km（原 7L/100km）；此前已发生的供应/进口仍可适用旧定义。对含车辆或发动机的混装 LCL 有直接影响。",
+    "effective": "2026-07-01",
+    "source_name": "Australian Border Force",
+    "source_url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/cost-of-importing-goods/GST-and-other-taxes",
+    "confidence": "high"
+  },
+  {
+    "country": "AU",
+    "title_zh": "BMSB 季节性生物安全措施（2026-27 季）",
+    "detail_zh": "2026-27 季措施约于 2026-09-01 至 2027-04-30 实施，对来自高风险国家的特定品类（含部分金属制品、石材、机械、车辆）实施处理要求，实木包装须符合 ISPM15。[建议报关行复核] 本次 agriculture.gov.au 页面返回 403，未能读取正文；季节起止、国别与品类清单须按 DAFF 当期公告确认。",
+    "effective": "2026-09-01",
+    "source_name": "DAFF (Department of Agriculture, Fisheries and Forestry)",
+    "source_url": "https://www.agriculture.gov.au/import/before/brown-marmorated-stink-bugs",
+    "confidence": "medium"
+  },
+  {
+    "country": "CA",
+    "title_zh": "CARM 强制化：CAD 取代 B3/B2",
+    "detail_zh": "自 2024-10-21 起 CARM 成为加拿大征税的系统记录（system of record）。Commercial Accounting Declaration（CAD）取代原 B3 海关编码表与 B2 调整申请，由 CBSA 依 CAD 数据自动计税；报关行必须先取得进口商在 CARM 门户的授权才能代为申报。付款到期日为次月 17 日后 10 个工作日。",
+    "effective": "2024-10-21",
+    "source_name": "Canada Border Services Agency (CARM)",
+    "source_url": "https://www.canada.ca/en/border-services-agency/services/carm/schedule.html",
+    "confidence": "high"
+  },
+  {
+    "country": "CA",
+    "title_zh": "RPP（先放行后付税）过渡期结束：2025-05-20",
+    "detail_zh": "进口商必须在 CARM 自行挂金融担保才能享受 Release Prior to Payment；过渡期经法规修订延长 30 天后，于 2025-05-20 03:00:01 EDT 结束。未挂担保者在放行时须提交 CAD C 型并当场付税，边境处理时间显著变长；迟延记账罚则（LAP）的过渡豁免已于 2025-01-19 结束。",
+    "effective": "2025-05-20",
+    "source_name": "Canada Border Services Agency",
+    "source_url": "https://www.cbsa-asfc.gc.ca/publications/cn-ad/cn25-22-eng.html",
+    "confidence": "high"
+  },
+  {
+    "country": "CA",
+    "title_zh": "RPP 金融担保额度计算方式",
+    "detail_zh": "RPP 担保额度按进口商过去 12 个月「最高月度应收」计算且含 GST；可采用电子书面担保或电子现金押金，须由 CARM 注册的担保机构出具。报关行担保不再适用于进口商——这是 2024-10-21 后的结构性变化。",
+    "effective": "2024-10-21",
+    "source_name": "Canada Border Services Agency",
+    "source_url": "https://www.canada.ca/en/border-services-agency/news/2025/02/cbsa-reminds-importers-to-submit-financial-security-before-carm-transition-measure-ends-in-april.html",
+    "confidence": "high"
+  },
+  {
+    "country": "CA",
+    "title_zh": "中国原产钢/铝产品 25% 附加税",
+    "detail_zh": "自 2024-10-22 起，对清单内中国原产钢铁与铝产品加征 25% surtax。加拿大对钢铝措施采「非叠加（non-stackable）」原则，按优先级只适用一项；减免（remission）须向财政部申请，中国货物另有专门减免页面。",
+    "effective": "2024-10-22",
+    "source_name": "Department of Finance Canada",
+    "source_url": "https://www.canada.ca/en/department-finance/programs/international-trade-finance-policy/canadas-tariff-responses/canadas-tariffs-steel-aluminum.html",
+    "confidence": "high"
+  },
+  {
+    "country": "CA",
+    "title_zh": "含「中国熔炼浇铸」钢铝的非美进口 25% 附加税与 C$5,000 豁免",
+    "detail_zh": "自 2025-07-31 起，凡含「在中国熔炼浇铸的钢」或「在中国冶炼铸造的铝」的特定钢铝货物（非美国原产）加征 25%。同一批次完税价累计不超过 C$5,000 的货物可豁免——此为批次累计口径，不得拆票规避。供应商须提供熔炼/浇铸地书面溯源。",
+    "effective": "2025-07-31",
+    "source_name": "Department of Finance Canada",
+    "source_url": "https://www.canada.ca/en/department-finance/programs/international-trade-finance-policy/canadas-tariff-responses/canadas-tariffs-steel-aluminum.html",
+    "confidence": "high"
+  },
+  {
+    "country": "CA",
+    "title_zh": "钢铁衍生品 25% 关税（任何国家）",
+    "detail_zh": "自 2025-12-26 起，对清单内「钢铁衍生品」按全额货值加征 25%，不限于中国原产，任何国家均适用。汽车与航空航天用钢作为制造投入品有期限性豁免；安大略—曼尼托巴以西能源项目用风电塔筒另有豁免。该措施位于非叠加顺序的最后一级。",
+    "effective": "2025-12-26",
+    "source_name": "Department of Finance Canada",
+    "source_url": "https://www.canada.ca/en/department-finance/programs/international-trade-finance-policy/canadas-tariff-responses/canadas-tariffs-steel-aluminum.html",
+    "confidence": "high"
+  },
+  {
+    "country": "CA",
+    "title_zh": "非 CUSMA 国家钢铁超配额 50% 附加税",
+    "detail_zh": "自 2025-12-26 起设钢铁关税配额（TRQ）：无 FTA 国家配额为 2024 年进口量的 20%，有 FTA 国家为 75%（清单见 SOR/2025-148 附表 3）；超过配额部分加征 50%。加、美、墨原产钢铁豁免。",
+    "effective": "2025-12-26",
+    "source_name": "Department of Finance Canada",
+    "source_url": "https://www.canada.ca/en/department-finance/programs/international-trade-finance-policy/canadas-tariff-responses/canadas-tariffs-steel-aluminum.html",
+    "confidence": "high"
+  },
+  {
+    "country": "CA",
+    "title_zh": "GST 5% 与 HST 13%/14%：新斯科舍自 2025-04-01 降至 14%",
+    "detail_zh": "联邦 GST 为 5%；参与 HST 的省份合并征收：安大略 13%，新斯科舍自 2025-04-01 起由 15% 降至 14%。非参与省份为 GST 5% + 省税（BC 7% PST、曼尼托巴 7% RST、萨斯喀彻温 6% PST），魁北克为 GST 5% + QST 9.975%；进口按进口省份适用税率。[建议报关行复核] 省税税率请按省级税务机关当期公告确认。",
+    "effective": "2025-04-01",
+    "source_name": "Canada Revenue Agency",
+    "source_url": "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/charge-collect-which-rate.html",
+    "confidence": "medium"
+  },
+  {
+    "country": "US",
+    "title_zh": "de minimis 全面暂停（2025-08-29）与 Type 86 停用",
+    "detail_zh": "依 EO 14324 与 CBP 公告（90 FR 42418），自 2025-08-29 EDT 00:01 起，US$800 以下所有国家的免税 de minimis 待遇暂停；除国际邮政网络外须以 ACE 适当 entry type 申报，Type 86 不得再使用。邮政渠道过渡期可按件定额（$80/$160/$200），仅 6 个月，之后只能从价。",
+    "effective": "2025-08-29",
+    "source_name": "Federal Register / CBP (90 FR 42418)",
+    "source_url": "https://www.govinfo.gov/content/pkg/FR-2025-09-02/html/2025-16802.htm",
+    "confidence": "high"
+  },
+  {
+    "country": "US",
+    "title_zh": "de minimis 无限期暂停写入法规（19 CFR 10.151）",
+    "detail_zh": "CBP 以临时最终规则（CBP Dec. 26-12，USCBP-2026-0760）修订 19 CFR 10.151，自 2026-06-24 起对非邮政渠道、价值 ≤US$800 的货物无限期暂停 de minimis 豁免，须走正式或非正式报关；规则明示其独立依据 CBP 自身 19 U.S.C. 1321 权限，即使无行政令亦成立。另据 2025-07-04 签署的 One Big Beautiful Bill Act，该豁免自 2027-07-01 起法定终止，CBP 据此认定进口商不再享有依赖利益。",
+    "effective": "2026-06-24",
+    "source_name": "Federal Register / CBP (CBP Dec. 26-12)",
+    "source_url": "https://www.federalregister.gov/documents/full_text/html/2026/06/24/2026-12670.html",
+    "confidence": "high"
+  },
+  {
+    "country": "US",
+    "title_zh": "最高法院推翻 IEEPA 关税（2026-02-20）",
+    "detail_zh": "最高法院在 Learning Resources, Inc. v. Trump（607 U.S. ___，2026）判定 IEEPA 不授权总统加征关税；同日 EO 14389 终止依 IEEPA 加征的附加税，EO 14388 继续维持 de minimis 暂停。此后对华关税结构以 MFN、Section 301、Section 232 及临时性 Section 122 措施为主，税率须按装运日复核。",
+    "effective": "2026-02-20",
+    "source_name": "Federal Register / CBP",
+    "source_url": "https://www.federalregister.gov/documents/full_text/html/2026/06/24/2026-12670.html",
+    "confidence": "high"
+  },
+  {
+    "country": "US",
+    "title_zh": "IEEPA 关税退税：CAPE 流程与 60–90 天到账",
+    "detail_zh": "CBP 在 ACE 内启用 CAPE 集中处理 IEEPA 关税退税：由 IOR 或其授权报关行通过 ACE 门户提交 CSV 清单（单份上限 9,999 条），不接受 ABI 提交。有效退税一般在受理后 60–90 天发放；分阶段上线（Phase 1 未清算/清算前 80 天内；Phase 2 已标记 reconciliation 者）。退税受清算与抵扣规则约束。",
+    "effective": "2026-02-20",
+    "source_name": "U.S. Customs and Border Protection",
+    "source_url": "https://www.cbp.gov/trade/programs-administration/trade-remedies/ieepa-duty-refunds",
+    "confidence": "high"
+  },
+  {
+    "country": "US",
+    "title_zh": "CPSC 合规证书强制 eFiling（2026-07-08）",
+    "detail_zh": "CPSC 自 2026-07-08 起实施强制 eFiling：受管制消费品的进口商须在货物进入美国商业前电子提交合规证书数据，否则将被 CPSC hold。FTZ 内货物后续进入消费或仓储的适用日期为 2027-01-08。该要求不新增检测/认证义务，只改变数据提交方式。",
+    "effective": "2026-07-08",
+    "source_name": "U.S. Consumer Product Safety Commission",
+    "source_url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/CPSC-Implements-Mandatory-eFiling-for-Certificates-of-Compliance-Targeting-Dangerous-Foreign-Imports",
+    "confidence": "high"
+  },
+  {
+    "country": "US",
+    "title_zh": "FMC 滞箱滞港（D&D）开票规则：541.4 被撤销，其余有效",
+    "detail_zh": "FMC 依 OSRA 2022 制定的 46 CFR Part 541 于 2024-05-28 生效，要求 D&D 发票含准确充分信息、开票期限 30 天，不符者被开票方无付款义务。2025-09-23 D.C. 巡回上诉法院仅撤销 46 CFR 541.4（可向谁开票），其余条款继续有效。",
+    "effective": "2025-09-23",
+    "source_name": "Federal Maritime Commission",
+    "source_url": "https://www.fmc.gov/articles/u-s-court-of-appeals-issues-decision-in-case-on-demurrage-and-detention-billing-practices/",
+    "confidence": "high"
+  }
+]

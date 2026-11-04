@@ -1,0 +1,9 @@
+node_modules/
+server/data/
+shots/
+.tools/
+*.log
+.DS_Store
+Thumbs.db
+browser-screenshots/
+*.bak-*

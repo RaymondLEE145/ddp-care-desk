@@ -1,0 +1,1386 @@
+{
+  "country": "AU",
+  "lane": "中澳",
+  "updated_at": "2026-11-04",
+  "scenarios": [
+    {
+      "id": "au-customs-inspection",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "清关",
+      "category": "清关异常",
+      "severity": "high",
+      "title_zh": "ABF 查验扣关（Australian Border Force 查验）",
+      "title_en": "Shipment held for ABF inspection",
+      "summary_zh": "货物到港后被 ABF 抽中查验，放行时间不确定，客户排期被打乱、反复追问进度。",
+      "customer_signals": [
+        "Why is my container still showing as held at customs?",
+        "海关查验到底要多久？我客户一直催",
+        "It's been six days now, is there something wrong with my paperwork?"
+      ],
+      "keywords": [
+        "customs", "inspection", "ABF", "held", "clearance delay", "examination",
+        "查验", "扣关", "查柜", "海关", "清关慢", "放行", "尾门验关", "X光"
+      ],
+      "framework": {
+        "empathy": [
+          "先点出查验延期对客户的具体损失（上架日、施工档期、下游罚款），不要泛泛说「理解您的心情」",
+          "避免说「这是海关的事我们也没办法」，改成「我们控制不了查验本身，能控制跟进密度和告知速度」"
+        ],
+        "facts": [
+          "ABF 查验属常规边境监管，可在到港后、放行前实施，与申报是否合规无必然关系",
+          "查验本身不代表申报有问题，也不等于罚款或补税；现阶段不要替客户下结论",
+          "严格区分「已确认」（查验类型、柜位、预约号）与「正在核实」（排队位次、预计结束时间）"
+        ],
+        "plan": [
+          "向报关行确认查验类型（文件审核、尾门验关、X 光扫描、掏箱）与预约排队位次",
+          "报关行每日两次催促查验预约，结果写入交接记录，避免换班后重复问客户",
+          "同步预约放行后的提柜与派送窗口，不让客户放行后再等车"
+        ],
+        "sync": [
+          "承诺当天下班前一次书面进度，即使「无变化」也要发，杜绝静默",
+          "内部状态有任何变化，30 分钟内主动告知，不等下一次约定时间"
+        ],
+        "reassure": [
+          "明确由同一客服跟到放行，不换人、不甩单",
+          "准备可落地的兜底：延误说明函、分批派送、目的港短期仓储方案"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-customs-inspection-first",
+          "phase": "first",
+          "tone": "standard",
+          "label_zh": "首次回复 · 标准",
+          "use_when": "客户第一次问查验进度，情绪尚可控，需要一次把事实和节奏讲清",
+          "text": "Hi {{customer_name}}, I can see why the silence is stressful — a hold at this stage eats into whatever buffer you built into your timeline, and that's the last thing you need.\n\nI've been through it with our clearance team. {{container_no}} is at {{port}} and has been selected by ABF (Australian Border Force) for an inspection. It's a standard border control measure, it doesn't mean your declaration is wrong, and no penalty has been raised.\n\nWhat we're doing: our broker has the entry lodged and is chasing the terminal and the booking desk twice a day for the earliest slot. Release usually follows within a few business days of the inspection, but I won't put a date on it until they've actually been through the cargo.\n\nI'll message you by {{next_update_time}} today with a written status, and sooner if anything moves.",
+          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+        },
+        {
+          "id": "au-customs-inspection-followup",
+          "phase": "followup",
+          "tone": "warm",
+          "label_zh": "跟进 · 短消息",
+          "use_when": "客户再次追问，或当日无实质进展需要主动同步",
+          "text": "Quick one on {{container_no}} — still in the inspection queue at {{port}}, and nothing new from ABF since this morning.\n\nWhat I did today: our broker re-confirmed the booking and pushed for the earliest slot they'll give us, and I've had our cartage team hold a delivery window so we move the same day it's released.\n\nI'll be back with you by {{next_update_time}}, even if it's only to tell you where we sit in the queue. You shouldn't have to chase this.",
+          "placeholders": ["container_no", "port", "next_update_time"]
+        },
+        {
+          "id": "au-customs-inspection-close",
+          "phase": "close",
+          "tone": "supervisor",
+          "label_zh": "收口 · 主管口径",
+          "use_when": "查验完成放行，或客户情绪升级需主管出面说明结果",
+          "text": "Hi {{customer_name}}, {{container_no}} cleared the ABF inspection this afternoon and has been released. Nothing additional was raised at release — no penalty and no extra duty — and the entry stands as lodged.\n\nDelivery is booked for {{delivery_date}} and our driver will confirm a two-hour window the day before.\n\nI'm sorry this sat longer than either of us expected. The inspection queue was heavier than usual and I should have said that plainly on day three instead of letting the updates go quiet.\n\nI'll stay on it until it's signed for. Message me directly if anything else comes up.",
+          "placeholders": ["customer_name", "container_no", "delivery_date"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "ABF 风险布控或随机抽查",
+          "同柜其他货主申报异常，牵连整柜查验",
+          "申报要素与实物不符（品名、数量、申报价值）",
+          "木包装或生物安全风险触发联合查验"
+        ],
+        "resolution_path": [
+          "确认查验类型与查验地点（码头堆场或指定查验场）",
+          "报关行预约查验并每日跟进排队位次，写入交接记录",
+          "查验完成→补件或补税→ABF 放行出关",
+          "放行当日安排提柜与派送，避免二次堆存产生费用"
+        ],
+        "sla_hint": "首次响应 2 小时内；查验期间每 24 小时主动同步一次；放行后 24 小时内给出派送时间窗",
+        "fee_policy": "DDP 项下 ABF 常规查验费与报关行代垫费用由我方承担；因客户原因产生的滞箱、改址、二次派送费用，另行书面确认后再收取",
+        "guardrails": [
+          "不承诺具体放行日期，只给区间与前置条件",
+          "不评价 ABF 执法尺度，不说「故意刁难」，也不暗示可用关系影响结果",
+          "不建议拆单、改品名或 HS 编码、调整申报价值来规避查验"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-customs-inspection-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, I'm sorry — I know a hold like this lands right when you're trying to plan around it, and watching the tracking sit still is maddening.\n\nHere's where it actually stands: {{container_no}} is at {{port}} and ABF has picked it for inspection. That's a routine check, and there's nothing to suggest a problem with your paperwork or a penalty coming.\n\nOur broker is chasing the inspection desk twice a day, and our cartage team is holding a delivery slot so we don't lose another week once it's out. I'll come to you by {{next_update_time}} with a proper update rather than a holding line.\n\nIf it helps, I can put together a short note you can forward to your customer.",
+          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+        },
+        {
+          "id": "au-customs-inspection-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — status on {{container_no}}: it's at {{port}} and selected for ABF inspection. Routine border check, not a finding against your entry.\n\nOur broker has the entry lodged and is chasing the inspection booking twice a day. Release normally follows within a few business days after ABF attends, but I won't give you a firm date until they've finished.\n\nNext update from me by {{next_update_time}}. If you need a delay letter for your customer or your landlord in the meantime, say the word and I'll draft it.",
+          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+        }
+      ],
+      "authorities": [
+        { "name": "Australian Border Force — How to import", "url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/how-to-import" },
+        { "name": "Australian Border Force", "url": "https://www.abf.gov.au/" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-biosecurity-hold",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "清关",
+      "category": "合规风险",
+      "severity": "high",
+      "title_zh": "DAFF 生物安全扣货（ISPM15 木包装 / BMSB 季节措施）",
+      "title_en": "Biosecurity hold over timber packaging or BMSB measures",
+      "summary_zh": "DAFF 就实木包装 ISPM15 标识、包装声明或 BMSB 季节措施发出扣货与处理指令，客户担心销毁与额外费用。",
+      "customer_signals": [
+        "DAFF 说我木托盘没有 IPPC 标，要熏蒸，真的假的？",
+        "Will my goods be destroyed? The agent said biosecurity hold",
+        "这个季节是不是所有柜子都要查 BMSB？客户的货赶不上圣诞了"
+      ],
+      "keywords": [
+        "biosecurity", "DAFF", "ISPM15", "ISPM 15", "BMSB", "stink bug", "fumigation",
+        "生物安全", "熏蒸", "木包装", "托盘", "包装声明", "扣货", "销毁", "退运"
+      ],
+      "framework": {
+        "empathy": [
+          "先承认生物安全扣货的心理冲击：客户第一反应是「货会不会被销毁」，必须先消除这个恐慌",
+          "把「等通知」翻译成客户听得懂的进度语言：卡在哪一步、下一步谁动作、大概多久"
+        ],
+        "facts": [
+          "DAFF 对实木包装有法定进口条件，BICON 是唯一判定依据，客服不得凭经验拍板",
+          "实木包装须按 ISPM 15 处理并加施标识，且在包装声明中如实申报；LCL 拼箱必须提供包装声明",
+          "BMSB 季节措施按提单上的装船日（shipped on board）判定，落在措施窗口内即适用，不看 gate in 日期"
+        ],
+        "plan": [
+          "向报关行索取 DAFF 的书面处理指令（treatment direction），不接受口头转述",
+          "确认处理方式（溴甲烷、硫酰氟、热处理等）与熏蒸档期，同步告知是否影响整柜",
+          "准备更正后的包装声明与现场照片，处理完成立即申报放行"
+        ],
+        "sync": [
+          "处理指令下达当天必须给客户一次书面结论，不能拖到放行",
+          "熏蒸、放行两个节点各同步一次，费用口径与进度一起说"
+        ],
+        "reassure": [
+          "说明处理路径存在（处理→复核→放行），不是只有销毁一条路",
+          "费用边界提前讲清，避免放行后再补刀造成二次冲突"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-biosecurity-hold-first",
+          "phase": "first",
+          "tone": "standard",
+          "label_zh": "首次回复 · 标准",
+          "use_when": "客户刚收到生物安全扣货通知，情绪紧张、担心销毁",
+          "text": "Hi {{customer_name}}, I know how alarming a biosecurity hold looks — people assume the goods are about to be destroyed, and being told to just wait isn't good enough.\n\nHere's what I've confirmed with our broker. {{container_no}} has been referred to DAFF (Department of Agriculture, Fisheries and Forestry) biosecurity at {{port}}. The trigger is packaging: a solid timber pallet without a readable ISPM 15 mark, and a packing declaration that doesn't match what officers found when they opened the doors.\n\nWhat happens next is a directed treatment, either fumigation or heat, and nothing moves until it's certified and the declaration is corrected.\n\nOur broker has asked for the written direction and we have a fumigator on standby. You'll have the direction, the timeline and the cost position from me by {{next_update_time}}.",
+          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+        },
+        {
+          "id": "au-biosecurity-hold-followup",
+          "phase": "followup",
+          "tone": "warm",
+          "label_zh": "跟进 · 短消息",
+          "use_when": "已确认处理指令，需要同步排期；或客户再次催问",
+          "text": "Update on {{container_no}}: DAFF has issued the treatment direction for the pallet in question, and our fumigator is booked for tomorrow morning at {{port}}. Treatment itself is about a day, then our broker lodges the corrected packing declaration and we wait on release.\n\nThe rest of the container is clean, so nothing else is caught up in this.\n\nI'll confirm once the treatment is certified, and again by {{next_update_time}} at the latest.",
+          "placeholders": ["container_no", "port", "next_update_time"]
+        },
+        {
+          "id": "au-biosecurity-hold-close",
+          "phase": "close",
+          "tone": "supervisor",
+          "label_zh": "收口 · 主管口径",
+          "use_when": "处理完成放行，需要说明结果与改进，重建客户信任",
+          "text": "Hi {{customer_name}}, {{container_no}} has cleared DAFF biosecurity and been released. The pallet was treated and certified, the packing declaration has been corrected, and the container is with our cartage team now.\n\nStraight answer on what went wrong: the supplier's packing declaration didn't match the timber actually used, and our document check didn't catch it before the goods sailed. I've added a mark check to that step.\n\nDelivery is set for {{delivery_date}} and I'll send the driver's details the day before.",
+          "placeholders": ["customer_name", "container_no", "delivery_date"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "实木托盘或木箱无 ISPM 15 标识，或标识模糊不可辨",
+          "包装声明缺失或与实际木材不符（LCL 拼箱高发）",
+          "BMSB 季节措施命中目标风险国或目标货物",
+          "货物夹带土壤、植物残体、未申报木制品或食品"
+        ],
+        "resolution_path": [
+          "确认扣货依据（BICON 条件、查验报告或处理指令）",
+          "取得 DAFF 书面处理指令，确认处理方式与处理场地",
+          "安排熏蒸或热处理并取得处理证书",
+          "更正包装声明后重新申报，DAFF 复核后放行",
+          "放行后优先安排派送，压缩堆存时间"
+        ],
+        "sla_hint": "首次响应 2 小时内；取得处理指令后 24 小时内给出处理排期；扣货期间每 24 小时同步一次",
+        "fee_policy": "DDP 项下因我方审单失误（未识别实木包装问题）产生的处理费、查验费由我方承担；因客户或供应商提供虚假、不完整包装声明导致的处理费、销毁或退运费用，书面确认后由客户承担",
+        "guardrails": [
+          "不承诺「一定能处理放行」，DAFF 对处理方式与结果有最终裁量权",
+          "不引导客户更换包装声明、隐瞒木质包装或改申报以规避处理，BMSB 窗口与处理要求以 DAFF 最新季节公告为准",
+          "既不轻描淡写说「交点钱就行」，也不渲染销毁来施压"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-biosecurity-hold-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, it's completely fair to be worried — biosecurity holds look alarming from the outside, and being told to wait with no detail is a horrible feeling when your goods and your money are sitting on the wharf.\n\nHere's what's actually happening with {{container_no}} at {{port}}: DAFF has flagged the timber packaging on part of the LCL cargo, and the packing declaration doesn't match what officers saw. DAFF directs the remedy; we don't get to choose it or skip it.\n\nOur broker has requested the written direction and a fumigator is on standby. I'll update you by {{next_update_time}}, and I'll give you the cost position at the same time rather than drip-feeding it later.",
+          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+        },
+        {
+          "id": "au-biosecurity-hold-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — {{container_no}} is held by DAFF biosecurity at {{port}}. Trigger is timber packaging: a pallet without a readable ISPM 15 mark, plus a packing declaration that doesn't match the cargo.\n\nDAFF decides the remedy, normally fumigation or heat treatment, and nothing moves until it's certified. Our broker has asked for the written direction and we have a fumigator on standby.\n\nI'll report back by {{next_update_time}} with the direction, a realistic timeline and where the cost lands. You won't have to chase me for it.",
+          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+        }
+      ],
+      "authorities": [
+        { "name": "DAFF — Timber and bamboo packaging (ISPM 15)", "url": "https://www.agriculture.gov.au/import/goods/timber-packaging" },
+        { "name": "DAFF — Seasonal measures for brown marmorated stink bug (BMSB)", "url": "https://www.agriculture.gov.au/import/before/brown-marmorated-stink-bugs" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-duty-gst-dispute",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "清关",
+      "category": "税费争议",
+      "severity": "high",
+      "title_zh": "关税与 GST 争议（DDP 已含税却收到税单）",
+      "title_en": "Duty and GST dispute on a DDP booking",
+      "summary_zh": "客户已支付 DDP 一口价，货物在边境仍产生 duty 与 10% GST，客户质疑被重复收费。",
+      "customer_signals": [
+        "I paid DDP, why am I getting a tax invoice now?",
+        "我不是付了包税价吗？怎么还要补 GST",
+        "Why is GST 10% on top of the freight I already paid?"
+      ],
+      "keywords": [
+        "GST", "duty", "DDP", "tax invoice", "customs value", "AUD 1000", "ChAFTA",
+        "关税", "税单", "包税", "重复收费", "货值", "原产地证", "补税", "低报"
+      ],
+      "framework": {
+        "empathy": [
+          "先接住「已付包税价还被收税」的被重复收费感，不要一上来讲税法",
+          "承认沟通缺口（如果确实没提前告知税费测算），比解释税制更能止血"
+        ],
+        "facts": [
+          "澳洲 GST 为 10%；关税按 HS 归类与原产地判定，具体税率以 TAR 2026 与归类结果为准，不在话术里报固定税率",
+          "海关完税价（customs value）本身不含国际运保费；但澳洲 GST 的税基 VoTI＝完税价＋关税＋国际运输与保险（CIF 基础再加关税），解释税单要按 VoTI 拆",
+          "AUD 1,000 是 N10 与 SAC 的申报分界：超过须以 N10 申报并在边境缴税；GST 适用于所有应税进口，A$1,000 以下不等于免税",
+          "中澳自贸协定（ChAFTA）在原产地证有效且归类匹配时可降税甚至零关税"
+        ],
+        "plan": [
+          "调取 ABF 的进口申报（N10）、税单与客户报价单，逐项比对是否含税",
+          "确认 DDP 报价覆盖范围：仅运费+清关+派送，还是已含 duty 与 GST",
+          "由 pricing 出具书面税费测算，作为后续报价与本次对账的依据"
+        ],
+        "sync": [
+          "承诺交付「逐项对账表」而不是口头解释",
+          "对账表交付时间写死到具体日期，不写「尽快」"
+        ],
+        "reassure": [
+          "若确属我方报价口径遗漏，给出明确处理路径（补差或 credit），但不口头承诺金额",
+          "后续订单在开船前提供税费预估，从机制上避免重演"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-duty-gst-dispute-first",
+          "phase": "first",
+          "tone": "standard",
+          "label_zh": "首次回复 · 标准",
+          "use_when": "客户第一次质疑 DDP 后仍被收税；发送前先确认报价单是否含税，再讲清税种与判定口径",
+          "text": "Hi {{customer_name}}, I understand the frustration — you've paid a DDP rate and now there's a tax invoice on top with no explanation. That's on us to clear up.\n\nI've pulled the entry and the invoice for {{bill_no}}. The {{amount}} is 10 per cent GST plus customs duty, assessed at the border on this import. Because the consignment is above A$1,000 it needs a full N10 entry rather than a SAC declaration — GST applies to the import itself, not because of the threshold.\n\nI'm confirming whether your quote excluded the tax; on DDP it's included by default, so this is the assessment behind the rate, not a second charge. The reconciliation will also show the import processing charge and the biosecurity cost-recovery fee, which sit outside duty and GST. Clearance is checking the classification; pricing is checking the quote.\n\nYou'll have the reconciliation by {{next_update_time}}.",
+          "placeholders": ["customer_name", "bill_no", "amount", "next_update_time"]
+        },
+        {
+          "id": "au-duty-gst-dispute-followup",
+          "phase": "followup",
+          "tone": "firm",
+          "label_zh": "跟进 · 明确口径",
+          "use_when": "客户反复施压要求免掉税费；发送前先确认报价单是否含税，再守住合规边界并给出进展",
+          "text": "On {{bill_no}}: I have the duty calculation and entry in front of me. The GST is straightforward; the duty turns on classification and whether the China–Australia Free Trade Agreement origin claim was accepted.\n\nOne thing is clear: the fix is not a lower declared value or a different description. That puts your company in front of ABF penalties; I won't be part of it.\n\nThe question is whether your {{order_no}} quote covered them — on DDP it does unless it excludes them. Itemised reconciliation by {{next_update_time}}.",
+          "placeholders": ["bill_no", "order_no", "next_update_time"]
+        },
+        {
+          "id": "au-duty-gst-dispute-close",
+          "phase": "close",
+          "tone": "supervisor",
+          "label_zh": "收口 · 主管口径",
+          "use_when": "对账完成；发送前先确认报价单是否含税，再给出书面结论与后续机制",
+          "text": "Hi {{customer_name}}, here's the position on {{bill_no}}. The {{amount}} is duty and 10 per cent GST assessed at the border on this import; above A$1,000 it needs a full N10 entry rather than a SAC declaration. Your DDP rate includes that tax unless the quote excluded it, so this is the assessment behind the rate, not a second charge — I've checked what yours said.\n\nWhere we fell short is the heads-up. You should have had a duty estimate before the vessel sailed, and you didn't.\n\nPricing is reviewing the {{order_no}} quote and will come back in writing this week.",
+          "placeholders": ["customer_name", "bill_no", "amount", "order_no"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "DDP 报价未含 duty 与 GST，或按低货值估算后差额暴露",
+          "申报价值被低报，ABF 重新估价后补税",
+          "HS 归类与原报价假设不一致，税率跳档",
+          "客户提供的发票金额与付款记录不一致，触发核价"
+        ],
+        "resolution_path": [
+          "调取 ABF entry 与税单，核对税基、税率与 GST 计算",
+          "比对 DDP 报价单条款，确认税费是否在承包范围",
+          "出具逐项对账表（运费、清关、duty、GST、IPC 进口处理费、DAFF 生物安全 FID、其他费用）",
+          "核对 IPC 档位（0/50/152）与生物安全 FID（海运 71 / 空运 48），与 duty/GST 分列",
+          "按口径差异出补差单或 credit note，并更新报价模板与开船前税费提示"
+        ],
+        "sla_hint": "首次响应 2 小时内；对账表 2 个工作日内交付；涉及补税争议的，5 个工作日内给出书面结论",
+        "fee_policy": "DDP 默认含 duty 与 GST（除非报价单明确排除）；税单只作边境评税说明，不得二次收取；报价明确排除或客户自行低报导致补税的，凭 ABF 税单实报实销；我方报价口径错误的，差额由我方承担。发送前先核对报价单是否含税",
+        "guardrails": [
+          "绝不建议低报货值、拆单、改品名或 HS、修改发票来降税",
+          "不承诺「一定能退」，也不承诺具体退税或赔付金额",
+          "不把补税说成 ABF 随意加征，也不暗示可用关系处理；GST 税率与门槛以 ATO 最新口径为准"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-duty-gst-dispute-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, I get why you're frustrated — paying a DDP rate and then getting a tax bill feels like being charged twice, and I'd be asking the same question in your position.\n\nI've been through the entry for {{bill_no}}. The {{amount}} is 10 per cent GST plus customs duty, assessed at the border on this import. The A$1,000 line only decides between a full N10 entry and a SAC declaration; it isn't what makes the tax payable, and your DDP rate includes it unless the quote says otherwise.\n\nPricing and clearance are checking your quote and the classification behind the figure today.\n\nYou'll have an itemised answer from me by {{next_update_time}}, not a summary.",
+          "placeholders": ["customer_name", "bill_no", "amount", "next_update_time"]
+        },
+        {
+          "id": "au-duty-gst-dispute-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — on {{bill_no}}: the {{amount}} is 10 per cent GST plus duty, assessed at the border on this import. The A$1,000 line is about the entry type, not whether tax applies, and the tax isn't a fee we've added.\n\nOn a DDP rate that tax is included unless your quote expressly excluded it; pricing and clearance are checking that now, and I'd rather confirm it than guess.\n\nYou'll get an itemised reconciliation by {{next_update_time}}. If the quote did exclude it, you'll see the basis on the same document.",
+          "placeholders": ["customer_name", "bill_no", "amount", "next_update_time"]
+        }
+      ],
+      "authorities": [
+        { "name": "Australian Border Force — GST and other taxes when importing", "url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/cost-of-importing-goods/GST-and-other-taxes" },
+        { "name": "Australian Border Force — How to import", "url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/how-to-import" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-docs-missing",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "清关",
+      "category": "清关异常",
+      "severity": "high",
+      "title_zh": "清关单证缺失或信息不符",
+      "title_en": "Missing or inconsistent clearance documents",
+      "summary_zh": "发票、装箱单、提单、包装声明缺失或互相矛盾，导致 N10 无法申报，货物压在码头。",
+      "customer_signals": [
+        "报关行又说缺文件，到底要哪些？",
+        "Can you tell me exactly what documents you still need?",
+        "我发票已经给了三次了，怎么还不行"
+      ],
+      "keywords": [
+        "documents", "invoice", "packing list", "bill of lading", "packing declaration", "N10",
+        "单证", "发票", "装箱单", "提单", "包装声明", "补件", "申报", "缺资料", "改单"
+      ],
+      "framework": {
+        "empathy": [
+          "承认反复要资料对客户是二次折磨，先道歉再要件",
+          "一次讲清「缺什么、缺谁的、什么时候要」，别让客户猜"
+        ],
+        "facts": [
+          "海运货物须通过 N10 进口申报（表格 B650）在 ICS 中申报，缺件无法估价计税",
+          "LCL 拼箱必须提供包装声明；FCL 含实木包装或木托盘的同样需要",
+          "发票、装箱单、提单三者的品名、数量、价值必须一致，不一致会触发补件或查验"
+        ],
+        "plan": [
+          "逐项列出缺失与不一致清单，标明责任方（客户、供应商、我方）",
+          "我方可以补的（HS 建议、装箱单格式、包装声明模板）当天处理",
+          "齐件当晚完成申报，不等次日"
+        ],
+        "sync": [
+          "每次索件都给出「收到后多久能申报」的明确时间",
+          "申报后 24 小时内反馈 ABF 受理状态"
+        ],
+        "reassure": [
+          "说明缺件是可修复问题，不是扣货或罚款，先稳住情绪",
+          "提供模板与填写示例，降低客户返工次数"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-docs-missing-first",
+          "phase": "first",
+          "tone": "standard",
+          "label_zh": "首次回复 · 标准",
+          "use_when": "客户被报关行通知缺件，不清楚具体缺什么",
+          "text": "Hi {{customer_name}}, sorry to be back for more paperwork — I know you've already sent these once.\n\nI've checked what's actually landed with our broker. The entry for {{bill_no}} can't be lodged yet for three reasons: the commercial invoice doesn't show unit prices, the packing list doesn't match the carton count on the bill of lading, and the packing declaration for this LCL container hasn't come through from the supplier.\n\nNone of that is fatal and none of it means the shipment is in trouble. But ABF (Australian Border Force) can't clear what hasn't been declared accurately, so we're stopped until the entry is right.\n\nSend me the invoice and a corrected packing list today and our broker will lodge tonight. I'll confirm where we stand by {{next_update_time}}.",
+          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+        },
+        {
+          "id": "au-docs-missing-followup",
+          "phase": "followup",
+          "tone": "warm",
+          "label_zh": "跟进 · 短消息",
+          "use_when": "资料部分补齐，需要说明进展并给出剩余差异",
+          "text": "On {{bill_no}} — we now have the invoice and packing list, and the entry has been lodged in the Integrated Cargo System. The supplier has also sent the packing declaration, though the timber treatment marks need one more check against what's on the pallets.\n\nSo we've moved: this is now about verification, not missing paper.\n\nRealistic expectation is two to three business days from here. I'll confirm by {{next_update_time}}.",
+          "placeholders": ["bill_no", "next_update_time"]
+        },
+        {
+          "id": "au-docs-missing-close",
+          "phase": "close",
+          "tone": "firm",
+          "label_zh": "收口 · 明确改进",
+          "use_when": "放行完成，需要说明结果并明确后续流程要求",
+          "text": "Hi {{customer_name}}, {{container_no}} has cleared and been released. The entry went in with the corrected invoice and packing list, and DAFF accepted the packing declaration without a treatment direction, so there's no additional cost on this one.\n\nThe part that needs to change is ours: we should have run the document check at booking, not at the wharf. That step is now in our booking flow.\n\nDelivery is booked for {{delivery_date}} and I'll send the cartage details the day before. One ask — send the packing declaration with the booking from now on, and we won't repeat this.",
+          "placeholders": ["customer_name", "container_no", "delivery_date"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "商业发票缺单价、币种或贸易条款",
+          "装箱单箱数与提单或实际收货数不符",
+          "LCL 缺包装声明，或声明与实际木包装不符",
+          "品名过于笼统（如 spare parts）导致无法归类"
+        ],
+        "resolution_path": [
+          "对照 ABF 申报要素逐项核查单证",
+          "向客户或供应商发出具体缺件清单，附模板与示例",
+          "我方补制可代填项（HS 建议、装箱单格式、包装声明模板）",
+          "齐件后当晚在 ICS 完成 N10 申报",
+          "跟进 ABF 受理与放行，异常件当天回报"
+        ],
+        "sla_hint": "首次响应 1 小时内并给出缺件清单；客户补齐后 4 小时内完成申报；申报后每 24 小时跟进一次",
+        "fee_policy": "DDP 项下正常单证制作与申报由我方承担；因客户或供应商资料错误导致的改单费、滞箱费、二次申报费，书面确认后由客户承担",
+        "guardrails": [
+          "不代替客户编造发票、装箱单或包装声明的实质内容",
+          "不承诺「先申报后补件」能过关，也不建议用模糊品名蒙混归类",
+          "不把缺件责任推给客户后就不管，先给解决方案再谈责任"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-docs-missing-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, I'm sorry to keep coming back to you for documents — I know you've sent the same set twice and it must feel like the goalposts keep moving.\n\nWhat's actually happening: the entry for {{bill_no}} is stalled because the invoice, packing list and packing declaration don't line up with the bill of lading. ABF can only clear what's been declared accurately, so we can't lodge around the gap.\n\nOur broker has it queued for tonight's submission once the corrected invoice lands. If you can get it to me today, we're back on track.\n\nI'll confirm where we stand by {{next_update_time}}.",
+          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+        },
+        {
+          "id": "au-docs-missing-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — {{bill_no}} can't be lodged yet. Three gaps: invoice without unit prices, packing list that doesn't match the carton count on the bill of lading, and no packing declaration for this LCL container.\n\nNothing here is fatal, but ABF can't clear undeclared cargo. Our broker will lodge the same evening the corrected set arrives.\n\nSend the invoice and packing list today and I'll confirm status by {{next_update_time}}. Happy to talk it through on the phone if that's faster than email.",
+          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+        }
+      ],
+      "authorities": [
+        { "name": "Australian Border Force — How to import (N10 / Form B650)", "url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/how-to-import" },
+        { "name": "DAFF — Packing declarations for timber packaging", "url": "https://www.agriculture.gov.au/import/goods/timber-packaging" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-port-congestion",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "到港",
+      "category": "时效延误",
+      "severity": "medium",
+      "title_zh": "港口拥堵与船期跳港导致 ETA 反复",
+      "title_en": "Port congestion and repeatedly revised ETA",
+      "summary_zh": "悉尼、墨尔本、布里斯班拥堵或船司跳港，ETA 一改再改，客户下游排期全部落空。",
+      "customer_signals": [
+        "ETA 又变了？上周说这周三到港的",
+        "Is the vessel actually arriving or is this another guess?",
+        "客户催死了，船上什么时候能靠泊"
+      ],
+      "keywords": [
+        "ETA", "congestion", "berth", "blank sailing", "port omission", "Port Botany", "Melbourne", "Brisbane",
+        "到港", "延误", "拥堵", "跳港", "甩柜", "靠泊", "悉尼", "墨尔本", "布里斯班", "船期"
+      ],
+      "framework": {
+        "empathy": [
+          "承认「ETA 一直变」比「明确延误」更折磨人，客户损失的是排期确定性",
+          "不要用「船司的问题」当挡箭牌，先说我们这一侧能压缩什么"
+        ],
+        "facts": [
+          "悉尼 Port Botany、墨尔本、布里斯班为主要挂靠港，拥堵与跳港会连锁传导到后续船期",
+          "ETA 由船司发布，靠泊窗口与码头堆场计划决定实际靠泊时间，我方无权更改",
+          "我方可控的是到港前预申报、提柜预约与派送排期，不可控的是船期本身"
+        ],
+        "plan": [
+          "每日核对船司靠泊窗口与码头公告，异常当天上报而不是攒着",
+          "到港前完成 N10 预申报与税款准备，放行即提柜",
+          "提前锁定派送档期，压缩到港后环节"
+        ],
+        "sync": [
+          "每周至少两次主动 ETA 更新，变化当天告知",
+          "给客户「下一次确认时间」，而不是「有消息通知你」"
+        ],
+        "reassure": [
+          "给可执行替代方案：急件转空运、分批派送、目的港短期仓储",
+          "延误证明或船司说明可按需出具，供客户向下游解释"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-port-congestion-first",
+          "phase": "first",
+          "tone": "standard",
+          "label_zh": "首次回复 · 标准",
+          "use_when": "客户发现 ETA 又变了，质疑船期真实性",
+          "text": "Hi {{customer_name}}, I know this is the worst kind of waiting — you're not being told no, you're just not being told anything, and your forward orders are stuck on a date that keeps moving.\n\nHere's the honest picture on {{container_no}}. The vessel is running late into {{port}} and the carrier has revised the ETA to {{eta_date}}. The terminal at {{port}} has been working through a berth backlog, and when a vessel misses its window the queue behind it shifts with it.\n\nWhat we're doing: our operations team checks the carrier's berth window daily, and the entry is pre-lodged so clearance starts the moment the vessel discharges rather than two days later.\n\nI'll give you a revised ETA by {{next_update_time}}, and flag it the same day if the carrier moves again.",
+          "placeholders": ["customer_name", "container_no", "port", "eta_date", "next_update_time"]
+        },
+        {
+          "id": "au-port-congestion-followup",
+          "phase": "followup",
+          "tone": "warm",
+          "label_zh": "跟进 · 短消息",
+          "use_when": "ETA 有新信息但尚未靠泊，需要同步好消息与不确定性",
+          "text": "Short update on {{container_no}} — the carrier now has the vessel scheduled to berth at {{port}} on {{eta_date}}, a day better than yesterday's advice. I'm treating that as provisional until it actually ties up, because this vessel has moved twice already.\n\nPre-clearance documents are with our broker, so we're not adding delay at our end.\n\nNext check-in from me by {{next_update_time}}, and I'll tell you straight if the date moves again.",
+          "placeholders": ["container_no", "port", "eta_date", "next_update_time"]
+        },
+        {
+          "id": "au-port-congestion-close",
+          "phase": "close",
+          "tone": "supervisor",
+          "label_zh": "收口 · 主管口径",
+          "use_when": "货物最终靠泊并安排派送，需要收口并修复信任",
+          "text": "Hi {{customer_name}}, {{container_no}} has discharged at {{port}} and clearance came through within a day of the vessel working. Delivery is now booked for {{delivery_date}}.\n\nI'm not going to dress up the delay. The carrier's schedule slipped twice and we passed the first update on a day late — on a lane where you're planning around dates, that's not good enough.\n\nYour next shipment has a daily schedule check on it, and you'll get it even when nothing has changed. Anything else, message me directly.",
+          "placeholders": ["customer_name", "container_no", "port", "delivery_date"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "船司跳港、并班或绕航导致 ETA 反复",
+          "目的港拥堵与泊位排队（悉尼、墨尔本高发）",
+          "码头堆场饱和，卸船后无法及时提柜",
+          "恶劣天气、拖轮与引航作业限制"
+        ],
+        "resolution_path": [
+          "每日抓取船司 ETA 与靠泊窗口，登记变化原因",
+          "到港前完成 N10 预申报与税款准备",
+          "放行后 24 小时内预约提柜与派送",
+          "确需赶时效的，评估部分货转空运或拆批，并取得客户书面同意"
+        ],
+        "sla_hint": "ETA 变化当天 4 小时内告知客户；每周至少 2 次主动更新；到港后 24 小时内给出提柜与派送计划",
+        "fee_policy": "船期延误本身不产生额外费用；客户临时改派送、加急或转空运产生的费用另行书面确认；我方安排的替代方案须客户书面同意后执行",
+        "guardrails": [
+          "不承诺具体到港或派送日期，只给船司当前 ETA 与区间",
+          "不把延误全部归因船司或港口，也不承诺「下次一定不延误」",
+          "不擅自改港、改船或改派送方式增加客户成本"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-port-congestion-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, I know how grinding this is — you're not getting a no, you're getting a moving target, and that's harder to plan around than a straight delay.\n\nThe real position on {{container_no}}: the vessel is late into {{port}}, the carrier's current ETA is {{eta_date}}, and the berth queue has been heavy at both ends of the coast. I'd rather give you that than a date I can't stand behind.\n\nWe're using the wait. Our broker has pre-lodged the entry so clearance starts on discharge, and our cartage team has a slot held.\n\nI'll update you by {{next_update_time}}.",
+          "placeholders": ["customer_name", "container_no", "port", "eta_date", "next_update_time"]
+        },
+        {
+          "id": "au-port-congestion-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — {{container_no}} update: vessel is late into {{port}} and the carrier's ETA is now {{eta_date}}. Berth congestion has been heavy and the schedule has already moved once.\n\nWe're not sitting on it. The entry is pre-lodged with our broker so clearance starts at discharge, and cartage has a slot on hold.\n\nI'll confirm by {{next_update_time}}. If the carrier shifts again, you'll hear it from me the same day rather than finding it on a tracking page. No action needed from you tonight.",
+          "placeholders": ["customer_name", "container_no", "port", "eta_date", "next_update_time"]
+        }
+      ],
+      "authorities": [
+        { "name": "Port Authority of New South Wales (Port Botany)", "url": "https://www.portauthoritynsw.com.au/" },
+        { "name": "Australian Border Force", "url": "https://www.abf.gov.au/" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-demurrage-storage",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "到港",
+      "category": "费用争议",
+      "severity": "high",
+      "title_zh": "滞港与堆存费争议（demurrage / storage）",
+      "title_en": "Demurrage and storage charges in dispute",
+      "summary_zh": "货柜超过码头免费堆存期，产生 storage 或 demurrage，客户拒付并质疑延误不是我方原因。",
+      "customer_signals": [
+        "这个堆存费凭什么我出？又不是我不提货",
+        "Why am I paying storage when the delay was with customs?",
+        "账单多出来两千多，先给我看明细"
+      ],
+      "keywords": [
+        "demurrage", "storage", "free days", "terminal", "detention", "wharfage",
+        "滞港费", "堆存费", "滞箱费", "免费期", "码头", "超期", "账单", "减免", "credit"
+      ],
+      "framework": {
+        "empathy": [
+          "先承认「事后才出现的费用」最伤信任，先给账单结构再谈责任",
+          "不要一开口就说「这是码头收的」，客户关心的是谁承担"
+        ],
+        "facts": [
+          "码头免费堆存期（free days）通常从卸船或可提柜起算，超期按天计收 storage",
+          "超期成因分三类：单证或查验延误、派送排期延误、客户原因未提货",
+          "DDP 覆盖的是约定服务，超期堆存是否包含在内要看报价条款，不能想当然"
+        ],
+        "plan": [
+          "调取码头逐日计费明细（itemised statement），核对免费期起算日与实际提柜日",
+          "判断超期归属（我方、官方扣货、客户原因），分别定责",
+          "属我方或官方原因的走内部 credit；属客户原因的，出明细后再收"
+        ],
+        "sync": [
+          "账单核对结果 2 个工作日内给出",
+          "收费前必须先给明细，不允许先收后解释"
+        ],
+        "reassure": [
+          "明确争议期间不停止操作，货照走，不拿货物当筹码",
+          "给出后续避免重复发生的机制（免费期提醒、到港前预约派送）"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-demurrage-storage-first",
+          "phase": "first",
+          "tone": "standard",
+          "label_zh": "首次回复 · 标准",
+          "use_when": "客户第一次收到堆存费账单并提出质疑",
+          "text": "Hi {{customer_name}}, I'd be pushing back too if a storage charge appeared that nobody warned me about. Let me show you exactly what it is and where it came from, then tell you what I'm doing about it.\n\n{{container_no}} sat at {{port}} beyond the terminal's free days, and the terminal has billed storage for that period. The DAFF packaging hold accounted for most of the delay, and collection came after release — the free-day start date and how much of the hold landed inside it are what I'm checking.\n\nI'm not asking you to take my word for it — I've requested the terminal's itemised statement, with the free-day calculation, so we can split the charge by what happened before and after release.\n\nYou'll have the breakdown and our position on {{amount}} by {{next_update_time}}.",
+          "placeholders": ["customer_name", "container_no", "port", "amount", "next_update_time"]
+        },
+        {
+          "id": "au-demurrage-storage-followup",
+          "phase": "followup",
+          "tone": "firm",
+          "label_zh": "跟进 · 明确划分",
+          "use_when": "明细已取得，需要明确责任区间但尚未出结论",
+          "text": "I've got the terminal statement for {{container_no}}. It shows the free-day clock running during the biosecurity hold, and the chargeable portion starting after release; I'm checking their start date against the discharge record before we rely on it.\n\nI've put the case to our commercial team for a credit on the hold period, and separately asked the terminal to review how they started the free-day clock.\n\nI'll come back by {{next_update_time}} with a decision rather than another 'we're looking into it'.",
+          "placeholders": ["container_no", "next_update_time"]
+        },
+        {
+          "id": "au-demurrage-storage-close",
+          "phase": "close",
+          "tone": "supervisor",
+          "label_zh": "收口 · 主管口径",
+          "use_when": "分摊方案确定，需要落地 credit 并说明剩余金额",
+          "text": "Hi {{customer_name}}, decision on the {{container_no}} storage. We're absorbing the portion that falls inside the biosecurity hold — that delay wasn't yours to carry and the free days shouldn't have been burnt on it.\n\nThe remaining {{amount}} covers the window after release, when collection was arranged but the container wasn't picked up. That part is a straight pass-through at what the terminal charged us.\n\nThe credit note will be on your account this week, with the revised statement alongside it. If the split doesn't look right, message me and I'll take you through the terminal's calculation line by line.",
+          "placeholders": ["customer_name", "container_no", "amount"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "查验或生物安全扣货吃掉免费堆存期",
+          "单证不齐导致无法及时提柜",
+          "码头堆场拥堵或提柜预约紧张",
+          "客户未按约定付款或未确认派送时间，导致超期"
+        ],
+        "resolution_path": [
+          "向码头或堆场索取逐日计费明细与免费期起算依据",
+          "核对提柜日、放行日与扣货时长，划分责任区间",
+          "按区间出分摊方案（我方承担、客户承担、官方原因）",
+          "出 credit note 或补充账单，并同步更新报价条款中的堆存约定"
+        ],
+        "sla_hint": "收到账单 2 个工作日内给出明细核对；争议结论 5 个工作日内；任何收费前必须书面告知",
+        "fee_policy": "因我方操作、单证问题或官方扣货导致的超期堆存由我方承担；因客户未及时确认派送、未付款、地址不可达导致的超期，按码头实收金额加代垫手续费收取",
+        "guardrails": [
+          "不在没有逐日明细的情况下向客户收取任何堆存或滞期费",
+          "不承诺「全部免除」，也不把官方扣货一律推给客户；免费期与费率以码头当期公告为准",
+          "不擅自弃货或转仓来规避费用，必须取得客户书面同意"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-demurrage-storage-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, I understand the frustration — a storage bill landing after the fact, with no warning, feels like being charged for someone else's delay. Fair enough.\n\nWhere it stands on {{container_no}}: the container overstayed the terminal's free days at {{port}} during the DAFF packaging hold, and collection came after release. That's the sequence I'm checking against the terminal's statement.\n\nI've asked the terminal for the itemised statement with the free-day calculation, and I've already put the credit case to our commercial team for the hold period.\n\nYou'll have the breakdown and our position on the {{amount}} by {{next_update_time}}.",
+          "placeholders": ["customer_name", "container_no", "port", "amount", "next_update_time"]
+        },
+        {
+          "id": "au-demurrage-storage-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — on the {{container_no}} storage charge: the container passed the terminal's free days at {{port}} during the DAFF packaging hold, and collection came after release.\n\nI've requested the terminal's itemised statement and put a credit case to our commercial team for the hold period.\n\nBy {{next_update_time}} you'll have the free-day calculation and our written position on the {{amount}} — not an open-ended 'we're reviewing it'. Your cargo keeps moving while we sort this out, and nothing is held back.",
+          "placeholders": ["customer_name", "container_no", "port", "next_update_time", "amount"]
+        }
+      ],
+      "authorities": [
+        { "name": "Port Authority of New South Wales (Port Botany)", "url": "https://www.portauthoritynsw.com.au/" },
+        { "name": "DAFF — Biosecurity holds and import conditions (BICON)", "url": "https://bicon.agriculture.gov.au/" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-delivery-failed",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "派送",
+      "category": "派送异常",
+      "severity": "medium",
+      "title_zh": "派送失败（地址错、无人收货、ATL 授权、偏远地区）",
+      "title_en": "Failed delivery attempt",
+      "summary_zh": "首次派送因门禁、无人收货或电话不通失败，货物退回车队仓，客户要求当天送达。",
+      "customer_signals": [
+        "司机说没人收货，但我明明在家",
+        "Can you just leave it at the door? I'll take the risk",
+        "货又退回去了？今天必须送到工地"
+      ],
+      "keywords": [
+        "delivery failed", "redelivery", "ATL", "authority to leave", "access", "remote area",
+        "派送失败", "改约", "无人收货", "门禁", "偏远地区", "二次派送", "改址", "拒收"
+      ],
+      "framework": {
+        "empathy": [
+          "先接住「白等一天」的时间损失，不要追究地址到底是谁写错的",
+          "先说明货物是安全的，消除「货丢了」的恐慌，再谈怎么补送"
+        ],
+        "facts": [
+          "派送失败的常见原因：门禁或园区限制、无人在场、电话不通、地址信息不完整、偏远地区需预约",
+          "ATL（Authority to Leave）需客户书面授权并指定安全放置点，口头同意不构成免责依据",
+          "二次派送通常产生 redelivery 费用；因我方或车队信息缺失导致的首次失败可争取减免"
+        ],
+        "plan": [
+          "当天向车队索取派送记录（到达时间、联系记录、现场照片）",
+          "一次性向客户收集：可联系手机号、门禁码、ATL 授权或新地址，不要分三次要",
+          "当日或次日重新预约派送，优先安排顺路车降低等待"
+        ],
+        "sync": [
+          "信息齐备后 2 小时内给出新的派送时间窗",
+          "派送当天出发前把司机联系方式发给客户，减少二次失败"
+        ],
+        "reassure": [
+          "明确货物在车队仓完好，有现场照片为证",
+          "说明公寓、园区与偏远地区的特殊安排，避免同一地址反复失败"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-delivery-failed-first",
+          "phase": "first",
+          "tone": "standard",
+          "label_zh": "首次回复 · 标准",
+          "use_when": "客户刚得知派送失败，情绪偏急，需要当天给出可行方案",
+          "text": "Hi {{customer_name}}, I know a failed delivery is a particular kind of frustrating — you've cleared the day, nobody turns up, and the goods end up back at a depot. That's not how this should have gone.\n\nI've spoken to the cartage company. The driver attempted delivery this morning and couldn't get in: the unit sits behind a security gate with no intercom listing, and the mobile on the booking didn't connect. Your freight is back at their depot, intact, and I've seen the photos.\n\nTo get it moving I need one of three things from you today — a number the driver can actually reach, a gate or building code, or written authority to leave it somewhere secure.\n\nSend that and I'll book the redelivery, then confirm the new date by {{next_update_time}}.",
+          "placeholders": ["customer_name", "next_update_time"]
+        },
+        {
+          "id": "au-delivery-failed-followup",
+          "phase": "followup",
+          "tone": "warm",
+          "label_zh": "跟进 · 短消息",
+          "use_when": "已重新预约，需要同步时间与费用口径",
+          "text": "Quick update on the redelivery — the cartage company has a slot on {{delivery_date}}, and I've put the access instructions on the booking so the driver has them before he leaves the depot rather than when he's at your gate.\n\nThere will be a redelivery charge for the second attempt. I've asked for it in writing so you see the figure before it's invoiced, not after.\n\nI'll confirm the booking by {{next_update_time}}.",
+          "placeholders": ["delivery_date", "next_update_time"]
+        },
+        {
+          "id": "au-delivery-failed-close",
+          "phase": "close",
+          "tone": "firm",
+          "label_zh": "收口 · 明确改进",
+          "use_when": "派送完成，需要收口并固化下次流程",
+          "text": "Hi {{customer_name}}, delivered — the driver got in this afternoon with the gate code you sent through, and the cartons were signed for in good condition.\n\nI'm sorry it took two attempts. The access details weren't captured on the original booking and our form didn't ask for them, which is a gap I've now closed for your account. The next one goes out with the code already on the paperwork.\n\nNothing for you to do now. If anything's short or damaged as you unpack, send photos and I'll open it the same day.",
+          "placeholders": ["customer_name"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "地址缺单元号或门禁信息，司机无法进入",
+          "收货人不在场且电话不通",
+          "公寓、写字楼或园区需预约，前台不代收",
+          "偏远地区（如 TAS 与 WA 区域）需专门排线，无法随车派送"
+        ],
+        "resolution_path": [
+          "调取车队派送记录与现场照片，确认失败原因",
+          "一次性向客户收集门禁码、可联系电话或 ATL 书面授权",
+          "重新预约派送并在订单标注 access 备注",
+          "客户要求改址的，确认新地址是否在派送范围及是否产生改址费"
+        ],
+        "sla_hint": "派送失败当天 2 小时内联系客户；信息齐备后 24 小时内重新预约；派送前 1 天发送司机信息",
+        "fee_policy": "首次派送因我方或车队原因失败的，二次派送费由我方承担；因客户地址错误、无人收货或拒收导致的二次派送与仓储费，书面确认后收取",
+        "guardrails": [
+          "不指责客户地址写错，先解决问题再复盘",
+          "不在没有书面授权的情况下同意 ATL 放货，避免丢件争议",
+          "不承诺具体送达时点，只给时间窗"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-delivery-failed-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, sorry about this — a failed delivery usually costs you half a day, and it's almost always avoidable. That doesn't help much when the freight is sitting at a depot, I know.\n\nWhat happened: the driver couldn't get past the security gate at your address, and the mobile number on the booking didn't connect. The freight is intact and back at the depot, not lost.\n\nGive me a reachable number, a gate code, or authority to leave it somewhere secure, and I'll get the redelivery booked today rather than tomorrow.\n\nI'll confirm the new date by {{next_update_time}}.",
+          "placeholders": ["customer_name", "next_update_time"]
+        },
+        {
+          "id": "au-delivery-failed-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — delivery attempt failed today: no gate access, and the mobile on the booking didn't connect. Freight is intact and back at the depot.\n\nTo rebook I need one of: a reachable number, a gate code, or written authority to leave in a secure spot. Send that and I'll put it on the next available run.\n\nThere is a redelivery charge for the second attempt; you'll have the figure in writing before it's invoiced. Booking confirmed to you by {{next_update_time}}.",
+          "placeholders": ["customer_name", "next_update_time"]
+        }
+      ],
+      "authorities": [
+        { "name": "Australian Small Business and Family Enterprise Ombudsman (ASBFEO)", "url": "https://www.asbfeo.gov.au/" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-damage",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "签收后",
+      "category": "货损短少",
+      "severity": "high",
+      "title_zh": "到货破损、水湿、挤压索赔",
+      "title_en": "Cargo damaged in transit",
+      "summary_zh": "客户开箱发现外箱破损、水湿或内物挤压变形，要求赔偿，情绪激动。",
+      "customer_signals": [
+        "开箱就是湿的，纸箱全软了，这个怎么赔？",
+        "The boxes are crushed and half the stock is unusable",
+        "我签收的时候没看，现在还能报吗"
+      ],
+      "keywords": [
+        "damage", "damaged", "wet", "crushed", "claim", "surveyor", "POD",
+        "破损", "水湿", "挤压", "索赔", "验货", "签收", "保险", "赔付", "外箱"
+      ],
+      "framework": {
+        "empathy": [
+          "先承认开箱看到破损的失望与商业损失，不要上来先要证据",
+          "接住「能不能赔」的焦虑，说明会走流程，而不是拖着不表态"
+        ],
+        "facts": [
+          "签收时未在 POD（签收单）上备注破损，后续举证难度显著上升",
+          "水湿与挤压多源于海运受潮、柜内冷凝、堆叠受压或掏箱搬运",
+          "赔付以验货报告与保单条款为准，金额不由客服口头确定"
+        ],
+        "plan": [
+          "当日立案并给出 claim 编号，收集外箱、内物与标签照片",
+          "要求保留原包装，安排 surveyor 或第三方验货",
+          "同时推进承运人保险与我方责任险两条线，避免单线等待"
+        ],
+        "sync": [
+          "立案当天回复客户，验货安排 2 个工作日内确认",
+          "每 3 个工作日主动同步一次进展，不等客户来问"
+        ],
+        "reassure": [
+          "明确由同一人跟到结案，不会被拖着不管",
+          "说明时间预期与所需材料，减少来回沟通的消耗"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-damage-first",
+          "phase": "first",
+          "tone": "warm",
+          "label_zh": "首次回复 · 共情",
+          "use_when": "客户刚发现破损并情绪激动，需要先稳住再启动流程",
+          "text": "Hi {{customer_name}}, that's a rough way to receive a shipment — I've seen your photos and the water staining across the top cartons is clear enough. Nobody wants to open a delivery and find that.\n\nWhat I've confirmed: the container was discharged at {{port}} and devanned the week of delivery, so the damage happened somewhere between loading and our warehouse floor. I can't tell you which stage yet, and I'm not going to guess at it.\n\nWhat happens now: the claim is logged under {{order_no}}, I've asked our warehouse for the devanning photos, and a surveyor is being booked to inspect the affected cartons. Keep the packaging exactly as it is and photograph anything else you find as you unpack.\n\nSurvey date and claim reference to you by {{next_update_time}}.",
+          "placeholders": ["customer_name", "port", "order_no", "next_update_time"]
+        },
+        {
+          "id": "au-damage-followup",
+          "phase": "followup",
+          "tone": "standard",
+          "label_zh": "跟进 · 短消息",
+          "use_when": "验货已排期，需要同步证据发现与下一步",
+          "text": "Update on the {{order_no}} claim — the surveyor is booked, and our warehouse has sent the devanning photos, which show the top-tier cartons already stained when they came out of the container.\n\nThat helps: it points to the sea leg rather than handling at this end, which changes how the claim is put together.\n\nSurvey report and the next step to you by {{next_update_time}}.",
+          "placeholders": ["order_no", "next_update_time"]
+        },
+        {
+          "id": "au-damage-close",
+          "phase": "close",
+          "tone": "supervisor",
+          "label_zh": "收口 · 主管口径",
+          "use_when": "验货报告出具，需要说明结论与赔付路径",
+          "text": "Hi {{customer_name}}, the survey report is in. It attributes the damage to water ingress in the container during the sea leg, worst on the top tier.\n\nThe claim is now with the carrier's insurer under your {{order_no}} reference, and our own cover is running in parallel so you're not stuck waiting on one track. I can't give you a settlement figure — that's the assessor's call, not mine — but you'll have their position as soon as it lands.\n\nYou'll hear from me by {{next_update_time}} either way.",
+          "placeholders": ["customer_name", "order_no", "next_update_time"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "海运途中受潮、柜内冷凝或柜顶渗漏",
+          "堆叠受压导致外箱塌陷、内物变形",
+          "掏箱与派送环节搬运粗暴",
+          "包装强度不足且未做防潮处理"
+        ],
+        "resolution_path": [
+          "收集 POD 备注、开箱照片、包装照片与货值证明",
+          "当日立案并向承运人与保险人报备",
+          "安排 surveyor 验货并出具报告",
+          "按保单条款定损，出赔付方案并跟进款项到账"
+        ],
+        "sla_hint": "立案 24 小时内；验货安排 2 个工作日内；每 3 个工作日同步一次；结案周期以保险方为准并提前告知客户",
+        "fee_policy": "属承运人或我方责任的破损，按保单与 DDP 条款赔付，验货费由我方先行承担；因包装不合规或未在 POD 备注导致举证不足的，赔付范围以保险认定为准",
+        "guardrails": [
+          "不在验货前口头承诺赔付金额，也不说「全赔」",
+          "不引导客户伪造或夸大破损照片与货值",
+          "不把责任推给船司或客户后就停止跟进"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-damage-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, I'm sorry — opening a delivery and finding water damage is deflating, especially after weeks of waiting. I've looked at your photos and the staining on the upper cartons is obvious.\n\nWhat I can say with confidence: the container discharged at {{port}} and was devanned that same week, so the damage happened somewhere between loading and our floor. I won't guess at which stage until a surveyor has looked.\n\nThe claim is open under {{order_no}} and the devanning photos are requested. Keep the cartons and packaging as they are for now.\n\nSurvey date and claim reference by {{next_update_time}}.",
+          "placeholders": ["customer_name", "port", "order_no", "next_update_time"]
+        },
+        {
+          "id": "au-damage-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — damage logged under {{order_no}}. Photos reviewed: water staining on the upper cartons, consistent with ingress inside the container before it reached {{port}}, rather than handling at this end.\n\nNext steps: surveyor inspection, devanning photos requested from our warehouse, packaging left untouched until inspected. The claim is open on the carrier's cover and ours in parallel, so one delay doesn't stall the other.\n\nIf more damage turns up as you unpack, photograph it and send it through — it all goes into the same claim and is easier to add now than after the report closes. Survey date and claim reference by {{next_update_time}}.",
+          "placeholders": ["customer_name", "order_no", "port", "next_update_time"]
+        }
+      ],
+      "authorities": [
+        { "name": "Australian Small Business and Family Enterprise Ombudsman (ASBFEO)", "url": "https://www.asbfeo.gov.au/" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-shortage",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "签收后",
+      "category": "货损短少",
+      "severity": "high",
+      "title_zh": "少箱、短装、丢件（签收后发现短少）",
+      "title_en": "Cartons missing on delivery",
+      "summary_zh": "客户点数发现少箱，可能短装、错派或丢件，责任环节不明，客户要求补货或赔付。",
+      "customer_signals": [
+        "点了三遍，少了四箱，剩下的在哪？",
+        "We're missing four cartons out of twenty",
+        "签收的时候没数，现在报短少还受理吗"
+      ],
+      "keywords": [
+        "shortage", "missing", "short shipped", "shortlanded", "cartons", "tally", "claim",
+        "少箱", "短少", "短装", "丢件", "错派", "点数", "索赔", "装箱单", "签收"
+      ],
+      "framework": {
+        "empathy": [
+          "先承认「数不对」带来的失控感，让客户觉得有人在认真查，而不是被推回去找证据",
+          "区分短装、错派与丢件三种可能，先给判断路径，别一上来就谈赔"
+        ],
+        "facts": [
+          "以提单箱数与装箱单为基准，先做三单对碰（提单、装箱单、签收单 POD）",
+          "LCL 经过掏箱、分拨、二次派送多个环节，短少多发生在掏箱之后",
+          "签收后再报短少，需要 POD 未备注短少与现场照片支撑，举证链越长越被动"
+        ],
+        "plan": [
+          "当日完成三单对碰，锁定缺口发生在哪一段",
+          "向仓库调取掏箱与装车监控，向车队索取派送清单",
+          "发现错派立即安排回送，同时立案避免超过时限"
+        ],
+        "sync": [
+          "24 小时内给出首次点数结论",
+          "每 48 小时同步一次追查进展，即使没有突破"
+        ],
+        "reassure": [
+          "明确「查不到也有处理路径」，客户不必反复催",
+          "给出结案时间预期，避免无限期等待"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-shortage-first",
+          "phase": "first",
+          "tone": "standard",
+          "label_zh": "首次回复 · 标准",
+          "use_when": "客户报短少，责任环节未明，需要先启动核查",
+          "text": "Hi {{customer_name}}, that's an unpleasant surprise — you've counted the cartons and you're short, and the first reaction is always 'where did the rest of it go'.\n\nI've started the checks. I've pulled the bill of lading for {{bill_no}} and the deconsolidation tally from our warehouse. Both show the cartons loaded and accounted for at devanning, which means the shortfall appeared after that — in our warehouse, with the cartage company, or at the delivery point.\n\nToday I'm asking the warehouse for the devanning footage, asking the cartage company for their run sheet and a depot check, and opening the claim under {{order_no}} so no deadline runs against us.\n\nKeep the cartons you did receive, and their labels. Reconciliation to you by {{next_update_time}}.",
+          "placeholders": ["customer_name", "bill_no", "order_no", "next_update_time"]
+        },
+        {
+          "id": "au-shortage-followup",
+          "phase": "followup",
+          "tone": "warm",
+          "label_zh": "跟进 · 短消息",
+          "use_when": "部分货物已找到，需要同步进展与剩余缺口",
+          "text": "Progress on {{order_no}}. The cartage company checked their depot and found two cartons from your consignment left behind on the run — mis-scanned onto the following delivery.\n\nThey're being re-delivered on {{delivery_date}}.\n\nThat accounts for part of the gap. I'm still chasing the balance with the warehouse, and you'll have a full count reconciliation by {{next_update_time}}.",
+          "placeholders": ["order_no", "delivery_date", "next_update_time"]
+        },
+        {
+          "id": "au-shortage-close",
+          "phase": "close",
+          "tone": "supervisor",
+          "label_zh": "收口 · 主管口径",
+          "use_when": "缺口查清，需要说明结论与索赔安排",
+          "text": "Hi {{customer_name}}, closing the loop on the {{order_no}} shortfall. The two cartons found at the depot were delivered today, and the warehouse tally now reconciles to the bill of lading. The remaining gap is the one carton signed for by someone else in your building.\n\nWe've lodged that with the insurer. I'm not going to quote you a figure — the assessor sets it, and I'd rather give you their number than mine.\n\nI'll manage it through to settlement personally. Anything else, message me.",
+          "placeholders": ["customer_name", "order_no"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "仓库掏箱分拨时错分或漏扫",
+          "派送错卸到相邻地址或同栋其他单元",
+          "供应商短装，但装箱单按订单数量出具",
+          "签收时未点数，事后无法界定责任环节"
+        ],
+        "resolution_path": [
+          "三单对碰（提单、装箱单、POD）锁定缺口环节",
+          "调取仓库掏箱监控与装车记录",
+          "向车队索取派送清单，回查相邻地址与同栋单元",
+          "错派件安排回送；确认灭失的立案索赔并跟到结案"
+        ],
+        "sla_hint": "24 小时内出首次点数结论；每 48 小时同步一次进展；确认灭失后 2 个工作日内立案",
+        "fee_policy": "经查属我方、仓库或车队责任的短少，按 DDP 条款赔付；供应商短装（装箱单虚报）由客户向供应商追偿，我方协助出具证明",
+        "guardrails": [
+          "在核查完成前不承认也不否认短少数量",
+          "不建议客户「先签收再报短少」来简化流程，也不引导虚报",
+          "不承诺具体赔付金额与到账时间"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-shortage-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, I know exactly how this feels — you've paid for a set number of cartons, you've counted them, and the number doesn't add up. Not knowing where they went is worse than the shortage itself.\n\nI've pulled the bill of lading for {{bill_no}} and our devanning tally. Both agree, which means the cartons left our warehouse. So the question is what happened between devanning and your door, and the cartage company is checking their run sheet and depot tonight.\n\nThe claim is open under {{order_no}} so nothing times out while we investigate.\n\nCount reconciliation to you by {{next_update_time}}.",
+          "placeholders": ["customer_name", "bill_no", "order_no", "next_update_time"]
+        },
+        {
+          "id": "au-shortage-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — shortfall logged on {{order_no}}. Bill of lading {{bill_no}} and our devanning tally both match, so the cartons left the warehouse; the gap appeared after devanning.\n\nActions today: cartage run sheet and depot check requested, warehouse footage pulled, claim opened so no deadline runs out.\n\nCount reconciliation by {{next_update_time}}. Keep the cartons you have and their labels untouched — the labels are how we trace the missing ones. I'll also tell you what happens if nothing turns up, so you're not left guessing.",
+          "placeholders": ["customer_name", "order_no", "bill_no", "next_update_time"]
+        }
+      ],
+      "authorities": [
+        { "name": "Australian Small Business and Family Enterprise Ombudsman (ASBFEO)", "url": "https://www.asbfeo.gov.au/" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-restricted-goods",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "清关",
+      "category": "合规风险",
+      "severity": "high",
+      "title_zh": "禁限运货物（仿牌、电子烟、石棉、锂电池等）",
+      "title_en": "Restricted or prohibited goods in the consignment",
+      "summary_zh": "货物含仿牌、尼古丁电子烟、药品、石棉或未申报锂电池等禁限运品，面临扣货、没收甚至刑责。",
+      "customer_signals": [
+        "就是普通包包，为什么说是仿牌？",
+        "Can you just declare it as samples to get it through?",
+        "电子烟能走吗？客户说国外都能寄"
+      ],
+      "keywords": [
+        "restricted", "prohibited", "counterfeit", "seized", "vape", "asbestos", "lithium battery",
+        "禁运", "限运", "仿牌", "假货", "电子烟", "石棉", "锂电池", "扣货", "没收", "许可"
+      ],
+      "framework": {
+        "empathy": [
+          "先说明这是硬性合规问题、不是服务质量问题，避免客户误以为可以商量",
+          "承认客户的货值与时间损失，但立场不能松，含糊反而害客户"
+        ],
+        "facts": [
+          "ABF 对仿牌、武器、尼古丁电子烟、部分药品与食品、石棉等有明确禁限规定",
+          "部分品类需 TGA、DAFF 等许可或进口证，无证不得申报放行",
+          "虚假申报或改品名可能触发没收、罚款，情节严重的涉及刑事责任"
+        ],
+        "plan": [
+          "立即冻结问题货物，把合规部分拆出来单独清关",
+          "由报关行出具书面风险意见与可行选项（退运、放弃、申请许可）",
+          "书面告知客户后果与时限，全程留痕，不做口头承诺"
+        ],
+        "sync": [
+          "24 小时内给出书面风险意见",
+          "官方任何答复当天转达，不加工、不拖延"
+        ],
+        "reassure": [
+          "承诺合规部分不受牵连、照常清关派送",
+          "明确我方在合法范围内协助，包括申请许可与安排退运"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-restricted-goods-first",
+          "phase": "first",
+          "tone": "firm",
+          "label_zh": "首次回复 · 立场明确",
+          "use_when": "客户询问禁限运货物能否照常出运，必须立刻划线",
+          "text": "Hi {{customer_name}}, I need to be straight with you because this one has a hard stop in it, and I'd rather say it now than after the goods are seized.\n\nOur broker has flagged part of {{bill_no}}. The consignment includes branded handbags that ABF (Australian Border Force) would treat as suspected counterfeit, and a carton of disposable vapes containing nicotine. Both are restricted: the handbags can be seized and destroyed as infringing goods, and disposable nicotine vapes are prohibited imports — only limited therapeutic products can come in under Therapeutic Goods Administration arrangements.\n\nI can't lodge an entry that describes those as something they aren't, and I won't. The exposure to your company and ours is far bigger than the cargo.\n\nWhat I can do: hold the flagged lines, get the rest of the consignment cleared, and put written options in front of you by {{next_update_time}}.",
+          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+        },
+        {
+          "id": "au-restricted-goods-followup",
+          "phase": "followup",
+          "tone": "standard",
+          "label_zh": "跟进 · 短消息",
+          "use_when": "已确认合规部分可放行，需要推进分离申报",
+          "text": "On {{bill_no}}: our broker has confirmed with the ABF client contact that the flagged cartons can't be entered, and that the rest of the consignment can.\n\nWe've put the request for release of the compliant lines in writing, so your stock isn't held hostage to the lines under assessment.\n\nI'll confirm by {{next_update_time}} what's being released and what stays behind.",
+          "placeholders": ["bill_no", "next_update_time"]
+        },
+        {
+          "id": "au-restricted-goods-close",
+          "phase": "close",
+          "tone": "supervisor",
+          "label_zh": "收口 · 主管口径",
+          "use_when": "合规部分已放行，问题货物另行处理，需要收口并改进流程",
+          "text": "Hi {{customer_name}}, the compliant part of {{bill_no}} has been released and is on the delivery for {{delivery_date}}. The flagged cartons are held for ABF's assessment, and I'll pass on the outcome in writing when it comes rather than speculating.\n\nThe honest lesson is ours: our booking check should have asked what was in those cartons before they were collected, not after they arrived. The intake questions on your account have changed.\n\nWhatever happens with the held lines, I'll handle the paperwork with you.",
+          "placeholders": ["customer_name", "bill_no", "delivery_date"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "客户夹带仿牌或无品牌授权的商品",
+          "尼古丁电子烟、未注册药品或保健品",
+          "含石棉材料（旧建材、刹车片、保温材料等）",
+          "锂电池或危险品未按 IMDG 规则申报"
+        ],
+        "resolution_path": [
+          "识别并冻结问题货物，把合规部分隔离出来",
+          "取得 ABF、DAFF 或 TGA 的书面要求与处理选项",
+          "与客户书面确认处置方式（退运、放弃、申请许可）",
+          "合规部分单独申报放行并安排派送"
+        ],
+        "sla_hint": "发现当日 4 小时内告知客户；24 小时内出具书面风险意见；官方答复当天转达",
+        "fee_policy": "因客户隐瞒或虚报导致的扣货、退运、销毁、罚款与仓储费由客户承担；我方在订舱前已书面提示风险而客户仍坚持发运的，同样由客户承担",
+        "guardrails": [
+          "绝不建议改品名、拆分、伪报或改用其他 HS 编码规避监管；电子烟/TGA 口径待核实，发送前先向报关行复核",
+          "不承诺「有渠道能清出来」，不暗示可影响执法结果",
+          "不代替客户决定放弃或退运，必须取得书面确认"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-restricted-goods-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, I don't want to alarm you, but I do need to be honest: part of this consignment can't be cleared, and I'd rather tell you today than after a seizure notice arrives.\n\nOn {{bill_no}}, our broker has flagged branded handbags that ABF would read as counterfeit, and nicotine vapes that are prohibited imports apart from limited therapeutic products under the Therapeutic Goods Administration. Both are restricted, and I won't re-describe them on an entry to get them through — that's the one move that turns a bad week into a prosecution.\n\nYour other cargo is clean and I want it moving. We're asking ABF to release the compliant lines so the rest isn't held up with it.\n\nWritten options on the flagged cartons by {{next_update_time}}.",
+          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+        },
+        {
+          "id": "au-restricted-goods-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — hard news on {{bill_no}}. Broker flags two restricted lines: suspected counterfeit handbags, seizable as infringing goods, and disposable nicotine vapes — prohibited imports apart from limited therapeutic products under TGA (Therapeutic Goods Administration) arrangements. Neither can be entered as described, and I won't re-describe them.\n\nThe compliant cargo can move; we've asked for its release separately.\n\nWritten options on the flagged cartons, including abandonment, by {{next_update_time}}. I won't propose a workaround — the exposure is far larger than the cargo. Nothing on the compliant lines will be delayed while this is sorted.",
+          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+        }
+      ],
+      "authorities": [
+        { "name": "Australian Border Force — Prohibited goods", "url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/prohibited-goods" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-urgent-chase",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "全程",
+      "category": "客户情绪",
+      "severity": "high",
+      "title_zh": "频繁催件与情绪升级（威胁差评、投诉）",
+      "title_en": "Escalated chasing and complaint threat",
+      "summary_zh": "客户反复追问、对不同客服得到不同口径，情绪升级并威胁差评或投诉到平台。",
+      "customer_signals": [
+        "这个问题我问了四次了，每次答案都不一样",
+        "If nobody gives me an answer today I'm leaving a review",
+        "我要投诉，让你们经理来找我"
+      ],
+      "keywords": [
+        "chase", "update", "unacceptable", "escalate", "complaint", "review", "supervisor",
+        "催件", "催进度", "投诉", "差评", "升级", "主管", "口径不一", "失联", "烂尾"
+      ],
+      "framework": {
+        "empathy": [
+          "先承认我方响应断层是问题根源，不要一上来解释内部流程",
+          "用「我接手了」建立确定感，而不是把慢的理由再讲一遍"
+        ],
+        "facts": [
+          "客户情绪升级多源于信息不一致与无人负责，而不是延误本身",
+          "已核实的事实必须先于承诺说出，避免第二次打脸",
+          "回看历史承诺是否兑现，没兑现的先认，再谈现在"
+        ],
+        "plan": [
+          "指定单一 owner（主管本人）并给出直线联系方式",
+          "每日固定时间主动更新，包含「无变化」也照发",
+          "把两个团队的沟通汇总到一条线程，消除口径分裂"
+        ],
+        "sync": [
+          "固定每日同步时间写进消息正文，不用「尽快」",
+          "出现变化当天电话告知，不用文字绕"
+        ],
+        "reassure": [
+          "给出升级路径（运营经理）与触发条件，让客户知道还有下一步",
+          "承诺跟到签收，不换人、不换窗口"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-urgent-chase-first",
+          "phase": "first",
+          "tone": "firm",
+          "label_zh": "首次回复 · 主管接单",
+          "use_when": "客户已多次追问、情绪明显升级，需要主管直接出面止损",
+          "text": "Hi {{customer_name}}, I've read back through the thread and you're right to be annoyed — you've asked the same question four times and got three different answers. That's on us, not on you.\n\nI'm {{agent_name}}, the supervisor on this account, and I'm taking {{container_no}} off the queue and keeping it. From here you deal with me.\n\nWhere it actually stands: the shipment has cleared and is waiting on a delivery booking out of {{port}}. That's the one thing I'm chasing today, and I've gone to the allocator rather than the booking desk, because that's the level that can release capacity.\n\nYou'll get one message a day from me at a set time, whether or not there's news. The next is by {{next_update_time}}, and I'll call if anything breaks. If I don't deliver on that, ask {{company_name}} for the operations manager.",
+          "placeholders": ["customer_name", "agent_name", "container_no", "port", "next_update_time", "company_name"]
+        },
+        {
+          "id": "au-urgent-chase-followup",
+          "phase": "followup",
+          "tone": "warm",
+          "label_zh": "跟进 · 每日固定更新",
+          "use_when": "已承诺每日同步，当天确实没有实质进展",
+          "text": "Today's update, as promised. {{container_no}} is still with our delivery partner at {{port}} waiting on a slot; no movement since yesterday. I've escalated to their allocator rather than the booking desk.\n\nNothing for you to do. Next update from me tomorrow by {{next_update_time}}, and I'll call if the slot comes through sooner.",
+          "placeholders": ["container_no", "port", "next_update_time"]
+        },
+        {
+          "id": "au-urgent-chase-close",
+          "phase": "close",
+          "tone": "supervisor",
+          "label_zh": "收口 · 复盘致歉",
+          "use_when": "问题解决，需要复盘致歉并给出长期兜底",
+          "text": "Hi {{customer_name}}, delivery is confirmed for {{delivery_date}} and you'll have the driver's details the day before.\n\nI also owe you an explanation for the week you've had. Your messages were being split across two teams and neither was closing the loop, so you ended up doing our chasing for us. That's been fixed on your account — one contact, one thread, a fixed daily update until it's signed for.",
+          "placeholders": ["customer_name", "delivery_date"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "多个团队或多个窗口回复，口径不一致",
+          "没有固定同步节奏，客户只能反复追问",
+          "异常件未及时升级到主管",
+          "内部交接漏项，导致已承诺的节点未兑现"
+        ],
+        "resolution_path": [
+          "调阅完整沟通记录，确认承诺未兑现的具体节点",
+          "指定主管为唯一 owner，并公开直线联系方式",
+          "设定每日固定更新时间并写入客户档案",
+          "异常升级运营经理，形成书面处理计划并留痕"
+        ],
+        "sla_hint": "情绪升级 30 分钟内由主管介入；每日固定时间同步一次；出现变化当天电话告知",
+        "fee_policy": "因我方响应或操作失误造成的损失，按 DDP 条款处理并可申请 goodwill credit；客户诉求超出合同范围的，书面说明并给替代方案",
+        "guardrails": [
+          "不承诺「今天一定到」或任何具体时点",
+          "不与客户争辩对错，也不评价客户的态度",
+          "不在未核实的情况下复述上一班的说法，避免二次打脸"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-urgent-chase-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, first, I'm sorry. Reading back through this thread, you've asked the same question four times and got three different answers — that's a process failure on our side, not a customer problem.\n\nI'm {{agent_name}}, the supervisor here, and I'm taking {{container_no}} off the queue and keeping it. From now on there's one thread, one owner, and a message from me every day at a set time, including the days when there's nothing to report.\n\nRight now the hold-up is the delivery booking at {{port}}, and I'm chasing the allocator rather than the booking desk.\n\nFirst update by {{next_update_time}}. If I miss it, ask {{company_name}} for the operations manager.",
+          "placeholders": ["customer_name", "agent_name", "container_no", "port", "next_update_time", "company_name"]
+        },
+        {
+          "id": "au-urgent-chase-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — you're right to be frustrated. Four questions, three different answers: that's a process failure on our side.\n\nTaking ownership now. I'm {{agent_name}}, supervisor on this account. One thread, one daily update from me at a fixed time, and a phone call if anything changes. Current blocker is the delivery booking for {{container_no}} at {{port}}; I've gone to the allocator rather than the booking desk.\n\nNext update by {{next_update_time}}. If I fail on that, the escalation path is simple: ask {{company_name}} for the operations manager.",
+          "placeholders": ["customer_name", "agent_name", "container_no", "port", "next_update_time", "company_name"]
+        }
+      ],
+      "authorities": [
+        { "name": "Australian Small Business and Family Enterprise Ombudsman (ASBFEO)", "url": "https://www.asbfeo.gov.au/" }
+      ],
+      "updated_at": "2026-11-04"
+    },
+    {
+      "id": "au-fee-dispute",
+      "country": "AU",
+      "lane": "中澳",
+      "stage": "签收后",
+      "category": "费用争议",
+      "severity": "medium",
+      "title_zh": "末端附加费、等候费与改址费账单争议",
+      "title_en": "Disputed final-mile and waiting-time charges",
+      "summary_zh": "签收后收到高于报价的账单，含等候费、二次派送费或税费重列，客户逐项质疑。",
+      "customer_signals": [
+        "报价说全包，怎么又多出等候费？",
+        "The final invoice is way above the quote — what are these extras?",
+        "税费不是已经包了吗，为什么还单列要我再付"
+      ],
+      "keywords": [
+        "invoice", "extra charges", "waiting time", "redelivery fee", "quote", "credit note",
+        "账单", "附加费", "等候费", "改址费", "二次派送", "报价", "明细", "credit", "重复收费"
+      ],
+      "framework": {
+        "empathy": [
+          "先承认「账单高于报价」的合理质疑，不要一上来讲合同条款",
+          "把客户关注点从总额拉回到逐项明细，降低对抗"
+        ],
+        "facts": [
+          "DDP 已含 duty 与 GST 的，税单项只作展示，不得二次收取",
+          "可另行计费的多为：等候费、二次派送或改址费、超尺寸超重、客户原因仓储",
+          "计费争议以时间戳、POD、预约记录为证据，不能靠口头解释"
+        ],
+        "plan": [
+          "调取逐项明细与证据（司机到达离开时间、POD、预约记录）",
+          "逐条判定：成立、按成本价、剔除",
+          "出具修订账单或 credit note，并写明依据"
+        ],
+        "sync": [
+          "2 个工作日内给逐项明细",
+          "争议未结前不停止后续操作，不拿货和派送当筹码"
+        ],
+        "reassure": [
+          "明确站不住的条目会删掉，给客户可预期的结果",
+          "后续账单先发预估再出账，避免再次争议"
+        ]
+      },
+      "scripts": [
+        {
+          "id": "au-fee-dispute-first",
+          "phase": "first",
+          "tone": "standard",
+          "label_zh": "首次回复 · 标准",
+          "use_when": "客户收到高于报价的账单并要求解释；发送前先确认报价单是否含税",
+          "text": "Hi {{customer_name}}, I'd query that invoice too — a total that doesn't match the quote needs explaining, and 'additional charges' isn't an explanation.\n\nI've been through the invoice for {{order_no}} line by line. Of the {{amount}}, the duty and GST are inside your DDP rate unless the quote explicitly excluded them, and they appear on the statement for information only; they aren't chargeable a second time. What is chargeable is the waiting time on {{delivery_date}} and a redelivery after the first attempt failed.\n\nWhat I'm testing is whether that waiting time was avoidable at our end. The driver arrived inside the booked window, but I want the timestamp evidence before I defend a line.\n\nYou'll have every charge itemised, with timestamps, by {{next_update_time}}. Anything that doesn't hold up comes off.",
+          "placeholders": ["customer_name", "order_no", "amount", "delivery_date", "next_update_time"]
+        },
+        {
+          "id": "au-fee-dispute-followup",
+          "phase": "followup",
+          "tone": "firm",
+          "label_zh": "跟进 · 证据落地",
+          "use_when": "时间戳证据已取得，需要明确哪条成立、哪条仍存疑；发送前先确认报价单是否含税",
+          "text": "I've got the timestamp evidence for {{order_no}}. The driver logged arrival at 09:40 and departure at 11:55, and the site contact wasn't available until after 11:30 — so the waiting time stands, though I've asked for it re-rated at cost rather than the standard rate.\n\nThe redelivery line I'm still querying internally.\n\nRevised invoice to you by {{next_update_time}}, with that line either removed or explained.",
+          "placeholders": ["order_no", "next_update_time"]
+        },
+        {
+          "id": "au-fee-dispute-close",
+          "phase": "close",
+          "tone": "supervisor",
+          "label_zh": "收口 · 主管口径",
+          "use_when": "修订账单出具，需要收口并说明长期机制；发送前先确认报价单是否含税",
+          "text": "Hi {{customer_name}}, the revised invoice is with you. Two changes: the waiting time has been re-rated at cost, and the redelivery charge has come off — the first attempt failed on access details our booking form never asked for, so that one's ours.\n\nDuty and GST stay on the statement for information only. They're not a second charge; your DDP rate covered them and the entry shows it.\n\nThe balance on {{order_no}} after the credit is {{amount}}. If a line still looks wrong, message me and we'll go through it together.",
+          "placeholders": ["customer_name", "order_no", "amount"]
+        }
+      ],
+      "internal": {
+        "common_causes": [
+          "等候费未提前告知，且按标准费率而非成本价计收",
+          "地址或 access 信息不全导致二次派送",
+          "税费已在 DDP 内含，却在账单上被重复列示",
+          "代理附加费口径不透明，直接转嫁客户"
+        ],
+        "resolution_path": [
+          "调取账单逐项明细与支撑证据",
+          "按 DDP 条款与合同逐条判定合理性",
+          "对不成立的条目出 credit note，成立的提供证据",
+          "修订账单并同步更新报价单与账单模板"
+        ],
+        "sla_hint": "2 个工作日内出逐项明细；5 个工作日内出争议结论；出账前先给客户预估",
+        "fee_policy": "DDP 默认含 duty 与 GST（除非报价单明确排除），已含项目不得二次收取；客户原因产生的等候、改址、二次派送按成本价加合理手续费；我方或代理原因导致的按实核减并出 credit。发送前先核对报价单是否含税",
+        "guardrails": [
+          "不先收费后解释，也不在没有明细的情况下催款",
+          "不承诺全额免除，也不把代理的乱收费转嫁给客户",
+          "不引导客户以拒付方式施压，一律走书面争议流程"
+        ]
+      },
+      "alts": [
+        {
+          "id": "au-fee-dispute-alt-warm",
+          "tone": "warm",
+          "label_zh": "替代表达 · 共情版",
+          "text": "Hi {{customer_name}}, I'd be asking the same thing — an invoice above the quote with 'additional charges' as the only explanation isn't good enough. Let me break it down properly instead of defending it.\n\nOn {{order_no}}, the duty and GST inside the {{amount}} are already covered by your DDP rate and appear for information only. The genuinely chargeable items are waiting time on {{delivery_date}} and a redelivery, and I'm testing both: our driver's arrival and departure logs, and whether the access problem was something our booking form should have asked about.\n\nWhatever doesn't hold up comes off the invoice.\n\nItemised version with timestamps by {{next_update_time}}.",
+          "placeholders": ["customer_name", "order_no", "amount", "delivery_date", "next_update_time"]
+        },
+        {
+          "id": "au-fee-dispute-alt-concise",
+          "tone": "concise",
+          "label_zh": "替代表达 · 简洁版",
+          "text": "Hi {{customer_name}} — querying the {{order_no}} invoice. Breakdown: duty and GST within the {{amount}} sit inside your DDP rate and are shown for information only, not rechargeable. Waiting time on {{delivery_date}} and the redelivery are the only chargeable lines, and both are being tested against driver timestamps.\n\nAnything that doesn't hold up is removed.\n\nItemised invoice with timestamps by {{next_update_time}}, with the disputed lines either gone or explained. The rest of the bill stands and falls due as normal, with the evidence behind each line.",
+          "placeholders": ["customer_name", "order_no", "amount", "delivery_date", "next_update_time"]
+        }
+      ],
+      "authorities": [
+        { "name": "Australian Border Force — GST and other taxes when importing", "url": "https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/cost-of-importing-goods/GST-and-other-taxes" },
+        { "name": "Australian Border Force", "url": "https://www.abf.gov.au/" }
+      ],
+      "updated_at": "2026-11-04"
+    }
+  ]
+}

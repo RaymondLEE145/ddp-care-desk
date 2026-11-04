@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: ddp-care-desk
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: echo "no build step - zero dependencies"
+    startCommand: node server/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_BASE_URL
+        value: https://api.deepseek.com
+      - key: AI_MODEL
+        value: deepseek-chat
