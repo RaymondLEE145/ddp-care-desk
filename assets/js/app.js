@@ -18,6 +18,16 @@
   var STAGES = ['下单', '提货', '报关', '开船', '到港', '清关', '派送', '签收后', '全程'];
   var SEV = { high: '高', medium: '中', low: '低' };
   var TONE = { standard: 'STD', warm: 'WARM', concise: 'CONCISE', firm: 'FIRM', supervisor: 'LEAD' };
+  var CITY_ZH = {
+    Yiwu: '义乌', Shenzhen: '深圳', Guangzhou: '广州', Shanghai: '上海', Ningbo: '宁波', Xiamen: '厦门',
+    Qingdao: '青岛', Foshan: '佛山', Dongguan: '东莞', Hangzhou: '杭州', China: '中国',
+    Toronto: '多伦多', Vancouver: '温哥华', Montreal: '蒙特利尔', Calgary: '卡尔加里',
+    Sydney: '悉尼', Melbourne: '墨尔本', Brisbane: '布里斯班', Fremantle: '弗里曼特尔',
+    'Los Angeles': '洛杉矶', 'Long Beach': '长滩', 'New York': '纽约', Savannah: '萨凡纳',
+    Seattle: '西雅图', Houston: '休斯顿', Chicago: '芝加哥'
+  };
+  var CN_NUM = { one: '一', two: '两', three: '三', four: '四', five: '五', six: '六', seven: '七', eight: '八', nine: '九', ten: '十' };
+  function cityZh(c) { return CITY_ZH[c] || c || ''; }
 
   var state = {
     route: 'dashboard',
@@ -37,7 +47,7 @@
     detailVars: {},
     focusLibSearch: false,
     reply: {
-      tab: 'image', file: null, dataUrl: null, text: '', country: 'AU', countryTouched: false,
+      tab: 'image', file: null, dataUrl: null, text: '', country: 'AU', countryTouched: false, intent: 'auto',
       busy: false, progress: 0, status: '', result: null, vars: {}, fromOcr: false, archiveId: null
     },
     editor: { draft: null, loadedFor: null, error: '' }
@@ -286,7 +296,7 @@
         '<div>' +
           '<div class="eyebrow">DDP AFTER-SALES · 2026 EDITION</div>' +
           '<h1>让每一句回复，<br>都撑得住客户的<span class="em">生意</span>。</h1>' +
-          '<p class="hero-sub">中澳 · 中加 · 中美 DDP 散货专线的售后话术中枢。每条话术按「共情 → 事实 → 方案 → 同步 → 安抚」写成，带当地清关口径、可直接发 WhatsApp 的英文原文，还能把客户截图变成 3 条不同语气的回复。</p>' +
+          '<p class="hero-sub">中澳 · 中加 · 中美 DDP 散货客服话术中枢：售前询价、订舱入仓、在途跟进、售后处理。售后话术按「共情 → 事实 → 方案 → 同步 → 安抚」写成；询价与查件使用独立模板，带当地清关口径，可直接发 WhatsApp，还能把客户截图变成 3 条不同语气的英文回复。</p>' +
           '<div class="hero-actions"><a class="btn btn-accent" href="#/library">' + window.icon('book') + '进入话术库</a>' +
           '<a class="btn btn-ghost" href="#/reply">' + window.icon('sparkles') + '截图生成回复</a></div>' +
           '<div class="hero-stats">' +
@@ -304,7 +314,7 @@
               routeRow('CN', 'VAN · TOR', 'CA · 22–32 天') +
               routeRow('CN', 'LAX · NYC', 'US · 16–24 天') +
             '</div>' +
-            '<div class="route-foot"><span>海运拼箱 · 双清包税到门 · WhatsApp 售后</span><span class="chip">3 lanes</span></div>' +
+            '<div class="route-foot"><span>海运拼箱 · 双清包税到门 · WhatsApp 客服</span><span class="chip">3 lanes</span></div>' +
           '</div>' +
           '<div class="bubble-float"><div class="bf-head"><i></i>WhatsApp · Customer</div>' +
             '<p>“Hi, our container has been held for 5 days — our shop opening is next Friday. What’s happening?”</p>' +
@@ -365,8 +375,8 @@
     $('#view').innerHTML =
       '<div class="page-head"><div>' +
         '<div class="section-kicker">SCRIPT LIBRARY</div>' +
-        '<h1>售后话术库</h1>' +
-        '<p class="sub">按国家、问题类型、阶段筛选。每条都包含五段式内部口径、三条阶段话术与两条同题替代表达；点开即可复制英文原文，变量留空时保留 <span class="code">{{token}}</span> 提醒你替换。</p>' +
+        '<h1>客服话术库</h1>' +
+        '<p class="sub">按国家、问题类型、阶段筛选。售后场景在库内；售前询价、订舱入仓、在途查询、柜号口径请用「截图改话」，会自动判断沟通类型。每条话术包含五段式内部口径、三条阶段话术与两条同题替代表达。</p>' +
       '</div><div class="head-actions">' +
         '<a class="btn btn-ghost" href="#/new">' + window.icon('plus') + '新增话术</a>' +
         '<a class="btn btn-accent" href="#/reply">' + window.icon('sparkles') + '截图生成回复</a>' +
@@ -553,11 +563,27 @@
 
   function archiveTitle(result) {
     var meta = COUNTRIES[result.country] || COUNTRIES.AU;
-    var base = meta.short + ' · ' + (result.scenario ? result.scenario.title_zh : '通用售后咨询');
     var ctx = (result.analysis && result.analysis.context) || {};
-    if (ctx.container_no) base += ' · ' + ctx.container_no;
-    else if (ctx.deadline) base += ' · ' + ctx.deadline;
-    else if (ctx.port) base += ' · ' + ctx.port.split(',')[0];
+    var details = result.details || {};
+    var kind = result.kind || 'aftersales';
+    var base = meta.short + ' · ';
+    if (kind === 'quote') base += '售前询价';
+    else if (kind === 'booking') base += '订舱 / 入仓';
+    else if (kind === 'status') base += '在途查询';
+    else if (kind === 'reference') base += '柜号与追踪口径';
+    else if (kind === 'general') base += '其他咨询';
+    else base += result.scenario ? result.scenario.title_zh : '售后处理';
+    if ((kind === 'quote' || kind === 'booking') && details.origin && details.dest) {
+      base += ' · ' + cityZh(details.origin) + ' → ' + cityZh(details.dest);
+    } else if (ctx.bill_no) {
+      base += ' · ' + ctx.bill_no;
+    } else if (ctx.order_no) {
+      base += ' · ' + ctx.order_no;
+    } else if (kind !== 'quote' && ctx.deadline) {
+      base += ' · ' + ctx.deadline;
+    } else if (kind !== 'quote' && ctx.port) {
+      base += ' · ' + ctx.port.split(',')[0];
+    }
     return base;
   }
 
@@ -590,11 +616,11 @@
     var thumb = await makeThumb(state.reply.dataUrl);
     var rec = {
       id: existing ? existing.id : DDCStore.uid('arc'),
-      title: existing && existing.title ? existing.title : archiveTitle(result),
+      title: archiveTitle(result),
       country: result.country,
       customerText: text,
       matchedScenarioId: result.scenario ? result.scenario.id : '',
-      matchedTitle: result.scenario ? result.scenario.title_zh : '通用售后咨询',
+      matchedTitle: result.scenario ? result.scenario.title_zh : (result.intentLabel || '客服处理'),
       replies: result.replies.map(function (r) {
         return { tone: r.tone, label: r.label, text: r.text, source: r.source };
       }),
@@ -687,7 +713,7 @@
     $('#view').innerHTML =
       '<div class="page-head"><div><div class="section-kicker">SCREENSHOT → REPLY</div>' +
         '<h1>截图改话</h1>' +
-        '<p class="sub">客户发来一张截图，不用手打。识别原话 → 判断问题 → 给出 3 条英文表达（共情 / 标准 / 简洁），变量填一次，全部复制即用。</p>' +
+        '<p class="sub">客户发来一张截图，不用手打。识别原话 → 判断沟通类型（售前询价 / 订舱 / 在途 / 售后 / 柜号）→ 给出 3 条英文表达，变量填一次，全部复制即用。</p>' +
       '</div><div class="head-actions"><a class="btn btn-ghost" href="#/library">' + window.icon('book') + '翻话术库</a></div></div>' +
       '<div class="reply-layout">' +
         '<div class="desk-panel sticky">' +
@@ -709,7 +735,10 @@
                 ['AU', 'CA', 'US'].map(function (c) {
                   return '<option value="' + c + '"' + (r.country === c ? ' selected' : '') + '>' + COUNTRIES[c].lane + ' · ' + COUNTRIES[c].name + '</option>';
                 }).join('') + '</select></div>' +
-              '<div class="field"><label>回复语言</label><input class="input" value="English · WhatsApp" disabled /></div>' +
+              '<div class="field"><label>沟通类型</label><select class="select" id="replyIntent">' +
+                [['auto', '自动识别'], ['quote', '售前询价'], ['booking', '订舱 / 入仓'], ['status', '在途查询'], ['reference', '柜号与追踪'], ['aftersales', '售后处理'], ['general', '其他咨询']].map(function (o) {
+                  return '<option value="' + o[0] + '"' + (r.intent === o[0] ? ' selected' : '') + '>' + o[1] + '</option>';
+                }).join('') + '</select></div>' +
             '</div>' +
             '<button class="btn btn-accent btn-block mt-12" data-action="generate" ' + (r.text.trim() ? '' : 'disabled') + '>' + window.icon('sparkles') + '生成 3 条英文回复</button>' +
             '<div class="sample-row"><span class="tiny muted" style="align-self:center">试试示例：</span>' +
@@ -746,6 +775,8 @@
     }
     var sel = $('#replyCountry');
     if (sel) sel.addEventListener('change', function () { state.reply.country = sel.value; state.reply.countryTouched = true; });
+    var intentSel = $('#replyIntent');
+    if (intentSel) intentSel.addEventListener('change', function () { state.reply.intent = intentSel.value; });
 
     var dz = $('#dropzone');
     if (dz) {
@@ -786,13 +817,22 @@
       }).join('') + '</div></div>' : '';
 
     var ctx = (result.analysis && result.analysis.context) || {};
+    var details = result.details || {};
+    var kind = result.kind || 'aftersales';
     var ctxBits = [];
-    if (ctx.container_no) ctxBits.push('柜号 ' + ctx.container_no);
-    if (ctx.bill_no) ctxBits.push('提单 ' + ctx.bill_no);
-    if (ctx.order_no) ctxBits.push('单号 ' + ctx.order_no);
-    if (ctx.port) ctxBits.push('港口 ' + ctx.port);
-    if (ctx.deadline) ctxBits.push('客户时间点 ' + ctx.deadline);
-    if (ctx.amount) ctxBits.push('金额 ' + ctx.amount);
+    if (kind === 'quote' || kind === 'booking') {
+      if (details.origin && details.origin !== 'China') ctxBits.push('起运 ' + cityZh(details.origin));
+      if (details.dest) ctxBits.push('目的 ' + cityZh(details.dest));
+      if (details.supplierCount) ctxBits.push((CN_NUM[details.supplierCount] || details.supplierCount) + '家供应商');
+      if (details.warehouseToWarehouse) ctxBits.push('仓库到仓库');
+      if (details.ready) ctxBits.push('货已备好');
+    } else {
+      if (ctx.bill_no) ctxBits.push('提单 ' + ctx.bill_no);
+      if (ctx.order_no) ctxBits.push('单号 ' + ctx.order_no);
+      if (ctx.port) ctxBits.push('港口 ' + ctx.port);
+      if (ctx.deadline) ctxBits.push('客户时间点 ' + ctx.deadline);
+      if (ctx.amount) ctxBits.push('金额 ' + ctx.amount);
+    }
 
     var archive = state.reply.archiveId ? state.archives.filter(function (a) { return a.id === state.reply.archiveId; })[0] : null;
     var archiveBanner = archive ? '<div class="ai-strip" style="margin-top:0;margin-bottom:14px"><span class="ico" data-icon="check-circle"></span>' +
@@ -800,6 +840,7 @@
 
     var replyCards = result.replies.map(function (rp, i) {
       var tone = (rp.tone || 'standard').toLowerCase();
+      var src = rp.source === 'presales' ? '询价模板' : rp.source === 'service' ? '服务模板' : (rp.source === 'library' ? '来自「' + esc(result.scenario ? result.scenario.title_zh : '') + '」' : '通用话术');
       return '<article class="reply-card" style="--i:' + i + '">' +
         '<div class="reply-card-head"><div class="rt"><span class="tone-tag tone-' + esc(tone) + '">' + esc(TONE[tone] || tone) + '</span>' +
           '<b style="font-size:12.5px">' + esc(rp.label || '') + '</b></div>' +
@@ -811,21 +852,30 @@
           '<button class="btn btn-accent btn-sm" data-action="copy-reply" data-i="' + i + '">' + window.icon('copy') + '复制这条</button>' +
           '<button class="btn btn-soft btn-sm" data-action="save-reply" data-i="' + i + '">' + window.icon('bookmark') + '保存' +
           '</button>' +
-          '<span class="hint" style="align-self:center">' + (rp.source === 'generic' ? '通用话术' : '来自「' + esc(result.scenario ? result.scenario.title_zh : '') + '」') + '</span>' +
+          '<span class="hint" style="align-self:center">' + src + '</span>' +
         '</div></article>';
     }).join('');
 
     var riskHTML = (result.risks || []).length ? '<div class="notice danger" style="margin-top:14px">' + window.icon('alert') +
       '<div><b>发送前注意</b><br>' + result.risks.map(function (x) { return '· ' + esc(x.label); }).join('<br>') + '</div></div>' : '';
 
-    var intent = result.scenario ? result.scenario.title_zh + ' · ' + result.scenario.category : '未命中具体场景 · 使用通用话术';
+    var intentTitle;
     var conf = Math.round(((result.analysis && result.analysis.confidence) || 0) * 100);
+    var badge = (conf || '—') + (conf ? '%' : '');
+    var badgeLabel = 'match';
+    if (kind === 'quote') { intentTitle = '售前询价 · 价格与方案'; badge = 'QUOTE'; badgeLabel = 'type'; }
+    else if (kind === 'booking') { intentTitle = '订舱 / 入仓 · 新需求'; badge = 'BOOK'; badgeLabel = 'type'; }
+    else if (kind === 'status') { intentTitle = '在途查询 · 客户查进度'; badge = 'TRACK'; badgeLabel = 'type'; }
+    else if (kind === 'reference') { intentTitle = '柜号与追踪口径'; badge = 'REF'; badgeLabel = 'type'; }
+    else if (kind === 'general') { intentTitle = '其他咨询 · 先问清楚'; badge = 'INFO'; badgeLabel = 'type'; }
+    else if (!result.scenario) { intentTitle = '售后处理 · 先确认具体问题'; badge = 'CLARIFY'; badgeLabel = 'type'; }
+    else { intentTitle = result.scenario.title_zh + ' · ' + result.scenario.category; }
 
     return archiveBanner +
-      '<div class="intent-card"><div class="ic" data-icon="' + (result.scenario ? 'shield' : 'info') + '"></div>' +
-      '<div><b>' + esc(intent) + '</b><span>' + esc(COUNTRIES[result.country] ? COUNTRIES[result.country].lane : '') + ' · ' +
-      (ctxBits.length ? ctxBits.join(' / ') : '未识别到单号，建议先向客户索取') + '</span></div>' +
-      '<div class="confidence"><b class="mono-num">' + (conf || '—') + (conf ? '%' : '') + '</b><span>match</span></div></div>' +
+      '<div class="intent-card"><div class="ic" data-icon="' + (result.scenario ? 'shield' : (kind === 'quote' ? 'sparkles' : 'info')) + '"></div>' +
+      '<div><b>' + esc(intentTitle) + '</b><span>' + esc(COUNTRIES[result.country] ? COUNTRIES[result.country].lane : '') + ' · ' +
+      (ctxBits.length ? ctxBits.join(' / ') : '已按客户原话判断沟通类型') + '</span></div>' +
+      '<div class="confidence"><b class="mono-num">' + esc(badge) + '</b><span>' + esc(badgeLabel) + '</span></div></div>' +
       (result.bridge ? '<div class="ai-strip" style="margin-top:10px;background:rgba(31,111,92,.06);border-color:rgba(31,111,92,.18);color:var(--green)">' +
         window.icon('layers') + '<span>识别到第 2 个问题：<b>' + esc(result.bridge.label) + '</b>，已合并进 3 条回复正文，客户不用再追问一次。</span></div>' : '') +
       varsHTML + replyCards +
@@ -894,6 +944,7 @@
     var result = DDCEngine.generate(text, {
       scenarios: state.scenarios,
       country: state.reply.country,
+      intent: state.reply.intent,
       settings: state.settings
     });
     Object.keys(result.vars || {}).forEach(function (k) {
@@ -904,7 +955,9 @@
     await autoArchive(result);
     viewReply();
     window.hydrateIcons($('#view'));
-    if (!result.scenario) toast('没有命中具体场景，已使用通用话术，可到话术库手动挑选');
+    if (result.kind === 'quote') toast('已识别为售前询价，按客户原话生成报价回复');
+    else if (result.kind === 'booking') toast('已识别为订舱 / 入仓需求');
+    else if (!result.scenario) toast('未命中具体售后场景，已改用先确认事实的话术');
     var panel = $('.results-head');
     if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -985,7 +1038,7 @@
       '<div class="sc-head"><div class="row" style="flex-wrap:wrap;gap:5px">' +
         '<span class="country-chip ' + esc(a.country || 'AU') + '">' + esc(a.country || 'AU') + '</span>' +
         '<span class="chip chip-green">自动归档</span>' +
-        '<span class="chip">' + esc(a.matchedTitle || '通用售后') + '</span>' +
+        '<span class="chip">' + esc(a.matchedTitle || '通用客服') + '</span>' +
       '</div><span class="tiny muted">' + esc(timeLabel(a.createdAt)) + '</span></div>' +
       '<div class="arc-main">' +
         (a.thumbnail ? '<img class="arc-thumb" src="' + esc(a.thumbnail) + '" alt="客户截图缩略图" />' : '<div class="arc-thumb arc-thumb--empty">' + window.icon('image') + '</div>') +
@@ -1388,8 +1441,8 @@
       '</div>' +
 
       '<div class="set-card"><h2>' + window.icon('shield') + '合规声明</h2>' +
-        '<div class="notice"><span class="ico" data-icon="shield"></span><div>本库话术用于沟通参考，不构成法律、税务、清关或保险建议。具体税率、查验时效、费用承担以官方最新公告与报关行确认为准。任何情况下不得建议客户低报货值、修改品名/HS 编码、拆单避税或提供虚假单证。</div></div>' +
-        '<p class="hint mt-12">版本 1.0 · 2026-11 · 内容由 DDP 专线售后团队维护。每季度对照 ABF / CBSA / CBP 官方更新复核一次。</p>' +
+        '<div class="notice"><span class="ico" data-icon="shield"></span><div>本库话术用于沟通参考，不构成法律、税务、清关或保险建议。具体税率、查验时效、费用承担以官方最新公告与报关行确认为准。任何情况下不得建议客户低报货值、修改品名/HS 编码、拆单避税或提供虚假单证。DDP 拼箱通常不向客户提供柜号，库内话术统一用 your shipment / booking reference 与节点同步；客户索要时按「柜号与追踪口径」模板解释。</div></div>' +
+        '<p class="hint mt-12">版本 1.0 · 2026-11 · 内容由 DDP 专线客服团队维护。每季度对照 ABF / CBSA / CBP 官方更新复核一次。</p>' +
       '</div>';
 
     var imp = $('#importFile');

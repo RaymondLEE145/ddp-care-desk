@@ -20,8 +20,18 @@
         "能不能加钱让它快点放行"
       ],
       "keywords": [
-        "CBSA", "customs exam", "examination", "held", "detention", "inspection",
-        "clearance delay", "查验", "扣关", "海关查验", "放行慢", "清关"
+        "CBSA",
+        "customs exam",
+        "examination",
+        "held",
+        "detention",
+        "inspection",
+        "clearance delay",
+        "查验",
+        "扣关",
+        "海关查验",
+        "放行慢",
+        "清关"
       ],
       "framework": {
         "empathy": [
@@ -56,8 +66,12 @@
           "tone": "standard",
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次追问查验进度，情绪尚可控，但已有时限压力",
-          "text": "Hi {{customer_name}}, I can see why this is stressful — a hold at the border eats into a selling window you can't get back.\n\nHere's what I've confirmed with our broker. {{container_no}} arrived at {{port}} and CBSA (Canada Border Services Agency) has selected it for examination. That is routine border control; it doesn't mean your declaration is wrong, and no penalty follows from being selected.\n\nWhat we're doing: our broker has the exam request in and is chasing the terminal and the exam yard daily for a slot. I won't give you a release date I can't stand behind — exams finish when they finish, and I'd rather be straight than hand you a date and miss it.\n\nI'll message you by {{next_update_time}} today with whatever the broker gives me, and the moment it flips to released.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I can see why this is stressful — a hold at the border eats into a selling window you can't get back.\n\nHere's what I've confirmed with our broker. Your shipment arrived at {{port}} and CBSA (Canada Border Services Agency) has selected it for examination. That is routine border control; it doesn't mean your declaration is wrong, and no penalty follows from being selected.\n\nWhat we're doing: our broker has the exam request in and is chasing the terminal and the exam yard daily for a slot. I won't give you a release date I can't stand behind — exams finish when they finish, and I'd rather be straight than hand you a date and miss it.\n\nI'll message you by {{next_update_time}} today with whatever the broker gives me, and the moment it flips to released.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-cbsa-exam-followup",
@@ -65,8 +79,11 @@
           "tone": "warm",
           "label_zh": "跟进 · 短消息",
           "use_when": "已回复过一次，客户再次追问；或当日无实质进展时主动同步",
-          "text": "Quick update on {{container_no}}: still in the exam queue at {{port}}. Not what you wanted, so here's what actually moved today — our broker re-sent the exam request and got confirmation the container is on the yard list, and I've held a delivery slot for the day after release so we don't start from zero.\n\nIf it's still queued by {{next_update_time}} tomorrow, I'll ask whether another exam site clears faster and put the trade-off to you rather than just waiting.",
-          "placeholders": ["container_no", "port", "next_update_time"]
+          "text": "Quick update on your shipment: still in the exam queue at {{port}}. Not what you wanted, so here's what actually moved today — our broker re-sent the exam request and got confirmation the container is on the yard list, and I've held a delivery slot for the day after release so we don't start from zero.\n\nIf it's still queued by {{next_update_time}} tomorrow, I'll ask whether another exam site clears faster and put the trade-off to you rather than just waiting.",
+          "placeholders": [
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-cbsa-exam-close",
@@ -74,8 +91,11 @@
           "tone": "supervisor",
           "label_zh": "收口 · 主管口径",
           "use_when": "查验放行后说明结果，或客户情绪升级需要主管出面",
-          "text": "Hi {{customer_name}} — {{container_no}} cleared the CBSA examination and was released this morning. No penalty was raised and nothing additional was assessed at release; the entry stands as filed.\n\nDelivery is booked for {{delivery_date}}; I'll send the driver's details the day before. I'm sorry this one sat as long as it did. The exam yard was backed up, and I should have pushed for a site change a day earlier than I did.\n\nNothing further is needed from you. If your buyer wants confirmation, I'll send the release document. And I'm staying on this until it's signed for.",
-          "placeholders": ["customer_name", "container_no", "delivery_date"]
+          "text": "Hi {{customer_name}} — your shipment cleared the CBSA examination and was released this morning. No penalty was raised and nothing additional was assessed at release; the entry stands as filed.\n\nDelivery is booked for {{delivery_date}}; I'll send the driver's details the day before. I'm sorry this one sat as long as it did. The exam yard was backed up, and I should have pushed for a site change a day earlier than I did.\n\nNothing further is needed from you. If your buyer wants confirmation, I'll send the release document. And I'm staying on this until it's signed for.",
+          "placeholders": [
+            "customer_name",
+            "delivery_date"
+          ]
         }
       ],
       "alts": [
@@ -83,15 +103,23 @@
           "id": "ca-cbsa-exam-alt-warm",
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
-          "text": "Hi {{customer_name}}, I'm sorry — I know this hold is landing right on top of commitments you've already made, and the storage clock makes it worse every day.\n\nI've been through it with our broker. {{container_no}} is at {{port}} and CBSA has picked it for examination. That's a standard border check, not a finding against your shipment, and there's no penalty attached to it.\n\nOur broker is pushing the exam yard for a slot every day, and I'll have a straight answer on the exam type for you by {{next_update_time}}. I'll write at that time regardless — even if the answer is that we're still in the queue.\n\nIf you need something in writing for your buyer, tell me and I'll put it together today.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I'm sorry — I know this hold is landing right on top of commitments you've already made, and the storage clock makes it worse every day.\n\nI've been through it with our broker. Your shipment is at {{port}} and CBSA has picked it for examination. That's a standard border check, not a finding against your shipment, and there's no penalty attached to it.\n\nOur broker is pushing the exam yard for a slot every day, and I'll have a straight answer on the exam type for you by {{next_update_time}}. I'll write at that time regardless — even if the answer is that we're still in the queue.\n\nIf you need something in writing for your buyer, tell me and I'll put it together today.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-cbsa-exam-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
-          "text": "Hi {{customer_name}} — status on {{container_no}}: arrived at {{port}} and selected by CBSA for examination.\n\nWhat that means: a routine border check. It isn't a ruling against your invoice, and no penalty follows from being selected. What I can't give you is a release date — exams move at the agency's pace, not ours.\n\nWhat I'm doing: broker is chasing the exam yard daily, and I'm holding a delivery slot for the day after release.\n\nI'll confirm the exam type by {{next_update_time}}, then update you daily until it's released. If the queue turns out long, I'll ask our broker whether another site clears faster and tell you what that costs in time.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}} — status on your shipment: arrived at {{port}} and selected by CBSA for examination.\n\nWhat that means: a routine border check. It isn't a ruling against your invoice, and no penalty follows from being selected. What I can't give you is a release date — exams move at the agency's pace, not ours.\n\nWhat I'm doing: broker is chasing the exam yard daily, and I'm holding a delivery slot for the day after release.\n\nI'll confirm the exam type by {{next_update_time}}, then update you daily until it's released. If the queue turns out long, I'll ask our broker whether another site clears faster and tell you what that costs in time.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -119,8 +147,14 @@
         ]
       },
       "authorities": [
-        { "name": "CBSA — Importing commercial goods into Canada", "url": "https://www.cbsa-asfc.gc.ca/import/menu-eng.html" },
-        { "name": "Customs Act (R.S.C., 1985, c. 52) — examination of goods", "url": "https://laws-lois.justice.gc.ca/eng/acts/c-52.6/" }
+        {
+          "name": "CBSA — Importing commercial goods into Canada",
+          "url": "https://www.cbsa-asfc.gc.ca/import/menu-eng.html"
+        },
+        {
+          "name": "Customs Act (R.S.C., 1985, c. 52) — examination of goods",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/c-52.6/"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -141,8 +175,18 @@
         "能不能先用你们自己的保证金给我的货"
       ],
       "keywords": [
-        "CARM", "RPP", "release prior to payment", "financial security", "bond",
-        "Business Number", "RM account", "CARM Client Portal", "保证金", "进口商备案", "先放行后缴税", "放行受阻"
+        "CARM",
+        "RPP",
+        "release prior to payment",
+        "financial security",
+        "bond",
+        "Business Number",
+        "RM account",
+        "CARM Client Portal",
+        "保证金",
+        "进口商备案",
+        "先放行后缴税",
+        "放行受阻"
       ],
       "framework": {
         "empathy": [
@@ -179,7 +223,11 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次遇到 CARM/RPP 要求，质疑为何要自己注册或交保证金；发送前先确认本票 IOR 归属",
           "text": "Hi {{customer_name}}, I understand why this feels like a wall out of nowhere — you booked a delivered price, and now there's a registration step you've never heard of.\n\nHonest picture. Since CARM (CBSA Assessment and Revenue Management) became CBSA's system of record, an importer can get release before paying duties and taxes only if it holds its own financial security under the Release Prior to Payment program. The transition that let brokers cover it ended on 20 May 2025, so it applies to everyone, not just you.\n\nThe good news: we're checking which importer account this entry sits under. If it's ours, {{bill_no}} moves on our financial security and you need to register nothing; if it's your BN, I'll send the two steps and file with you.\n\nI'll confirm in writing by {{next_update_time}} which route {{bill_no}} is on. Nothing is stuck while we sort this.",
-          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-carm-rpp-followup",
@@ -188,7 +236,10 @@
           "label_zh": "跟进 · 短消息",
           "use_when": "已解释过制度，客户仍在犹豫是否自己注册，或等待担保确认",
           "text": "Update on {{bill_no}}: I'm confirming which importer account the entry sits under — if it's ours, no registration is needed from you; if it's yours, I'll send the two steps.\n\nIf you want your own import account later, the order is Business Number from the CRA, then an RM account (a 6-character program number such as RM0001) in the CARM Client Portal, then financial security. It's a few steps, not a few weeks, but I won't quote you a CBSA turnaround.\n\nI'll send the written confirmation by {{next_update_time}}.",
-          "placeholders": ["bill_no", "next_update_time"]
+          "placeholders": [
+            "bill_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-carm-rpp-close",
@@ -197,7 +248,11 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "放行完成，同时把长期方案与这次沟通缺口一次说清",
           "text": "Hi {{customer_name}} — {{bill_no}} was released this morning under our security, and delivery is booked for {{delivery_date}}.\n\nTo close the loop: you don't need a CARM account as long as the entry is filed under our importer account. If it turns out to be under your BN, I'll send the two steps and file with you.\n\nI'm sorry this landed as a surprise at the worst moment. The RPP change should have been on your booking confirmation from the start, and it is now.",
-          "placeholders": ["customer_name", "bill_no", "delivery_date"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "delivery_date"
+          ]
         }
       ],
       "alts": [
@@ -206,14 +261,22 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I'm sorry — this is exactly the kind of thing that shouldn't land on you at the last minute. You paid for a delivered service and now there's a registration question in the way.\n\nShort version: under CARM (CBSA Assessment and Revenue Management), releasing goods before duties and taxes requires the importer to post its own financial security. Brokers can no longer lend theirs; that ended on 20 May 2025. It's a system change, not a problem with your company.\n\nI'm confirming which importer account this entry sits under: if it's ours, {{bill_no}} clears on our security and you do nothing; if it's yours, I'll send the two steps.\n\nI'll confirm the route in writing by {{next_update_time}}. You won't be left guessing.",
-          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-carm-rpp-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — quick answer on the CARM (CBSA Assessment and Revenue Management) request you received.\n\nWhy it came up: to release goods before duties and taxes are paid, the importer has to hold its own financial security under Release Prior to Payment. Broker security no longer covers it; that ended 20 May 2025.\n\nWhat applies to you: I'm confirming which importer account this entry sits under. If it's ours, {{bill_no}} clears under our security and you do nothing; if it's yours, I'll send the two steps.\n\nIf you want your own import account later — useful for claiming GST input tax credits — say so and I'll send the Business Number, RM account and security steps.\n\nI'll confirm {{bill_no}}'s release route in writing by {{next_update_time}}.",
-          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -244,8 +307,14 @@
         ]
       },
       "authorities": [
-        { "name": "CBSA — CARM Release Prior to Payment: who can enrol", "url": "https://www.canada.ca/en/border-services-agency/services/carm/release-prior-payment/who-can-enrol.html" },
-        { "name": "CBSA — Customs Notice 25-22: End of the Release Prior to Payment transition period", "url": "https://www.cbsa-asfc.gc.ca/publications/cn-ad/cn25-22-eng.html" }
+        {
+          "name": "CBSA — CARM Release Prior to Payment: who can enrol",
+          "url": "https://www.canada.ca/en/border-services-agency/services/carm/release-prior-payment/who-can-enrol.html"
+        },
+        {
+          "name": "CBSA — Customs Notice 25-22: End of the Release Prior to Payment transition period",
+          "url": "https://www.cbsa-asfc.gc.ca/publications/cn-ad/cn25-22-eng.html"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -266,8 +335,22 @@
         "为什么这批多收了 25%？之前从没有过"
       ],
       "keywords": [
-        "duty", "GST", "HST", "PST", "tax", "DDP", "double charged",
-        "tariff", "surtax", "钢铝", "附加税", "关税", "省税", "包税", "税单", "重复征税"
+        "duty",
+        "GST",
+        "HST",
+        "PST",
+        "tax",
+        "DDP",
+        "double charged",
+        "tariff",
+        "surtax",
+        "钢铝",
+        "附加税",
+        "关税",
+        "省税",
+        "包税",
+        "税单",
+        "重复征税"
       ],
       "framework": {
         "empathy": [
@@ -304,7 +387,10 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次质疑税单，或提出降税诉求；发送前先确认报价单是否含税",
           "text": "Hi {{customer_name}}, I understand the frustration — you paid a delivered price, and a tax bill on top looks like being charged twice. Let me show you what's in it, not argue about the rate.\n\nOn a DDP shipment we cover duty, 5% federal GST and the provincial tax of the importing province, unless the quote expressly excludes them. Rates differ by province: a shipment into Alberta and one into Ontario don't carry the same tax. What we can't absorb is a second charge on the same goods from elsewhere in the chain; that we dispute, not pass on.\n\nI've asked our brokerage for the CBSA assessment and entry summary to put beside your bill. You'll have it by {{next_update_time}}, line by line, with the classification used.\n\nIf it's an overlap, that's ours to correct. If the rate is simply higher than you expected, you'll see why.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-duty-tax-dispute-followup",
@@ -313,7 +399,9 @@
           "label_zh": "跟进 · 有据可依",
           "use_when": "已完成比对，发现重复收费或需要客户接受税率依据；发送前先确认报价单是否含税",
           "text": "The entry is back. Duty was assessed on the value we declared, plus 5% GST and the provincial tax for the importing province — I've put each line next to your invoice. A 25% line, if present, is the steel/aluminium surtax; I'll verify the list and the melt-and-pour declaration.\n\nOne line looks duplicated: the same GST appears on our invoice and on the carrier's collection. I'm raising it with the carrier today and will have their position by {{next_update_time}}.\n\nNothing needed from you until then.",
-          "placeholders": ["next_update_time"]
+          "placeholders": [
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-duty-tax-dispute-close",
@@ -322,7 +410,9 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "重复收费确认并退，或税率解释完成、客户接受结论；发送前先确认报价单是否含税",
           "text": "Hi {{customer_name}} — the duplicate GST has been confirmed as a carrier collection error. It's being reversed, and the credit will show on your account; I'll send the confirmation document the moment it's issued.\n\nThe rest checks out: duty at the rate for the classification used, 5% GST, and the provincial tax for the importing province. The entry summary is attached so your accountant can see the basis.\n\nI'm sorry you had to spend time on this. For your next order I'll send a tax estimate before booking. And if your company is GST-registered, ask about input tax credits on that portion — it often nets out.",
-          "placeholders": ["customer_name"]
+          "placeholders": [
+            "customer_name"
+          ]
         }
       ],
       "alts": [
@@ -331,14 +421,20 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I'm sorry — paying for a delivered price and then getting another tax bill feels like being taken for a ride. I'd be annoyed too.\n\nWhat I can tell you straight away: our DDP price covers duty, the 5% federal GST and the provincial tax for the importing province. Those are the only taxes we should bill you for. A second charge usually comes from elsewhere in the chain, and that's worth chasing, not arguing about the rate.\n\nI've asked our brokerage for the CBSA assessment and entry summary so I can lay both bills side by side. You'll have it by {{next_update_time}}, with each line explained.\n\nIf we've double-billed, that's mine to fix. If the figures are right, you'll at least see why.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-duty-tax-dispute-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — on the extra tax bill, here's where it stands.\n\nWhat DDP includes: duty, 5% GST, and the provincial tax for the importing province. Nothing else should reach you.\n\nWhat I'm checking: the CBSA assessment against the invoice you received, line by line. Duplicate GST from a carrier collection is the usual culprit; a classification or valuation difference is the other one.\n\nYou'll have the breakdown by {{next_update_time}}. If there's an overlap, it's corrected at our end. I won't lower the declared value or change the classification to shrink a tax bill — that would put your goods and your company at risk, and I'm not going to do it.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -369,8 +465,14 @@
         ]
       },
       "authorities": [
-        { "name": "Canada Revenue Agency — GST/HST rates by province", "url": "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/charge-collect-which-rate/calculator.html" },
-        { "name": "CBSA — Memorandum D17-1-5: Accounting for commercial goods", "url": "https://www.cbsa-asfc.gc.ca/publications/dm-md/d17/d17-1-5-eng.html" }
+        {
+          "name": "Canada Revenue Agency — GST/HST rates by province",
+          "url": "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/charge-collect-which-rate/calculator.html"
+        },
+        {
+          "name": "CBSA — Memorandum D17-1-5: Accounting for commercial goods",
+          "url": "https://www.cbsa-asfc.gc.ca/publications/dm-md/d17/d17-1-5-eng.html"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -391,8 +493,18 @@
         "Is this the B3 form you need, or something new called a CAD?"
       ],
       "keywords": [
-        "commercial invoice", "packing list", "bill of lading", "HS code",
-        "country of origin", "incoterm", "docs missing", "发票", "装箱单", "原产地", "报关资料", "补料"
+        "commercial invoice",
+        "packing list",
+        "bill of lading",
+        "HS code",
+        "country of origin",
+        "incoterm",
+        "docs missing",
+        "发票",
+        "装箱单",
+        "原产地",
+        "报关资料",
+        "补料"
       ],
       "framework": {
         "empathy": [
@@ -428,8 +540,12 @@
           "tone": "standard",
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次被告知资料不全，情绪尚好但已开始焦躁",
-          "text": "Hi {{customer_name}}, I know this is the third round on paperwork, and that's on us for not sending one clean list at the start. Let's fix it in a single pass.\n\nFor a Canadian entry the commercial invoice has to carry the seller and buyer names and addresses, the invoice number and date, a description specific enough to classify, quantity, unit and total value, currency, delivery terms, country of origin and tariff classification. The packing list then has to match it — cartons, gross and net weight, cube. When any of that is missing the entry can't be transmitted, and {{container_no}} sits at {{port}}.\n\nI'll send you a fill-in template in the next ten minutes. Whatever your supplier can complete, send back; I'll turn it into what our broker needs and return it for your sign-off.\n\nI'll confirm transmission by {{next_update_time}}.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I know this is the third round on paperwork, and that's on us for not sending one clean list at the start. Let's fix it in a single pass.\n\nFor a Canadian entry the commercial invoice has to carry the seller and buyer names and addresses, the invoice number and date, a description specific enough to classify, quantity, unit and total value, currency, delivery terms, country of origin and tariff classification. The packing list then has to match it — cartons, gross and net weight, cube. When any of that is missing the entry can't be transmitted, and your shipment sits at {{port}}.\n\nI'll send you a fill-in template in the next ten minutes. Whatever your supplier can complete, send back; I'll turn it into what our broker needs and return it for your sign-off.\n\nI'll confirm transmission by {{next_update_time}}.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-docs-missing-followup",
@@ -437,8 +553,11 @@
           "tone": "warm",
           "label_zh": "跟进 · 短消息",
           "use_when": "模板已发，等待客户回料，或无进展时主动同步",
-          "text": "Template should be with you. The two fields suppliers usually can't answer are origin and classification — send me the product details and I'll take a first pass for you to confirm.\n\nNothing moved on {{container_no}} today; it's still waiting on documents at {{port}}. If I have the invoice and packing list by tomorrow morning, our broker can still make the next window.\n\nI'll check in by {{next_update_time}} either way.",
-          "placeholders": ["container_no", "port", "next_update_time"]
+          "text": "Template should be with you. The two fields suppliers usually can't answer are origin and classification — send me the product details and I'll take a first pass for you to confirm.\n\nNothing moved on your shipment today; it's still waiting on documents at {{port}}. If I have the invoice and packing list by tomorrow morning, our broker can still make the next window.\n\nI'll check in by {{next_update_time}} either way.",
+          "placeholders": [
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-docs-missing-close",
@@ -446,8 +565,10 @@
           "tone": "supervisor",
           "label_zh": "收口 · 主管口径",
           "use_when": "资料补齐并提交，说明后续与流程改进",
-          "text": "Hi {{customer_name}} — documents are in and the entry has been transmitted. {{container_no}} is with CBSA for release, and I'll tell you as soon as it comes through.\n\nThe template is yours to keep. If your supplier uses it from the first order, we won't repeat this. I should have sent it when you booked rather than after the goods landed — that's a gap in our process, not in yours.\n\nI'll confirm release and start the delivery booking the same day. Nothing else needed from you for now.",
-          "placeholders": ["customer_name", "container_no"]
+          "text": "Hi {{customer_name}} — documents are in and the entry has been transmitted. Your shipment is with CBSA for release, and I'll tell you as soon as it comes through.\n\nThe template is yours to keep. If your supplier uses it from the first order, we won't repeat this. I should have sent it when you booked rather than after the goods landed — that's a gap in our process, not in yours.\n\nI'll confirm release and start the delivery booking the same day. Nothing else needed from you for now.",
+          "placeholders": [
+            "customer_name"
+          ]
         }
       ],
       "alts": [
@@ -455,15 +576,23 @@
           "id": "ca-docs-missing-alt-warm",
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
-          "text": "Hi {{customer_name}}, sorry — you've been going back and forth on paperwork for days and that's our fault for not giving you one clear list on day one.\n\nWhat CBSA needs on a commercial invoice: both parties' names and addresses, invoice number and date, a proper description, quantity, unit and total value, currency, delivery terms, country of origin and classification. The packing list has to agree with it exactly — cartons, gross and net weight, cube.\n\nI'm sending a template you can hand straight to your supplier. Send it back in whatever state it's in, even half-filled, and I'll do the assembly and return it for a final look.\n\nMeanwhile {{container_no}} is sitting at {{port}} on documents, not on duty. I'll confirm where we are by {{next_update_time}}.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, sorry — you've been going back and forth on paperwork for days and that's our fault for not giving you one clear list on day one.\n\nWhat CBSA needs on a commercial invoice: both parties' names and addresses, invoice number and date, a proper description, quantity, unit and total value, currency, delivery terms, country of origin and classification. The packing list has to agree with it exactly — cartons, gross and net weight, cube.\n\nI'm sending a template you can hand straight to your supplier. Send it back in whatever state it's in, even half-filled, and I'll do the assembly and return it for a final look.\n\nMeanwhile your shipment is sitting at {{port}} on documents, not on duty. I'll confirm where we are by {{next_update_time}}.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-docs-missing-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
-          "text": "Hi {{customer_name}} — the short version of what's blocking {{container_no}} at {{port}}: the invoice is missing the country of origin and the classification, and the packing list doesn't match the carton count.\n\nBoth are fixable today. I'm sending a template; your supplier fills what it can, you send it back, I convert it into the broker's format.\n\nIf I have it back by tomorrow morning we make the next transmission window. The one thing I can't do is invent the origin or the classification for you — that has to come from the supplier.\n\nI'll confirm by {{next_update_time}} whether the entry has gone in.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}} — the short version of what's blocking your shipment at {{port}}: the invoice is missing the country of origin and the classification, and the packing list doesn't match the carton count.\n\nBoth are fixable today. I'm sending a template; your supplier fills what it can, you send it back, I convert it into the broker's format.\n\nIf I have it back by tomorrow morning we make the next transmission window. The one thing I can't do is invent the origin or the classification for you — that has to come from the supplier.\n\nI'll confirm by {{next_update_time}} whether the entry has gone in.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -494,8 +623,14 @@
         ]
       },
       "authorities": [
-        { "name": "CBSA — Memorandum D1-4-1: CBSA invoice requirements", "url": "https://www.cbsa-asfc.gc.ca/publications/dm-md/d1/d1-4-1-eng.html" },
-        { "name": "CBSA — Memorandum D17-1-10: Coding of customs accounting documents", "url": "https://www.cbsa-asfc.gc.ca/publications/dm-md/d17/d17-1-10-eng.html" }
+        {
+          "name": "CBSA — Memorandum D1-4-1: CBSA invoice requirements",
+          "url": "https://www.cbsa-asfc.gc.ca/publications/dm-md/d1/d1-4-1-eng.html"
+        },
+        {
+          "name": "CBSA — Memorandum D17-1-10: Coding of customs accounting documents",
+          "url": "https://www.cbsa-asfc.gc.ca/publications/dm-md/d17/d17-1-10-eng.html"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -516,8 +651,19 @@
         "能不能改卡车，我加钱"
       ],
       "keywords": [
-        "port congestion", "rail", "CN", "CPKC", "dwell", "on-dock rail",
-        "Vancouver", "Prince Rupert", "温哥华", "鲁珀特王子港", "拥堵", "铁路", "提柜慢"
+        "port congestion",
+        "rail",
+        "CN",
+        "CPKC",
+        "dwell",
+        "on-dock rail",
+        "Vancouver",
+        "Prince Rupert",
+        "温哥华",
+        "鲁珀特王子港",
+        "拥堵",
+        "铁路",
+        "提柜慢"
       ],
       "framework": {
         "empathy": [
@@ -553,8 +699,12 @@
           "tone": "standard",
           "label_zh": "首次回复 · 标准",
           "use_when": "客户发现船已到港但柜子未提，开始担心丢件或错过交期",
-          "text": "Hi {{customer_name}}, I know this one hurts more downstream than it does at the port — you've made commitments to your own customers on the date we gave you.\n\nHere's where it actually stands. {{container_no}} is discharged at {{port}}, but the terminal is working through a backlog and rail hasn't lifted it yet. That's the honest bottleneck. Nothing has happened to the cargo, and it isn't sitting somewhere unaccounted for.\n\nThere are two ways forward. We leave it on rail, which costs you time but no extra freight, or we pull it by truck, which cuts days off and adds cost. I'll have a firm truck number for you by {{next_update_time}} so you can decide rather than guess.\n\nI'll send a status every day at the same time until it's moving, including the days when nothing has changed.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I know this one hurts more downstream than it does at the port — you've made commitments to your own customers on the date we gave you.\n\nHere's where it actually stands. Your shipment is discharged at {{port}}, but the terminal is working through a backlog and rail hasn't lifted it yet. That's the honest bottleneck. Nothing has happened to the cargo, and it isn't sitting somewhere unaccounted for.\n\nThere are two ways forward. We leave it on rail, which costs you time but no extra freight, or we pull it by truck, which cuts days off and adds cost. I'll have a firm truck number for you by {{next_update_time}} so you can decide rather than guess.\n\nI'll send a status every day at the same time until it's moving, including the days when nothing has changed.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-rail-port-delay-followup",
@@ -562,8 +712,11 @@
           "tone": "firm",
           "label_zh": "跟进 · 带建议",
           "use_when": "延误持续，需要给客户一个明确的切换建议而不是继续等",
-          "text": "No change at {{port}} today — still waiting on a rail lift. What I did: escalated with the terminal's customer desk for on-dock rail priority, and got a trucking rate for the alternative.\n\nIf rail hasn't lifted {{container_no}} by tomorrow, my recommendation is to switch and stop burning calendar days. Your call, and I'll hold the truck quote for 48 hours.\n\nNext update by {{next_update_time}}.",
-          "placeholders": ["container_no", "port", "next_update_time"]
+          "text": "No change at {{port}} today — still waiting on a rail lift. What I did: escalated with the terminal's customer desk for on-dock rail priority, and got a trucking rate for the alternative.\n\nIf rail hasn't lifted your shipment by tomorrow, my recommendation is to switch and stop burning calendar days. Your call, and I'll hold the truck quote for 48 hours.\n\nNext update by {{next_update_time}}.",
+          "placeholders": [
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-rail-port-delay-close",
@@ -571,8 +724,11 @@
           "tone": "supervisor",
           "label_zh": "收口 · 主管口径",
           "use_when": "柜子已提出并上铁路，或已切换卡车、货物恢复流动",
-          "text": "Hi {{customer_name}} — {{container_no}} has been lifted and is moving inland. Rail picked it up this morning, and the ramp schedule puts it in your city later this week.\n\nI'm sorry about the gap between the arrival date we gave you and what actually happened. The terminal backlog wasn't in our control; telling you two days sooner that the rail lift was slipping was, and I didn't.\n\nDelivery is booked for {{delivery_date}}, and I'll confirm the appointment as soon as the container is grounded. If a short delay letter to your customers would help, say the word.",
-          "placeholders": ["customer_name", "container_no", "delivery_date"]
+          "text": "Hi {{customer_name}} — your shipment has been lifted and is moving inland. Rail picked it up this morning, and the ramp schedule puts it in your city later this week.\n\nI'm sorry about the gap between the arrival date we gave you and what actually happened. The terminal backlog wasn't in our control; telling you two days sooner that the rail lift was slipping was, and I didn't.\n\nDelivery is booked for {{delivery_date}}, and I'll confirm the appointment as soon as the container is grounded. If a short delay letter to your customers would help, say the word.",
+          "placeholders": [
+            "customer_name",
+            "delivery_date"
+          ]
         }
       ],
       "alts": [
@@ -580,15 +736,23 @@
           "id": "ca-rail-port-delay-alt-warm",
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
-          "text": "Hi {{customer_name}}, I'm sorry — I know a slip at the port lands on commitments you've made to other people, and that's the part that actually costs you.\n\nWhat I can confirm: {{container_no}} is off the vessel at {{port}} and sitting on the terminal, waiting for a rail lift. The terminal is behind and rail capacity is tight, which is why the date moved. The cargo is fine, and nothing is missing.\n\nI'm pushing for an on-dock rail slot and getting a trucking price in parallel, so you'll have a real choice rather than a wait.\n\nI'll write to you by {{next_update_time}} with the truck number and whatever rail tells us. After that, a message every day until it's moving — including the days when there's no news.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I'm sorry — I know a slip at the port lands on commitments you've made to other people, and that's the part that actually costs you.\n\nWhat I can confirm: your shipment is off the vessel at {{port}} and sitting on the terminal, waiting for a rail lift. The terminal is behind and rail capacity is tight, which is why the date moved. The cargo is fine, and nothing is missing.\n\nI'm pushing for an on-dock rail slot and getting a trucking price in parallel, so you'll have a real choice rather than a wait.\n\nI'll write to you by {{next_update_time}} with the truck number and whatever rail tells us. After that, a message every day until it's moving — including the days when there's no news.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-rail-port-delay-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
-          "text": "Hi {{customer_name}} — where {{container_no}} stands: discharged at {{port}}, still on the terminal, no rail lift yet. That's the delay, and it's a capacity problem at the terminal and on rail, not a problem with your cargo.\n\nTwo options: stay on rail, no extra freight, more days; or switch to truck, faster, extra cost.\n\nI'll have the truck price by {{next_update_time}} and a rail position at the same time. If rail hasn't lifted by then, I'd suggest we switch.\n\nDaily update from me until it moves.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}} — where your shipment stands: discharged at {{port}}, still on the terminal, no rail lift yet. That's the delay, and it's a capacity problem at the terminal and on rail, not a problem with your cargo.\n\nTwo options: stay on rail, no extra freight, more days; or switch to truck, faster, extra cost.\n\nI'll have the truck price by {{next_update_time}} and a rail position at the same time. If rail hasn't lifted by then, I'd suggest we switch.\n\nDaily update from me until it moves.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -617,8 +781,14 @@
         ]
       },
       "authorities": [
-        { "name": "Vancouver Fraser Port Authority (Port of Vancouver)", "url": "https://www.portvancouver.com/" },
-        { "name": "Prince Rupert Port Authority", "url": "https://www.rupertport.com/" }
+        {
+          "name": "Vancouver Fraser Port Authority (Port of Vancouver)",
+          "url": "https://www.portvancouver.com/"
+        },
+        {
+          "name": "Prince Rupert Port Authority",
+          "url": "https://www.rupertport.com/"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -639,8 +809,18 @@
         "I never agreed to these charges"
       ],
       "keywords": [
-        "storage", "demurrage", "detention", "per diem", "free time", "terminal", "CFS",
-        "堆存费", "滞箱费", "滞港费", "免堆期", "费用争议"
+        "storage",
+        "demurrage",
+        "detention",
+        "per diem",
+        "free time",
+        "terminal",
+        "CFS",
+        "堆存费",
+        "滞箱费",
+        "滞港费",
+        "免堆期",
+        "费用争议"
       ],
       "framework": {
         "empathy": [
@@ -676,8 +856,13 @@
           "tone": "standard",
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次收到堆存账单并提出异议",
-          "text": "Hi {{customer_name}}, I'd push back too if a bill landed for days I didn't cause. So before we talk about who pays, let me show you the timeline.\n\n{{container_no}} arrived at {{port}} on {{eta_date}}, and I have the CBSA release timestamp. The terminal's free storage ran out partway through that gap, and the charges start from there. Some of that gap is terminal backlog, some is the examination, and some is time we spent waiting on documents. Those three are not the same thing, and they shouldn't all land on you.\n\nI'm building the breakdown now: terminal in and out dates, the last free day, and the release timestamp. You'll have it by {{next_update_time}}, split by cause.\n\nThe part that's ours, we carry. The part that's documented on your side, I'll show you the tariff line. Nothing gets deducted before you've seen the numbers.",
-          "placeholders": ["customer_name", "container_no", "port", "eta_date", "next_update_time"]
+          "text": "Hi {{customer_name}}, I'd push back too if a bill landed for days I didn't cause. So before we talk about who pays, let me show you the timeline.\n\nYour shipment arrived at {{port}} on {{eta_date}}, and I have the CBSA release timestamp. The terminal's free storage ran out partway through that gap, and the charges start from there. Some of that gap is terminal backlog, some is the examination, and some is time we spent waiting on documents. Those three are not the same thing, and they shouldn't all land on you.\n\nI'm building the breakdown now: terminal in and out dates, the last free day, and the release timestamp. You'll have it by {{next_update_time}}, split by cause.\n\nThe part that's ours, we carry. The part that's documented on your side, I'll show you the tariff line. Nothing gets deducted before you've seen the numbers.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "eta_date",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-storage-demurrage-followup",
@@ -695,7 +880,10 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "waiver 有结果、双方就分担达成一致后",
           "text": "Hi {{customer_name}} — the terminal credited the pre-release days we disputed, so those charges are gone. The remaining {{amount}} stands for the days after release, and I've split them across your next two invoices as we agreed.\n\nThank you for working through the timeline with me instead of refusing the bill. It made the waiver case much easier to argue.\n\nTwo changes on our side: I'm booking the delivery appointment before release rather than after, and I'll flag the free-time expiry date the moment a container is discharged, so this doesn't surprise either of us again.",
-          "placeholders": ["customer_name", "amount"]
+          "placeholders": [
+            "customer_name",
+            "amount"
+          ]
         }
       ],
       "alts": [
@@ -703,15 +891,25 @@
           "id": "ca-storage-demurrage-alt-warm",
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
-          "text": "Hi {{customer_name}}, I'm sorry — a storage bill for days you didn't cause is genuinely unfair, and I don't want to hand you a number and walk away.\n\nHere's what I'm doing. {{container_no}} arrived at {{port}} on {{eta_date}}, and I've pulled the terminal's in and out dates, the last free day, and the exact time CBSA released it. That splits the charge into what was the terminal and the examination, what was our own slow paperwork, and what fell after release.\n\nThe first two are ours. I'll carry them and ask the terminal to waive them, because it's worth asking.\n\nYou'll have the split by {{next_update_time}} with the tariff lines quoted. If any part is properly yours, we'll agree it together before anything is invoiced.",
-          "placeholders": ["customer_name", "container_no", "port", "eta_date", "next_update_time"]
+          "text": "Hi {{customer_name}}, I'm sorry — a storage bill for days you didn't cause is genuinely unfair, and I don't want to hand you a number and walk away.\n\nHere's what I'm doing. Your shipment arrived at {{port}} on {{eta_date}}, and I've pulled the terminal's in and out dates, the last free day, and the exact time CBSA released it. That splits the charge into what was the terminal and the examination, what was our own slow paperwork, and what fell after release.\n\nThe first two are ours. I'll carry them and ask the terminal to waive them, because it's worth asking.\n\nYou'll have the split by {{next_update_time}} with the tariff lines quoted. If any part is properly yours, we'll agree it together before anything is invoiced.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "eta_date",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-storage-demurrage-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
-          "text": "Hi {{customer_name}} — on the storage charge: I'm not asking you to accept it as it stands.\n\n{{container_no}} arrived at {{port}} on {{eta_date}}, so I'm pulling the terminal in and out dates, the last free day, and the CBSA release time to split the charge by cause. Terminal backlog and the examination are ours. Post-release delays get looked at separately.\n\nYou'll have the split with tariff references by {{next_update_time}}. I'll also file a terminal waiver for the portion we're absorbing — no promises on the outcome, but it's worth the ask.\n\nNothing is invoiced until you've seen the numbers.",
-          "placeholders": ["customer_name", "container_no", "port", "eta_date", "next_update_time"]
+          "text": "Hi {{customer_name}} — on the storage charge: I'm not asking you to accept it as it stands.\n\nYour shipment arrived at {{port}} on {{eta_date}}, so I'm pulling the terminal in and out dates, the last free day, and the CBSA release time to split the charge by cause. Terminal backlog and the examination are ours. Post-release delays get looked at separately.\n\nYou'll have the split with tariff references by {{next_update_time}}. I'll also file a terminal waiver for the portion we're absorbing — no promises on the outcome, but it's worth the ask.\n\nNothing is invoiced until you've seen the numbers.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "eta_date",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -740,7 +938,10 @@
         ]
       },
       "authorities": [
-        { "name": "Vancouver Fraser Port Authority (Port of Vancouver)", "url": "https://www.portvancouver.com/" }
+        {
+          "name": "Vancouver Fraser Port Authority (Port of Vancouver)",
+          "url": "https://www.portvancouver.com/"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -761,8 +962,19 @@
         "为什么又要收一次派送费"
       ],
       "keywords": [
-        "delivery failed", "redelivery", "appointment", "residential", "liftgate",
-        "buzzer", "remote area", "派送失败", "二次派送", "无人收货", "公寓", "偏远附加费", "改址"
+        "delivery failed",
+        "redelivery",
+        "appointment",
+        "residential",
+        "liftgate",
+        "buzzer",
+        "remote area",
+        "派送失败",
+        "二次派送",
+        "无人收货",
+        "公寓",
+        "偏远附加费",
+        "改址"
       ],
       "framework": {
         "empathy": [
@@ -799,7 +1011,11 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次得知派送失败，通常带情绪",
           "text": "Hi {{customer_name}}, that's a frustrating one — you can't sit by the door all day waiting for a driver, and I get that.\n\nI've pulled the delivery record for {{order_no}}. The driver attempted at the time recorded on the run sheet, couldn't get an answer at the unit, and took it back to the local depot. It wasn't refused and it isn't lost. It's on a shelf waiting for a new window.\n\nI need three things: the buzzer or unit number if it's missing from our file, the hours someone can actually receive it, and whether we're allowed to leave it with a concierge or inside a secure lobby if nobody answers.\n\nGive me those and I'll book the earliest slot, usually within two business days, and send you the driver's number on the day.\n\nI'll come back to you by {{next_update_time}} with the confirmed window.",
-          "placeholders": ["customer_name", "order_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-delivery-failed-followup",
@@ -808,7 +1024,10 @@
           "label_zh": "跟进 · 已预约",
           "use_when": "已重新预约，需要在派送前把细节钉死",
           "text": "Booked for {{delivery_date}}, morning to early afternoon window. Driver details will come through the day before.\n\nThe depot has confirmed the cartons are intact; I'll flag any storage charge before it starts, and query it if it does. One thing that would help: if the buzzer code is wrong, tell me now rather than on the day. A second failed attempt is where the fees begin, and I'd rather we didn't get there.\n\nI'll confirm again by {{next_update_time}} if anything shifts.",
-          "placeholders": ["delivery_date", "next_update_time"]
+          "placeholders": [
+            "delivery_date",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-delivery-failed-close",
@@ -817,7 +1036,9 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "派送完成，需要说明费用处理与后续改进",
           "text": "Hi {{customer_name}} — delivered and signed for this afternoon, cartons counted at the door. The proof of delivery is in your inbox.\n\nI'm not charging for the first failed attempt. The address on the booking was correct; the access details were missing, and that's a gap I should have closed when I confirmed the delivery with you.\n\nFor the next shipment, give me the buzzer code and a safe place at booking and I'll put both on the file, so the driver has them before he leaves the depot.\n\nSorry for the extra week. Message me directly if anything on the count doesn't match.",
-          "placeholders": ["customer_name"]
+          "placeholders": [
+            "customer_name"
+          ]
         }
       ],
       "alts": [
@@ -826,14 +1047,22 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I'm sorry — a missed delivery costs you a day and there's nothing to show for it.\n\nI've checked with the depot: {{order_no}} was attempted, nobody answered at the unit, and it's back on the shelf, intact. Nothing has been refused and nothing is lost.\n\nTo get it there properly I need the buzzer or unit number, a window when someone's actually home, and your okay on leaving it with a concierge or in a secure lobby if the door goes unanswered.\n\nSend those over and I'll get the earliest slot, likely within a couple of days, and I'll send the driver's number that morning.\n\nI'll confirm the window by {{next_update_time}}. You won't have to chase it.",
-          "placeholders": ["customer_name", "order_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-delivery-failed-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — {{order_no}} had a failed attempt: the driver couldn't get an answer at the unit and it's back at the depot, intact.\n\nTo rebook I need the unit or buzzer number, a window when someone's home, and whether we can leave it with a concierge if nobody answers.\n\nSend those and I'll book the earliest slot, usually within two business days, with the driver's number on the day.\n\nI'm not billing the first attempt. A second failed one is where charges start, so let's get the details right this time.\n\nWindow confirmed by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -862,7 +1091,10 @@
         ]
       },
       "authorities": [
-        { "name": "Canada Post — delivery options and redelivery", "url": "https://www.canadapost-postescanada.ca/" }
+        {
+          "name": "Canada Post — delivery options and redelivery",
+          "url": "https://www.canadapost-postescanada.ca/"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -883,8 +1115,19 @@
         "I signed the POD before I opened it"
       ],
       "keywords": [
-        "damage", "crushed", "water damage", "claim", "survey", "insurance", "POD",
-        "货损", "破损", "水湿", "托盘", "索赔", "验货"
+        "damage",
+        "crushed",
+        "water damage",
+        "claim",
+        "survey",
+        "insurance",
+        "POD",
+        "货损",
+        "破损",
+        "水湿",
+        "托盘",
+        "索赔",
+        "验货"
       ],
       "framework": {
         "empathy": [
@@ -921,7 +1164,10 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户发来破损照片，第一次提出索赔或补发",
           "text": "Hi {{customer_name}}, that's a bad way to receive a shipment, and if you've promised these units to someone, it's worse.\n\nI've seen the photos you sent. Before I speculate about cause, I need the full set, because it's harder to gather later: all six sides of the damaged cartons, the pallet label, any note the driver wrote on the proof of delivery, and a video of the unpacking if the contents are still inside. That's what a surveyor will ask for.\n\nWhat happens next: I'll appoint an independent surveyor within 48 hours, and open the carrier claim in parallel rather than waiting for the survey.\n\nOnce you have a repair or replacement quote, send it through.\n\nI'll come back to you by {{next_update_time}} with the surveyor's booking and an honest view of timing. I won't say it'll be quick; I'd rather be accurate.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-damage-followup",
@@ -930,7 +1176,9 @@
           "label_zh": "跟进 · 验货已安排",
           "use_when": "验货已预约，需要客户配合保全证据",
           "text": "Surveyor is booked for {{delivery_date}}. Keep the cartons and packaging exactly as they are until then — if they go in the bin, we lose the best evidence we have.\n\nIn parallel I've filed the carrier claim and asked the co-loader whether other consignments in the same container came through wet, since that answer shapes the cause.\n\nNothing needed from you today. I'll send the survey summary the day I get it, and I'll chase weekly in between.",
-          "placeholders": ["delivery_date"]
+          "placeholders": [
+            "delivery_date"
+          ]
         },
         {
           "id": "ca-damage-close",
@@ -939,7 +1187,9 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "验货报告出具，索赔已提交，需要管理客户预期",
           "text": "Hi {{customer_name}} — the surveyor's report is in. The damage is consistent with handling at the freight station, not with your packing, and the report says so in writing.\n\nThe claim is now with the carrier, and I've sent you the report plus the claim reference. On recovery I'll be straight with you: the limit under the bill of lading is rarely the full value, so the settlement may not cover the whole loss. You'll get the number as soon as it's offered, not before.\n\nIn the meantime the replacement units are quoted, and I can hold that price for a week.\n\nI'm sorry this landed on you.",
-          "placeholders": ["customer_name"]
+          "placeholders": [
+            "customer_name"
+          ]
         }
       ],
       "alts": [
@@ -948,14 +1198,20 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I'm really sorry — opening a shipment and finding it crushed is a horrible moment, especially with people waiting.\n\nI've looked at the photos. I won't guess from them, but the pattern matters, and I've asked the co-loader whether anything else in that container came through wet.\n\nWhat I need from you, ideally today: photos of all six sides of the damaged cartons, the pallet label, whatever the driver noted on the delivery receipt, and video of the unpacking if the goods are still inside.\n\nWith that I'll appoint a surveyor and file against the carrier at the same time, rather than waiting for one to finish before starting the other.\n\nI'll be back to you by {{next_update_time}} with the survey date and a claim reference.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-damage-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — on the damage, here's what I need and what happens next.\n\nSend me today if you can: six-side photos of the damaged cartons, the pallet label, the driver's note on the delivery receipt, and unpacking video if the contents are still boxed.\n\nI'll appoint an independent surveyor within 48 hours and file the carrier claim in parallel, not after.\n\nKeep the packaging as it is until the surveyor sees it. That's the difference between a claim that holds and one that doesn't.\n\nI'll send the survey date and claim reference by {{next_update_time}}. Repair or replacement quotes welcome any time.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -984,7 +1240,10 @@
         ]
       },
       "authorities": [
-        { "name": "Marine Liability Act (S.C. 2001, c. 6) — carrier liability limits", "url": "https://laws-lois.justice.gc.ca/eng/acts/m-0.8/" }
+        {
+          "name": "Marine Liability Act (S.C. 2001, c. 6) — carrier liability limits",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/m-0.8/"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -1005,8 +1264,19 @@
         "少了一箱样品，客户那边没法上架"
       ],
       "keywords": [
-        "shortage", "missing cartons", "short shipped", "piece count", "tally", "POD",
-        "over-goods", "少箱", "短装", "丢件", "清点", "短少", "签收"
+        "shortage",
+        "missing cartons",
+        "short shipped",
+        "piece count",
+        "tally",
+        "POD",
+        "over-goods",
+        "少箱",
+        "短装",
+        "丢件",
+        "清点",
+        "短少",
+        "签收"
       ],
       "framework": {
         "empathy": [
@@ -1043,7 +1313,10 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次报告少箱或短少，通常很急",
           "text": "Hi {{customer_name}}, a missing carton is rarely just a carton — if it's the one part your customer needs, the whole order is late. Let me find out where it went.\n\nThree records will tell us: the loading list and container photos from origin, the tally sheet from the freight station where the container was devanned, and the delivery receipt. Where they disagree tells us whether this was short-shipped at origin or lost on the last leg, and the fix is different for each.\n\nWhile I pull them, send me your count by carton number and model, plus photos of what actually arrived on the dock. Don't move the pallet yet.\n\nI'll have the comparison by {{next_update_time}} and I'll tell you which of the two it looks like. If it's short-shipped, your supplier needs to know today, not next week.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-shortage-followup",
@@ -1052,7 +1325,9 @@
           "label_zh": "跟进 · 查 depot",
           "use_when": "比对已开始，需要让客户知道我们在查哪里",
           "text": "Tally from the freight station shows every carton was received into the CFS, which points away from short shipment and towards the last leg.\n\nI've asked the delivery depot for the driver's return sheet and for any over-goods sitting in their warehouse — a stray carton turns up there more often than you'd think.\n\nComparison summary by {{next_update_time}}. If it doesn't surface by then, I'll open a claim the same day rather than keep looking.",
-          "placeholders": ["next_update_time"]
+          "placeholders": [
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-shortage-close",
@@ -1061,7 +1336,9 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "找到箱并安排补派，或确认丢失进入索赔",
           "text": "Hi {{customer_name}} — the carton was in the depot's over-goods rack. It had been scanned onto the wrong route that day and has been sitting there since. It goes out to you tomorrow on the same run.\n\nI'm sorry you spent a week chasing it. The tally sheet was there from the start and I should have pulled it on day one instead of asking you to recount.\n\nI've asked the depot to photograph every over-goods item at close of day, so this gets caught in hours rather than days. Next shipment, I'll send you the tally before the truck leaves.",
-          "placeholders": ["customer_name"]
+          "placeholders": [
+            "customer_name"
+          ]
         }
       ],
       "alts": [
@@ -1070,14 +1347,20 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I'm sorry — missing cartons are the worst kind of problem because you can't absorb it; someone downstream is waiting.\n\nHere's how I'll find it. The freight station keeps a tally of every carton when the container is devanned, and the loading list from origin tells us what went in. Comparing those two says whether it was short-shipped or lost on the last leg. The delivery receipt fills the gaps.\n\nCan you send me your count by carton and model, with photos of what arrived? That goes next to their numbers, not instead.\n\nI'll have the comparison by {{next_update_time}}, and if it points to the depot I'll be on them that day. If it points to origin, your supplier hears from me, not from you.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-shortage-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — on the missing cartons, here's the plan.\n\nI'm pulling three records: origin loading list, the freight station tally, and the delivery receipt. Where they disagree tells us if this was short-shipped or lost after devanning.\n\nSend me your count by carton and model, plus photos of what arrived. Leave the pallet intact for now.\n\nComparison result by {{next_update_time}}. If it's a depot issue I'll open a claim the same day; if it's origin, your supplier gets the short-shipment notice from me.\n\nYou'll get a straight answer, not a runaround.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -1106,7 +1389,10 @@
         ]
       },
       "authorities": [
-        { "name": "Marine Liability Act (S.C. 2001, c. 6) — carrier liability limits", "url": "https://laws-lois.justice.gc.ca/eng/acts/m-0.8/" }
+        {
+          "name": "Marine Liability Act (S.C. 2001, c. 6) — carrier liability limits",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/m-0.8/"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -1127,8 +1413,19 @@
         "food products need a label review before they can clear?"
       ],
       "keywords": [
-        "CFIA", "Health Canada", "SFCR", "licence", "AIRS", "ISPM 15",
-        "wood packaging", "cosmetics", "medical device", "食品进口", "木包装", "标签", "扣货"
+        "CFIA",
+        "Health Canada",
+        "SFCR",
+        "licence",
+        "AIRS",
+        "ISPM 15",
+        "wood packaging",
+        "cosmetics",
+        "medical device",
+        "食品进口",
+        "木包装",
+        "标签",
+        "扣货"
       ],
       "framework": {
         "empathy": [
@@ -1165,7 +1462,10 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次被告知 CFIA 或 Health Canada 要求补件；先问清被扣类别，只讲命中项",
           "text": "Hi {{customer_name}}, I know this feels like a rule appearing out of nowhere. It isn't new, but that doesn't help you today — so let's work out which requirement actually applies.\n\nWhat I've confirmed: the shipment is held because the goods fall under CFIA or Health Canada requirements, and the requirement depends on what's in the cartons. Tell me which line is held — food, cosmetics, a medical device or the wood packaging — and I'll confirm only that requirement, not a list of all four.\n\nI'm pulling the exact rule from the CFIA import reference system today, plus a written list of what's missing for your category.\n\nBy {{next_update_time}} you'll have the options: obtain it, change the packaging and re-present, or re-export. I'll price the last two honestly, including time lost.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-cfia-health-followup",
@@ -1174,7 +1474,9 @@
           "label_zh": "跟进 · 要求明确",
           "use_when": "已确认具体缺口，需要客户尽快启动申请",
           "text": "The requirement is specific: the products need an importer licence before they can be released, and the labels are missing a French-language panel, which is mandatory for sale in Canada.\n\nTwo routes. Get the licence — that's your company's application, and I'll send the link and the document list. Or re-export to a market without that requirement.\n\nLicence applications aren't instant, so I'd start today. I'll have the label gap written up by {{next_update_time}} so you can fix both in one pass.",
-          "placeholders": ["next_update_time"]
+          "placeholders": [
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-cfia-health-close",
@@ -1183,7 +1485,10 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "许可到位、货物放行，交代标签整改与流程改进",
           "text": "Hi {{customer_name}} — the licence came through and CFIA released the shipment this afternoon. Delivery is booked for {{delivery_date}}.\n\nThe label issue is the one that will bite again on your next order: French has to be on the label, not just English, and net quantity has to be metric. I've put both in a checklist with the other items that came up.\n\nI should have asked what was in the cartons before the vessel loaded. That's on me, and it's now a question on our booking form.\n\nAnything else on this shipment, come to me directly.",
-          "placeholders": ["customer_name", "delivery_date"]
+          "placeholders": [
+            "customer_name",
+            "delivery_date"
+          ]
         }
       ],
       "alts": [
@@ -1192,14 +1497,20 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I'm sorry — being told at the border that your product needs a licence is a horrible surprise, and I don't want to make it a lecture.\n\nWhat's happening: these goods fall under CFIA requirements, so release depends on the importer holding the right licence and the labels meeting Canadian rules.\n\nI'm pulling the exact requirement today, not guessing, and I'll send you a one-page summary of what's missing and who has to apply.\n\nYou'll have it by {{next_update_time}}, along with the label items so you fix everything in one pass. If the licence timeline doesn't work, we'll look at re-export properly rather than pretend it's painless.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-cfia-health-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — the hold is a CFIA requirement, not a documentation error.\n\nWhat's needed: an importer licence for this product category, plus label compliance — French panel, metric net quantity. Wood pallets must carry the IPPC or ISPM 15 mark.\n\nWho does what: the licence is your company's application; I'll send the link and document list today. Labels I can review against the rules and tell you what to change.\n\nOptions: obtain the licence, fix packaging and labels, or re-export. I'll price the last two.\n\nOne-page summary by {{next_update_time}}.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -1229,8 +1540,14 @@
         ]
       },
       "authorities": [
-        { "name": "CFIA — D-98-08 Entry requirements for wood packaging material", "url": "https://inspection.canada.ca/en/plant-health/invasive-species/directives/forest-products/98-08" },
-        { "name": "Health Canada — Cosmetics", "url": "https://www.canada.ca/en/health-canada/services/cosmetics.html" }
+        {
+          "name": "CFIA — D-98-08 Entry requirements for wood packaging material",
+          "url": "https://inspection.canada.ca/en/plant-health/invasive-species/directives/forest-products/98-08"
+        },
+        {
+          "name": "Health Canada — Cosmetics",
+          "url": "https://www.canada.ca/en/health-canada/services/cosmetics.html"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -1251,8 +1568,19 @@
         "Are you even a real company?"
       ],
       "keywords": [
-        "escalation", "frustrated", "refund", "compensation", "complaint", "urgent", "chase",
-        "催件", "投诉", "退款", "赔偿", "情绪", "差评"
+        "escalation",
+        "frustrated",
+        "refund",
+        "compensation",
+        "complaint",
+        "urgent",
+        "chase",
+        "催件",
+        "投诉",
+        "退款",
+        "赔偿",
+        "情绪",
+        "差评"
       ],
       "framework": {
         "empathy": [
@@ -1286,8 +1614,12 @@
           "tone": "supervisor",
           "label_zh": "首次回复 · 主管出面",
           "use_when": "客户已多次催问、语气明显升级，需要主管直接接住",
-          "text": "Hi {{customer_name}}, you're right to be angry — asking four times and getting nothing useful back is worse than the delay itself. That's on me, and I won't explain it away.\n\nFrom here you deal with me, not a shared inbox. My name is {{agent_name}}, and this number reaches me directly.\n\nWhere it stands: {{container_no}} is still held, and nothing about it is waiting on you. What I don't have yet is the reason in writing, and I'll have it by {{next_update_time}} — I've asked for it in writing today.\n\nI'll message you every day at the same time until this closes, including days with no change. If something breaks in between, you hear it from me first.\n\nOn compensation: there is a process, and I'll walk you through it honestly once we know what happened. I won't throw a number at you to make this easier.",
-          "placeholders": ["customer_name", "agent_name", "container_no", "next_update_time"]
+          "text": "Hi {{customer_name}}, you're right to be angry — asking four times and getting nothing useful back is worse than the delay itself. That's on me, and I won't explain it away.\n\nFrom here you deal with me, not a shared inbox. My name is {{agent_name}}, and this number reaches me directly.\n\nWhere it stands: your shipment is still held, and nothing about it is waiting on you. What I don't have yet is the reason in writing, and I'll have it by {{next_update_time}} — I've asked for it in writing today.\n\nI'll message you every day at the same time until this closes, including days with no change. If something breaks in between, you hear it from me first.\n\nOn compensation: there is a process, and I'll walk you through it honestly once we know what happened. I won't throw a number at you to make this easier.",
+          "placeholders": [
+            "customer_name",
+            "agent_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-urgent-chase-followup",
@@ -1305,7 +1637,10 @@
           "label_zh": "收口 · 修复关系",
           "use_when": "货物放行或交付，需要修复关系并给赔偿讨论的入口",
           "text": "Hi {{customer_name}} — released, and delivery is booked for {{delivery_date}}. I'll send the driver's details the day before.\n\nI want to close the loop on how this felt, not just on the shipment. You shouldn't have had to ask four times, and the reason you did is that nobody owned it. That has changed on our side: one name, one number, one daily update.\n\nIf you want to talk about the delay commercially, I'll set up a call with my manager this week and we'll go through it properly rather than in messages.\n\nThank you for staying on it with me. It made a difference.",
-          "placeholders": ["customer_name", "delivery_date"]
+          "placeholders": [
+            "customer_name",
+            "delivery_date"
+          ]
         }
       ],
       "alts": [
@@ -1313,15 +1648,23 @@
           "id": "ca-urgent-chase-alt-warm",
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
-          "text": "Hi {{customer_name}}, I hear you — and honestly, the chasing is the part I'd be angriest about. The delay is one thing; feeling like nobody's listening is worse.\n\nMy name is {{agent_name}}, and from now on this file is mine. You can message me directly and you'll get an answer from a person, not a status update.\n\nHere's what I know: {{container_no}} is held, and I've asked for the specific reason in writing today. Here's what I don't know: when it clears. I'm not going to invent a date.\n\nWhat I'll do: message you every day at a set time, and the moment something changes. If you later want to discuss compensation, I'll take you through it straight, no script.\n\nYou'll hear from me by {{next_update_time}}.",
-          "placeholders": ["customer_name", "agent_name", "container_no", "next_update_time"]
+          "text": "Hi {{customer_name}}, I hear you — and honestly, the chasing is the part I'd be angriest about. The delay is one thing; feeling like nobody's listening is worse.\n\nMy name is {{agent_name}}, and from now on this file is mine. You can message me directly and you'll get an answer from a person, not a status update.\n\nHere's what I know: your shipment is held, and I've asked for the specific reason in writing today. Here's what I don't know: when it clears. I'm not going to invent a date.\n\nWhat I'll do: message you every day at a set time, and the moment something changes. If you later want to discuss compensation, I'll take you through it straight, no script.\n\nYou'll hear from me by {{next_update_time}}.",
+          "placeholders": [
+            "customer_name",
+            "agent_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-urgent-chase-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
-          "text": "Hi {{customer_name}} — you've asked four times and got nothing useful. That stops now.\n\nI'm {{agent_name}}, I own this file, and this number reaches me. {{container_no}} is held; I've requested the reason in writing today and I'll have it, or an honest still-waiting, by {{next_update_time}}.\n\nAfter that: one message a day at a fixed time until it's released, plus an immediate message if anything changes.\n\nOn compensation — there's a process, and I'll take you through it once we know what happened. I'm not going to quote you a number today to calm the conversation down.",
-          "placeholders": ["customer_name", "agent_name", "container_no", "next_update_time"]
+          "text": "Hi {{customer_name}} — you've asked four times and got nothing useful. That stops now.\n\nI'm {{agent_name}}, I own this file, and this number reaches me. Your shipment is held; I've requested the reason in writing today and I'll have it, or an honest still-waiting, by {{next_update_time}}.\n\nAfter that: one message a day at a fixed time until it's released, plus an immediate message if anything changes.\n\nOn compensation — there's a process, and I'll take you through it once we know what happened. I'm not going to quote you a number today to calm the conversation down.",
+          "placeholders": [
+            "customer_name",
+            "agent_name",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -1349,7 +1692,10 @@
         ]
       },
       "authorities": [
-        { "name": "Canadian Transportation Agency — complaints and dispute resolution", "url": "https://www.canada.ca/en/transportation-agency.html" }
+        {
+          "name": "Canadian Transportation Agency — complaints and dispute resolution",
+          "url": "https://www.canada.ca/en/transportation-agency.html"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -1370,8 +1716,19 @@
         "I'm not paying this until someone explains it"
       ],
       "keywords": [
-        "invoice", "extra charge", "surcharge", "quote vs invoice", "fuel", "redelivery fee",
-        "dispute", "账单", "加收", "改址费", "垫付税费", "费用争议", "报价不符"
+        "invoice",
+        "extra charge",
+        "surcharge",
+        "quote vs invoice",
+        "fuel",
+        "redelivery fee",
+        "dispute",
+        "账单",
+        "加收",
+        "改址费",
+        "垫付税费",
+        "费用争议",
+        "报价不符"
       ],
       "framework": {
         "empathy": [
@@ -1408,7 +1765,10 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次质疑账单金额或项目；发送前先确认报价单是否含税",
           "text": "Hi {{customer_name}}, a bill that doesn't match the quote is the fastest way to lose trust, and I won't defend it before I've checked it.\n\nWhat I'm doing: putting our quote and invoice side by side, with the source of each charge — our own rate card, the terminal, the carrier, or CBSA. Anything I can't source comes off.\n\nTwo things I can say now. The tax line sits inside your DDP rate unless the quote excluded it: it's the CBSA assessment behind the rate, shown for information, not a second charge, and I'll send the document with it. And if a charge was never disclosed in the quote, my starting position is that we don't collect it — though I want to see the file before I commit to that.\n\nYou'll have the comparison by {{next_update_time}}. Nothing is due while we review, and nothing is put on hold.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-fee-dispute-followup",
@@ -1417,7 +1777,9 @@
           "label_zh": "跟进 · 给结论",
           "use_when": "对照表已完成，需要明确哪几项由我方承担；发送前先确认报价单是否含税",
           "text": "Comparison is done: three lines are ours to absorb, one is a terminal charge with a tariff reference attached, and one — the redelivery fee — wasn't in the quote at all.\n\nMy call on that last one: we absorb it. It should have been listed as a possible charge when you booked.\n\nThe revised invoice comes to you by {{next_update_time}}, with the terminal document attached so you can see the basis for the rest.",
-          "placeholders": ["next_update_time"]
+          "placeholders": [
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-fee-dispute-close",
@@ -1426,7 +1788,9 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "调整后账单已出，闭环并说明流程改进；发送前先确认报价单是否含税",
           "text": "Hi {{customer_name}} — the revised invoice is with you. The redelivery fee is gone, the terminal charge stands with documentation, and the tax line matches the CBSA assessment exactly.\n\nI've also rewritten the quote template so the charges that sit outside a standard door delivery are listed on page one, instead of being discovered at the end. That's the real fix here.\n\nThank you for pushing back with specifics instead of just refusing the invoice. It made this a two-day conversation instead of a two-week one.\n\nIf anything on the revised bill still looks off, message me and I'll go through it again.",
-          "placeholders": ["customer_name"]
+          "placeholders": [
+            "customer_name"
+          ]
         }
       ],
       "alts": [
@@ -1435,14 +1799,20 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I'm sorry — you budgeted from a quote and got something different, and that's a fair thing to be annoyed about.\n\nLet me be concrete about what I'm doing. I'm matching every line on this invoice to a source: our rate card, the terminal tariff, the carrier's charge, or the CBSA assessment. Whatever I can't match comes off, and I'll say so in writing rather than quietly adjusting the total.\n\nOn the tax portion: it's already inside your DDP rate, and the CBSA document shows what was assessed.\n\nYou'll have the full comparison by {{next_update_time}}, and I'll tell you which lines are mine to fix. Nothing is suspended while we sort it out.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         },
         {
           "id": "ca-fee-dispute-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — on the invoice, here's the process.\n\nI'm matching each line to a source: our rate card, terminal tariff, carrier, or CBSA assessment. Anything without a source comes off. Anything never disclosed in the quote is treated as ours to absorb.\n\nThe tax line is inside your DDP rate — I'll send the CBSA assessment with it.\n\nYou'll have the comparison by {{next_update_time}} and a revised invoice within three business days. Nothing is due, and nothing is put on hold, while we're reviewing.\n\nIf a charge is legitimate, I'll show you the document and we'll talk about terms.",
-          "placeholders": ["customer_name", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -1471,8 +1841,14 @@
         ]
       },
       "authorities": [
-        { "name": "CBSA — Memorandum D17-2-1: Adjusting commercial accounting declarations", "url": "https://www.cbsa-asfc.gc.ca/publications/dm-md/d17/d17-2-1-eng.html" },
-        { "name": "Canada Revenue Agency — GST/HST rates by province", "url": "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/charge-collect-which-rate/calculator.html" }
+        {
+          "name": "CBSA — Memorandum D17-2-1: Adjusting commercial accounting declarations",
+          "url": "https://www.cbsa-asfc.gc.ca/publications/dm-md/d17/d17-2-1-eng.html"
+        },
+        {
+          "name": "Canada Revenue Agency — GST/HST rates by province",
+          "url": "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/charge-collect-which-rate/calculator.html"
+        }
       ],
       "updated_at": "2026-11-04"
     }

@@ -54,6 +54,12 @@
       re: /storage|demurrage|detention|who pays|who covers|cost|fee|charge|仓储|堆存|滞箱|滞港|费用|谁付|谁承担/i,
       text: "On the cost point: I'm checking what caused the charge and how it sits under your DDP terms. I'll send the breakdown in writing before anything is billed."
     },
+    reference: {
+      label: '柜号口径',
+      skipCategory: '',
+      re: /container number|container no\.?|which container|container\s*#|柜号|集装箱号/i,
+      text: "On the container number: for DDP consolidated shipments we don't release it as standard — the container carries several customers' cargo, so we manage visibility at shipment level. I'll give you the booking reference and milestone updates instead, and if you need the container number for a specific claim or document, tell me the purpose and I'll check what the carrier permits."
+    },
     delivery: {
       label: '派送 / 地址',
       skipCategory: '派送异常',
@@ -87,7 +93,7 @@
   };
 
   function detectBridge(text, primaryCategory) {
-    var keys = ['customs', 'fees', 'delivery', 'damage', 'tax', 'docs', 'compliance'];
+    var keys = ['customs', 'fees', 'reference', 'delivery', 'damage', 'tax', 'docs', 'compliance'];
     for (var i = 0; i < keys.length; i++) {
       var b = BRIDGES[keys[i]];
       if (b.skipCategory === primaryCategory) continue;
@@ -284,8 +290,22 @@
     ];
   }
 
-  function riskFlags(text) {
+  function riskFlags(text, kind) {
     var flags = [];
+    if (kind === 'quote') {
+      if (/\bddp\b|duty|tax|gst|关税|税/i.test(text)) {
+        flags.push({ level: 'medium', label: '客户提到 DDP / 税费：报价前先确认报价单是否含税，避免二次收费争议' });
+      }
+      if (/battery|liquid|food|cosmetic|brand|电池|液体|食品|化妆品|品牌/i.test(text)) {
+        flags.push({ level: 'medium', label: '可能涉及敏感货：先确认电池 / 液体 / 食品 / 品牌授权与目的国准入' });
+      }
+      flags.push({ level: 'low', label: '询价阶段不要先报一个“大概价格”；先收齐 CBM、毛重、地址、DDP/DDU 再给书面报价' });
+      return flags;
+    }
+    if (kind === 'reference') {
+      flags.push({ level: 'medium', label: '柜号属于 DDP 拼箱内部信息：按公司口径解释，不承诺一定提供；先问清用途' });
+      return flags;
+    }
     if (/refund|compensat|chargeback|money back|退款|赔偿|索赔|理赔/i.test(text)) {
       flags.push({ level: 'high', label: '客户提到退款 / 赔偿：先确认责任与保险状态，不在第一条消息里承诺金额' });
     }
@@ -299,59 +319,244 @@
       flags.push({ level: 'medium', label: '客户有硬性时间节点：同步可替代方案（分批/改派/延迟函）' });
     }
     if (!extractEntities(text).length) {
-      flags.push({ level: 'low', label: '未识别到柜号/单号：回复前尽量补全，或先向客户索取提单号' });
+      flags.push({ level: 'low', label: '未识别到提单 / 订舱号：回复前尽量补全，或先向客户索取 reference' });
     }
     return flags;
   }
 
-  function checklist(country) {
-    var base = [
-      '核对柜号 / 提单号与系统记录一致',
+  var INTENT_LABELS = {
+    quote: '售前询价',
+    booking: '订舱 / 入仓',
+    status: '在途查询',
+    reference: '柜号与追踪口径',
+    aftersales: '售后处理',
+    general: '其他咨询'
+  };
+
+  var ORIGIN_CITIES = [
+    [/yiwu|义乌/i, 'Yiwu'], [/shenzhen|深圳/i, 'Shenzhen'], [/guangzhou|广州/i, 'Guangzhou'],
+    [/shanghai|上海/i, 'Shanghai'], [/ningbo|宁波/i, 'Ningbo'], [/xiamen|厦门/i, 'Xiamen'],
+    [/qingdao|青岛/i, 'Qingdao'], [/foshan|佛山/i, 'Foshan'], [/dongguan|东莞/i, 'Dongguan'],
+    [/hangzhou|杭州/i, 'Hangzhou']
+  ];
+  var DEST_CITIES = [
+    [/toronto|多伦多/i, 'Toronto'], [/vancouver|温哥华/i, 'Vancouver'], [/montreal|蒙特利尔/i, 'Montreal'],
+    [/calgary|卡尔加里/i, 'Calgary'], [/sydney|悉尼/i, 'Sydney'], [/melbourne|墨尔本/i, 'Melbourne'],
+    [/brisbane|布里斯班/i, 'Brisbane'], [/fremantle|弗里曼特尔|perth|珀斯/i, 'Fremantle'],
+    [/los angeles|洛杉矶|lax\b/i, 'Los Angeles'], [/long beach|长滩/i, 'Long Beach'],
+    [/new york|纽约|newark|纽瓦克/i, 'New York'], [/savannah|萨凡纳/i, 'Savannah'],
+    [/seattle|西雅图|tacoma|塔科马/i, 'Seattle'], [/houston|休斯顿/i, 'Houston'], [/chicago|芝加哥/i, 'Chicago']
+  ];
+
+  function findCity(text, list) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i][0].test(text)) return list[i][1];
+    }
+    return '';
+  }
+
+  function numberWord(n) {
+    var map = { '1': 'one', '2': 'two', '3': 'three', '4': 'four', '5': 'five', '6': 'six', '7': 'seven', '8': 'eight', '9': 'nine', '10': 'ten' };
+    var cn = { '一': 'one', '二': 'two', '两': 'two', '三': 'three', '四': 'four', '五': 'five', '六': 'six', '七': 'seven', '八': 'eight', '九': 'nine', '十': 'ten' };
+    return map[String(n)] || cn[String(n)] || String(n);
+  }
+
+  function quoteDetails(text) {
+    var m = text.match(/\b(one|two|three|four|five|six|seven|eight|nine|ten|\d{1,2})\s+(?:different\s+)?suppliers?\b/i);
+    var count = m ? numberWord(m[1].toLowerCase()) : '';
+    if (!count) {
+      var cn = text.match(/([一二三四五六七八九十\d]+)\s*(?:家|个)\s*(?:供应商|工厂|卖家)/);
+      if (cn) count = numberWord(cn[1]);
+    }
+    return {
+      origin: findCity(text, ORIGIN_CITIES) || 'China',
+      dest: findCity(text, DEST_CITIES) || '',
+      supplierCount: count,
+      ready: /\bready\b|货好|备好|可出运|可发货/i.test(text),
+      warehouseToWarehouse: /warehouse\s*(?:to|→|->)\s*(?:my\s+)?warehouse|仓到仓|门到门/i.test(text),
+      ddpMentioned: /\bddp\b|\bddu\b|duty|tax|关税|税/i.test(text)
+    };
+  }
+
+  function detectIntent(text) {
+    var strongProblem = /(\bhold\b|\bheld\b|customs hold|on hold|detained|inspection|\bexam(?:ination)?\b|delayed|\blate\b|damaged|broken|wet|missing|shortage|refund|compensation|claim|failed|reschedule|rejected|stuck|storage|demurrage|detention|tax bill|duty bill|扣关|查验|延误|破损|少件|赔偿|退款|索赔|卡住|退件|滞港|仓储费)/i.test(text);
+    if (strongProblem) return 'aftersales';
+    if (/\bprice\b|\bquote\b|quotation|\brate\b|how much|\bcost\b|运费|报价|价格|多少钱/i.test(text)) return 'quote';
+    if (/container number|container no\.?|which container|container\s*#|柜号|集装箱号/i.test(text)) return 'reference';
+    if (/\bbook(?:ing)?\b|place\s+(?:an\s+)?order|下单|订舱|订柜|安排出货|入仓|收货/i.test(text)) return 'booking';
+    if (/where is|\bstatus\b|tracking|\beta\b|when will|arrive|到哪|进度|几时到|什么时候到|船期/i.test(text)) return 'status';
+    return 'general';
+  }
+
+  function r(tone, label, text, source) {
+    return { tone: tone, label: label, phase: 'first', text: text, source: source || 'presales' };
+  }
+
+  function quoteReplies(details, country) {
+    var origin = details.origin || 'China';
+    var dest = details.dest || '';
+    var suppliers = details.supplierCount ? details.supplierCount + ' suppliers' : 'your suppliers';
+    var destPhrase = dest ? 'your warehouse in ' + dest : 'your destination warehouse';
+    var destAddr = dest ? 'full ' + dest + ' address' : 'full destination address';
+    var ready = details.ready ? ', cargo ready' : '';
+    var clearance = { AU: 'Australian border clearance', CA: 'Canadian border clearance', US: 'US border clearance' }[country] || 'destination clearance';
+
+    var standard = "Hi {{customer_name}}, thanks for the details — " + suppliers + " in " + origin + ready + ", consolidated at our warehouse and delivered to " + destPhrase + ". That's a warehouse-to-warehouse LCL move I can quote.\n\n"
+      + "To give you a rate that holds, I need five things: carton count, CBM and gross weight per supplier; when the cargo will be at our " + origin + " warehouse; the " + destAddr + " and postal code, including loading-dock access; whether you want DDP (duty and tax included) or DDU; and the goods description with declared value.\n\n"
+      + "Send those over and I'll come back with a written quote within one business day, with every line shown — consolidation, ocean freight, " + clearance + ", duty and tax if DDP, and final delivery. If the suppliers need pickup, add their addresses and I'll include it.";
+
+    var warm = "Hi {{customer_name}}, keeping " + suppliers + " in " + origin + " together is very workable — we can receive all of them at our " + origin + " warehouse, consolidate them into one LCL booking and deliver to " + destPhrase + ". You get one set of documents and one point of contact instead of chasing every supplier.\n\n"
+      + "To price it properly, send me the CBM and gross weight per supplier, the cargo ready date, your " + destAddr + " and postal code, and whether you'd like DDP with duty and tax included. If the suppliers need pickup, give me their addresses and I'll build that in.\n\n"
+      + "I'll come back within one business day with a quote that shows every cost line, so you can compare it properly rather than guess what's inside.";
+
+    var concise = "Hi {{customer_name}} — got it: " + suppliers + " in " + origin + ready + ", consolidated at our warehouse, delivered to " + destPhrase + ". For an accurate all-in rate, send me: CBM and gross weight per supplier, ready date, " + destAddr + " and postal code, and whether it's DDP or DDU. I'll send the warehouse-to-warehouse quote within one business day.";
+
+    return [
+      r('standard', '标准版 · 询价回复', standard),
+      r('warm', '顾问版 · 集货建议', warm),
+      r('concise', '简洁版 · 直接问数', concise)
+    ];
+  }
+
+  function bookingReplies(details, country) {
+    var origin = details.origin || 'China';
+    var dest = details.dest || '';
+    var destPhrase = dest ? 'your warehouse in ' + dest : 'your destination warehouse';
+    var standard = "Hi {{customer_name}}, happy to book this. To confirm the sailing and cut-off I need: the supplier or pickup address (or the warehouse you'll drop off at), cargo description, carton count / CBM / gross weight, cargo ready date, " + destPhrase + " address and postal code, and whether this is DDP or DDU. Send those and I'll confirm the booking, documents and cut-off within one business day.";
+    var warm = "Hi {{customer_name}}, glad to take this on. I'll set up the booking from " + origin + " to " + destPhrase + " once I have the cargo details — pickup or drop-off address, carton count / CBM / gross weight, ready date, destination address and DDP or DDU. Send them in one message if that's easier; I'll turn it into a booking confirmation and flag anything missing.";
+    var concise = "Hi {{customer_name}} — happy to book. Send me: pickup/drop-off address, cargo description, CBM and gross weight, ready date, " + destPhrase + " address and postal code, DDP or DDU. I'll confirm sailing, cut-off and documents within one business day.";
+    return [
+      r('standard', '标准版 · 订舱确认', standard),
+      r('warm', '共情版 · 承接需求', warm),
+      r('concise', '简洁版 · 订舱清单', concise)
+    ];
+  }
+
+  function statusReplies() {
+    return [
+      r('standard', '标准版 · 查在途', "Hi {{customer_name}}, thanks for checking in. Send me the booking, bill or order reference and I'll confirm the latest milestone with the carrier and terminal, then update you by {{next_update_time}}. If you have a tracking screenshot, send it through so I chase the right queue.", 'service'),
+      r('warm', '共情版 · 主动跟进', "Hi {{customer_name}}, I can see why you want a clear answer. Send me the reference on the booking and I'll go straight to the carrier for the latest position, not a copy of the tracking page — then message you by {{next_update_time}} with what's confirmed and what's still moving.", 'service'),
+      r('concise', '简洁版 · 少寒暄', "Hi {{customer_name}} — send me the booking or bill reference and I'll confirm the latest status with the carrier, then update you by {{next_update_time}}.", 'service')
+    ];
+  }
+
+  function referenceReplies() {
+    return [
+      r('standard', '标准版 · 柜号口径', "Hi {{customer_name}}, on DDP consolidated shipments we don't release the container number as standard. One container carries several customers' cargo, so we manage visibility at shipment level: I can give you the booking or HAWB reference, the vessel and departure/arrival milestones, and the delivery plan. If you need the container number for a specific claim or document, tell me what it's for and I'll check what the carrier permits.", 'service'),
+      r('warm', '共情版 · 解释清楚', "Hi {{customer_name}}, I know it's easier when you can follow a container number. For DDP LCL we don't hand it out as standard because the box is shared by several customers and our control is at shipment level, not container level. What I can give you is the booking reference, the vessel, the departure and arrival milestones, and the delivery plan — the same visibility, just at the right level. If you need the number for a claim or a specific document, tell me the purpose and I'll see what the carrier allows.", 'service'),
+      r('concise', '简洁版 · 一图流', "Hi {{customer_name}} — for DDP LCL we don't release the container number; it's a consolidated box carrying multiple customers' cargo. I'll give you the booking/HAWB reference and milestone updates instead. If you need it for a claim or document, tell me the purpose and I'll check what can be shared.", 'service')
+    ];
+  }
+
+  function generalReplies() {
+    return [
+      r('standard', '标准版 · 先问清楚', "Hi {{customer_name}}, thanks for the message. So I give you a precise answer rather than a generic one: tell me what you're shipping, from where to where, whether it's ready, and what you need from us — a price, a booking, a status or a document. I'll come back with the right next step.", 'service'),
+      r('warm', '共情版 · 承接需求', "Hi {{customer_name}}, happy to help — I just want to point you to the right person first time. Send me the origin, destination, cargo details, ready date and what you need (price, booking, status or paperwork), and I'll take it from there.", 'service'),
+      r('concise', '简洁版 · 直接问', "Hi {{customer_name}} — tell me what you're shipping, from where to where, whether it's ready, and whether you need a price, booking, status or document. I'll come back with the next step.", 'service')
+    ];
+  }
+
+  function clarifyReplies() {
+    return [
+      r('standard', '标准版 · 先确认问题', "Hi {{customer_name}}, I want to make sure I answer the actual issue rather than a template. Send me the booking, bill or order reference and one line on what's happening — held, delayed, damaged or a charge — and I'll confirm the facts and the next step by {{next_update_time}}.", 'service'),
+      r('warm', '共情版 · 不猜', "Hi {{customer_name}}, I'd rather ask than guess and give you the wrong answer. Send me the reference and a sentence on what's gone wrong; I'll check with the right team and come back to you by {{next_update_time}} with the facts.", 'service'),
+      r('concise', '简洁版 · 要信息', "Hi {{customer_name}} — send me the reference and one line on what's happening, and I'll confirm the facts and next step by {{next_update_time}}.", 'service')
+    ];
+  }
+
+  function checklistFor(kind, country) {
+    if (kind === 'quote') {
+      return [
+        '确认起运地 / 提货地址，或供应商送货入仓',
+        '确认件数、CBM、毛重（按供应商拆分）',
+        '确认目的仓地址、邮编与卸货条件',
+        '确认 DDP 还是 DDU，以及申报货值',
+        '确认是否含电池 / 液体 / 品牌等敏感属性'
+      ];
+    }
+    if (kind === 'booking') {
+      return [
+        '确认提货 / 送货入仓方式与地址',
+        '确认 CBM、毛重、件数与货好日期',
+        '确认目的仓地址与联系人',
+        '确认 DDP / DDU 与单证需求',
+        '确认截关 / 开船时间后再回复客户'
+      ];
+    }
+    if (kind === 'status') {
+      return ['核对 booking / bill / order reference', '确认最新节点与 ETA 口径', '确认下一次主动同步时间'];
+    }
+    if (kind === 'reference') {
+      return ['确认客户索要柜号的用途（清关 / 索赔 / 内部追踪）', '核对 booking / HAWB reference 与节点', '按公司口径只提供可披露的追踪信息'];
+    }
+    if (kind === 'general') {
+      return ['确认客户具体要什么（价格 / 订舱 / 在途 / 文件）', '确认起运地、目的地、货好时间', '再决定转给哪个岗位'];
+    }
+    return [
+      '核对提单 / 订舱号与系统记录一致（DDP 拼箱一般不向客户提供柜号）',
       '确认最新节点时间与 ETA 口径（不要凭记忆）',
       '确认费用承担方：DDP 已含 / 需另行书面确认',
       '涉及金额、赔付、时效承诺时，先走内部审批'
     ];
-    if (country === 'AU') base.push('涉及生物安全/木包装时，先确认 BICON 与 ISPM15 状态');
-    if (country === 'CA') base.push('涉及放行时，先确认 CARM / RPP 与进口商资料是否就绪');
-    if (country === 'US') base.push('涉及税费时，先确认 HTS 归类与 301/IEEPA 适用口径');
-    return base;
   }
 
   function generate(text, opts) {
     opts = opts || {};
     text = normalizeCJK(text);
     var scenarios = opts.scenarios || [];
-    var country = opts.country && opts.country !== 'ALL' ? opts.country : null;
-    var analysis = analyze(text, { scenarios: scenarios, country: country });
-    var picked = country || analysis.country || 'AU';
+    var forcedCountry = opts.country && opts.country !== 'ALL' ? opts.country : null;
+    var analysis = analyze(text, { scenarios: scenarios, country: forcedCountry });
+    var picked = forcedCountry || analysis.country || 'AU';
+    var forcedIntent = opts.intent && opts.intent !== 'auto' ? opts.intent : null;
+    var intent = forcedIntent || detectIntent(text);
+    var details = quoteDetails(text);
     var replies = [];
     var scenario = null;
+    var bridge = null;
+    var kind = intent;
 
-    if (analysis.matches.length) {
-      scenario = analysis.matches[0].scenario;
-      var scripts = scenario.scripts || [];
-      var first = scripts.find(function (s) { return s.phase === 'first'; }) || scripts[0];
-      if (first) replies.push(mkReply(first, 'library', scenario));
-      (scenario.alts || []).forEach(function (a) {
-        if (replies.length < 3) replies.push(mkReply(a, 'library', scenario));
-      });
-      scripts.forEach(function (s) {
-        if (replies.length < 3 && (!first || s !== first)) replies.push(mkReply(s, 'library', scenario));
-      });
+    if (intent === 'quote') {
+      replies = quoteReplies(details, picked);
+    } else if (intent === 'booking') {
+      replies = bookingReplies(details, picked);
+    } else if (intent === 'status') {
+      replies = statusReplies();
+    } else if (intent === 'reference') {
+      replies = referenceReplies();
+    } else if (intent === 'general') {
+      replies = generalReplies();
+    } else {
+      if (analysis.matches.length && analysis.matches[0].score >= 4.0) {
+        scenario = analysis.matches[0].scenario;
+        var scripts = scenario.scripts || [];
+        var first = scripts.find(function (s) { return s.phase === 'first'; }) || scripts[0];
+        if (first) replies.push(mkReply(first, 'library', scenario));
+        (scenario.alts || []).forEach(function (a) {
+          if (replies.length < 3) replies.push(mkReply(a, 'library', scenario));
+        });
+        scripts.forEach(function (s) {
+          if (replies.length < 3 && (!first || s !== first)) replies.push(mkReply(s, 'library', scenario));
+        });
+        bridge = detectBridge(text, scenario.category);
+      } else {
+        replies = clarifyReplies();
+        intent = 'aftersales';
+      }
     }
+
     if (replies.length < 3) {
-      replies = replies.concat(genericReplies(picked));
+      replies = replies.concat(clarifyReplies()).slice(0, 3);
     }
     replies = replies.slice(0, 3).map(function (r, i) {
       r.rank = i + 1;
       r.text = fillDefaults(r.text, opts);
+      r.placeholders = missingTokens(r.text);
       return r;
     });
 
-    var bridge = detectBridge(text, scenario ? scenario.category : '');
     if (bridge) {
       replies = replies.map(function (r) {
-        return Object.assign({}, r, { text: injectBridge(r.text, bridge) });
+        return Object.assign({}, r, { text: injectBridge(r.text, bridge), placeholders: missingTokens(injectBridge(r.text, bridge)) });
       });
     }
 
@@ -367,11 +572,15 @@
       analysis: analysis,
       country: picked,
       scenario: scenario,
+      kind: kind,
+      intent: intent,
+      intentLabel: INTENT_LABELS[intent] || INTENT_LABELS.aftersales,
+      details: details,
       replies: replies,
       vars: vars,
       bridge: bridge,
-      risks: riskFlags(text),
-      checklist: checklist(picked),
+      risks: riskFlags(text, kind),
+      checklist: checklistFor(kind, picked),
       generatedAt: new Date().toISOString()
     };
   }
@@ -405,7 +614,9 @@
     applyVars: applyVars,
     fillDefaults: fillDefaults,
     riskFlags: riskFlags,
-    checklist: checklist,
+    checklistFor: checklistFor,
+    detectIntent: detectIntent,
+    INTENT_LABELS: INTENT_LABELS,
     CATEGORY_HINTS: CATEGORY_HINTS
   };
 })();

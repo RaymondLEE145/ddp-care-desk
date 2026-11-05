@@ -19,8 +19,20 @@
         "Is my cargo going to be fined because of this?"
       ],
       "keywords": [
-        "CBP", "customs exam", "inspection", "held", "NII", "VACIS", "CET", "tailgate",
-        "查验", "扣关", "海关", "清关慢", "放行", "扫描"
+        "CBP",
+        "customs exam",
+        "inspection",
+        "held",
+        "NII",
+        "VACIS",
+        "CET",
+        "tailgate",
+        "查验",
+        "扣关",
+        "海关",
+        "清关慢",
+        "放行",
+        "扫描"
       ],
       "framework": {
         "empathy": [
@@ -53,8 +65,12 @@
           "tone": "standard",
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次问查验进度，情绪尚可控",
-          "text": "Hi {{customer_name}}, I know a customs hold is the last thing you need right now — I'd be watching the clock too.\n\nI've checked with our customs broker this morning. {{container_no}} is at {{port}} and CBP (U.S. Customs and Border Protection) has pulled it for an exam. It's an NII (non-intrusive inspection) scan rather than a full tailgate or CET (Contraband Enforcement Team) inspection, which is the lightest of the three. An exam is a border check, not a finding against your shipment.\n\nOur broker has confirmed the exam slot and the drayage, and we're holding a delivery slot for release day. I won't give you a date I can't stand behind.\n\nI'll message you by {{next_update_time}}, sooner if the status moves. I'm staying on this personally.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I know a customs hold is the last thing you need right now — I'd be watching the clock too.\n\nI've checked with our customs broker this morning. Your shipment is at {{port}} and CBP (U.S. Customs and Border Protection) has pulled it for an exam. It's an NII (non-intrusive inspection) scan rather than a full tailgate or CET (Contraband Enforcement Team) inspection, which is the lightest of the three. An exam is a border check, not a finding against your shipment.\n\nOur broker has confirmed the exam slot and the drayage, and we're holding a delivery slot for release day. I won't give you a date I can't stand behind.\n\nI'll message you by {{next_update_time}}, sooner if the status moves. I'm staying on this personally.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-cbp-exam-followup",
@@ -62,8 +78,11 @@
           "tone": "warm",
           "label_zh": "跟进 · 短消息",
           "use_when": "已回复过一次，客户再次追问；或查验无进展需主动同步",
-          "text": "Quick update on {{container_no}} at {{port}}: the NII (non-intrusive inspection) scan is done, but CBP has moved it to a tailgate inspection, which adds time. Our broker has it booked into the exam station for tomorrow morning and has sent the invoice and packing list they asked for.\n\nNothing points to a compliance problem — this is still a routine exam. I'll come back to you by {{next_update_time}} with the result.",
-          "placeholders": ["container_no", "port", "next_update_time"]
+          "text": "Quick update on your shipment at {{port}}: the NII (non-intrusive inspection) scan is done, but CBP has moved it to a tailgate inspection, which adds time. Our broker has it booked into the exam station for tomorrow morning and has sent the invoice and packing list they asked for.\n\nNothing points to a compliance problem — this is still a routine exam. I'll come back to you by {{next_update_time}} with the result.",
+          "placeholders": [
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-cbp-exam-close",
@@ -71,8 +90,11 @@
           "tone": "supervisor",
           "label_zh": "收口 · 主管口径",
           "use_when": "查验放行后说明结果，或客户情绪升级需要主管出面",
-          "text": "Hi {{customer_name}}, {{container_no}} cleared CBP this afternoon. No penalty was raised and nothing additional was assessed at release. We've released it to the drayage carrier and booked delivery for {{delivery_date}}; you'll get the driver's window the day before.\n\nI'm sorry this exam cost you the week you'd planned. The port was running a heavier exam queue than usual, and I'd rather say that plainly than dress it up.\n\nIf anything else comes up on this shipment, message me directly. I'll keep owning it until it's signed for.",
-          "placeholders": ["customer_name", "container_no", "delivery_date"]
+          "text": "Hi {{customer_name}}, your shipment cleared CBP this afternoon. No penalty was raised and nothing additional was assessed at release. We've released it to the drayage carrier and booked delivery for {{delivery_date}}; you'll get the driver's window the day before.\n\nI'm sorry this exam cost you the week you'd planned. The port was running a heavier exam queue than usual, and I'd rather say that plainly than dress it up.\n\nIf anything else comes up on this shipment, message me directly. I'll keep owning it until it's signed for.",
+          "placeholders": [
+            "customer_name",
+            "delivery_date"
+          ]
         }
       ],
       "alts": [
@@ -80,15 +102,23 @@
           "id": "us-cbp-exam-alt-warm",
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
-          "text": "Hi {{customer_name}}, I'm sorry — I know this hold is eating into your launch window, and that's genuinely stressful when you've already paid for the stock.\n\nI've just been through the file with our broker. {{container_no}} is at {{port}} and CBP has selected it for an exam. What we can see so far is a non-intrusive scan rather than a full inspection, which usually moves faster. It's a routine border check; it doesn't mean CBP has found a problem with your declaration.\n\nOur broker is chasing the exam station and we've pre-booked the drayage so it moves the moment it's released. I'll update you by {{next_update_time}}, and if it escalates you'll hear it from me the same day.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I'm sorry — I know this hold is eating into your launch window, and that's genuinely stressful when you've already paid for the stock.\n\nI've just been through the file with our broker. Your shipment is at {{port}} and CBP has selected it for an exam. What we can see so far is a non-intrusive scan rather than a full inspection, which usually moves faster. It's a routine border check; it doesn't mean CBP has found a problem with your declaration.\n\nOur broker is chasing the exam station and we've pre-booked the drayage so it moves the moment it's released. I'll update you by {{next_update_time}}, and if it escalates you'll hear it from me the same day.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-cbp-exam-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
-          "text": "Hi {{customer_name}} — status on {{container_no}}: it's at {{port}} and CBP has flagged it for an exam. It's currently a scan-level exam, not a full inspection, and there's no indication of a declaration problem.\n\nOur broker has the exam slot booked and drayage on standby, so we move as soon as CBP releases it. I can't give you a release date yet; I can give you a real update by {{next_update_time}}.\n\nIf you need to brief your own customer, I can send a one-paragraph note you can forward.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}} — status on your shipment: it's at {{port}} and CBP has flagged it for an exam. It's currently a scan-level exam, not a full inspection, and there's no indication of a declaration problem.\n\nOur broker has the exam slot booked and drayage on standby, so we move as soon as CBP releases it. I can't give you a release date yet; I can give you a real update by {{next_update_time}}.\n\nIf you need to brief your own customer, I can send a one-paragraph note you can forward.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -114,8 +144,14 @@
         ]
       },
       "authorities": [
-        { "name": "CBP Cargo Examination", "url": "https://www.cbp.gov/border-security/ports-entry/cargo-security/examination" },
-        { "name": "CBP Locate a Port of Entry", "url": "https://www.cbp.gov/about/contact/ports" }
+        {
+          "name": "CBP Cargo Examination",
+          "url": "https://www.cbp.gov/border-security/ports-entry/cargo-security/examination"
+        },
+        {
+          "name": "CBP Locate a Port of Entry",
+          "url": "https://www.cbp.gov/about/contact/ports"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -135,8 +171,19 @@
         "My broker says CBP may fine us. How bad is it?"
       ],
       "keywords": [
-        "ISF", "10+2", "importer security filing", "late filing", "penalty", "liquidated damages", "bond",
-        "ISF 迟报", "漏报", "罚金", "报关", "舱单", "清关"
+        "ISF",
+        "10+2",
+        "importer security filing",
+        "late filing",
+        "penalty",
+        "liquidated damages",
+        "bond",
+        "ISF 迟报",
+        "漏报",
+        "罚金",
+        "报关",
+        "舱单",
+        "清关"
       ],
       "framework": {
         "empathy": [
@@ -170,7 +217,12 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次得知 ISF 迟报，担心罚款",
           "text": "Hi {{customer_name}}, I understand why this has you worried — an ISF issue sounds serious, and the word penalty doesn't help.\n\nHere's what I've confirmed. ISF (Importer Security Filing, also called 10+2) has to be transmitted 24 hours before the cargo is loaded at the origin port. For {{bill_no}}, the filing went in late against that clock. That's a compliance problem with the filing, not a seizure, and it doesn't automatically mean a fine. CBP can issue liquidated damages, but the amount depends on the facts and I won't quote a number I don't have.\n\nOur broker is amending the ISF today, confirming the bond is active, and checking whether CBP has flagged the container at {{port}}. You'll have the filing receipt by {{next_update_time}}.\n\nI'll stay on it and update you even if there's nothing new.",
-          "placeholders": ["customer_name", "bill_no", "port", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-isf-late-followup",
@@ -179,7 +231,11 @@
           "label_zh": "跟进 · 短消息",
           "use_when": "补报已提交，客户追问是否还会被罚",
           "text": "Update on {{bill_no}}: the amended ISF was accepted this morning, and our broker has the transmission timestamp on file. CBP has not issued a penalty notice so far, and the container at {{port}} is still moving through normal clearance.\n\nI've asked the broker to check the entry daily until it releases. Next update from me by {{next_update_time}}.",
-          "placeholders": ["bill_no", "port", "next_update_time"]
+          "placeholders": [
+            "bill_no",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-isf-late-close",
@@ -188,7 +244,11 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "放行且无罚金通知，说明整改动作",
           "text": "Hi {{customer_name}}, good news on {{bill_no}} — CBP released the shipment without a liquidated damages claim. The late ISF is closed out, and the amended filing is the record going forward.\n\nWe've changed the handoff on our desk so the ISF clock is checked at booking, not at documentation. That one was ours to fix, not yours.\n\nDelivery is still tracking for {{delivery_date}}. If CBP sends anything later, forward it to me and I'll handle the response directly.",
-          "placeholders": ["customer_name", "bill_no", "delivery_date"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "delivery_date"
+          ]
         }
       ],
       "alts": [
@@ -197,14 +257,24 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I can hear the worry in your message, and I don't blame you — ISF penalty is a scary phrase when you're the one exposed.\n\nI've checked the file myself. The ISF for {{bill_no}} went in after the 24-hour pre-loading cut-off, so it's late. But a late filing is not a violation finding: CBP has not issued anything against you, and the container is still at {{port}} awaiting normal clearance. If CBP does raise liquidated damages, the figure is case-specific and we'll review it before anyone pays.\n\nOur broker is amending the filing and confirming the bond today. I'll send you the acceptance receipt by {{next_update_time}} and keep checking the entry daily until it's released.",
-          "placeholders": ["customer_name", "bill_no", "port", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-isf-late-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — on {{bill_no}}: the ISF was filed after the 24-hour pre-loading deadline, so it's late. No penalty notice has been issued, and the container is still in normal clearance at {{port}}.\n\nOur broker is amending the filing now and confirming the bond. You'll have the acceptance receipt by {{next_update_time}}, and I'm checking the entry daily until release.\n\nIf CBP raises liquidated damages, send me the notice and we'll review it together before responding. If a notice lands in your inbox before I write again, forward it straight away.",
-          "placeholders": ["customer_name", "bill_no", "port", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "port",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -230,8 +300,14 @@
         ]
       },
       "authorities": [
-        { "name": "CBP Importer Security Filing 10+2", "url": "https://www.cbp.gov/border-security/ports-entry/cargo-security/importer-security-filing-102" },
-        { "name": "CBP ISF 10+2 FAQs", "url": "https://www.cbp.gov/document/faqs/faqs-importer-security-filing-102-program" }
+        {
+          "name": "CBP Importer Security Filing 10+2",
+          "url": "https://www.cbp.gov/border-security/ports-entry/cargo-security/importer-security-filing-102"
+        },
+        {
+          "name": "CBP ISF 10+2 FAQs",
+          "url": "https://www.cbp.gov/document/faqs/faqs-importer-security-filing-102-program"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -251,8 +327,21 @@
         "I heard the IEEPA tariffs were struck down. Can I get a refund?"
       ],
       "keywords": [
-        "tariff", "duty", "Section 301", "IEEPA", "de minimis", "CAPE", "HTS", "entry summary",
-        "关税", "补税", "退税", "税单", "301", "对等关税", "低值免税"
+        "tariff",
+        "duty",
+        "Section 301",
+        "IEEPA",
+        "de minimis",
+        "CAPE",
+        "HTS",
+        "entry summary",
+        "关税",
+        "补税",
+        "退税",
+        "税单",
+        "301",
+        "对等关税",
+        "低值免税"
       ],
       "framework": {
         "empathy": [
@@ -288,7 +377,11 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户收到补税账单，第一次提出异议",
           "text": "Hi {{customer_name}}, I understand why the extra duty on {{bill_no}} feels like a bait-and-switch after a DDP quote. Let me walk you through it.\n\nI've pulled the entry. The charge is duty, not freight: the Harmonized Tariff Schedule (HTS) rate, Section 301 duty, and any temporary surcharge on the entry date. Nothing here was billed under IEEPA (International Emergency Economic Powers Act), so the refund route CBP (U.S. Customs and Border Protection) opened for them doesn't apply. Rates moved repeatedly since 2025; your DDP rate covers the rate we quoted, not a later statutory change — whether this lands with you depends on the terms we signed, which I'm checking.\n\nBy {{next_update_time}} you'll have the 7501, the HTS code, and a one-page breakdown. If any part is refundable, I'll pursue it and credit what comes back.\n\nI won't ask you to accept a number I can't explain.",
-          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-tariff-dispute-followup",
@@ -297,7 +390,10 @@
           "label_zh": "跟进 · 结论导向",
           "use_when": "税单拆解已出，客户仍在追问能否少付或退税",
           "text": "On {{bill_no}}: the breakdown is done. The Section 301 line is the big one and it was correctly applied; the base duty matches the HTS code. One possible angle is an exclusion — our broker is checking whether any of your lines are covered, and the exclusion lists have changed repeatedly, so we'll confirm the current position rather than rely on a date.\n\nI'll give you a clear yes or no by {{next_update_time}}.",
-          "placeholders": ["bill_no", "next_update_time"]
+          "placeholders": [
+            "bill_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-tariff-dispute-close",
@@ -306,7 +402,10 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "确认无多收，给未来报价方案",
           "text": "Hi {{customer_name}}, here's where we landed on {{bill_no}}: the duty charged matches the HTS code and the rates in force when the entry was filed, so there's no overcharge to recover. The Section 301 line is the bulk of it, and that's a tariff, not a fee I can waive.\n\nWhat I can do is quote your next shipment with today's rate stack built in, including the exclusion position, so there's no surprise at delivery. Our pricing desk is reworking the next PO now.\n\nIf you want the entry package for your records, say the word and I'll send it over.",
-          "placeholders": ["customer_name", "bill_no"]
+          "placeholders": [
+            "customer_name",
+            "bill_no"
+          ]
         }
       ],
       "alts": [
@@ -315,14 +414,22 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I'm sorry — getting a duty bill after a DDP quote is genuinely unsettling, and you have every right to push back on it.\n\nI've gone through {{bill_no}} line by line. What you're seeing is duty, not freight: the base HTS rate plus Section 301 duty in force when the entry was filed. This entry carries no IEEPA (International Emergency Economic Powers Act) line, so CBP (U.S. Customs and Border Protection) can't process a refund for those duties here. That's not the answer you were hoping for, but I'd rather give you the real one.\n\nI'll send the full breakdown, including the 7501 and the HTS code, by {{next_update_time}}. If an exclusion or a correction applies, I'll chase it and pass back whatever CBP returns.",
-          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-tariff-dispute-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — on {{bill_no}}, I've pulled the entry. The charge is duty: base HTS rate plus Section 301 duty applied on the entry date. There's no IEEPA (International Emergency Economic Powers Act) line here, so the CAPE (Consolidated Administration and Processing of Entries) refund route doesn't apply.\n\nOne change worth knowing: since 29 August 2025 the US$800 de minimis exemption has been suspended for all countries, so low-value shipments are entered and dutied too; the statutory end date is 1 July 2027.\n\nI'm sending the 7501 and a one-page breakdown by {{next_update_time}}; if an exclusion applies to any of your codes, I'll flag it and pursue it.",
-          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -349,8 +456,14 @@
         ]
       },
       "authorities": [
-        { "name": "CBP IEEPA Duty Refunds (CAPE)", "url": "https://www.cbp.gov/trade/programs-administration/trade-remedies/ieepa-duty-refunds" },
-        { "name": "USTR China Section 301 Tariff Actions", "url": "https://ustr.gov/issue-areas/enforcement/section-301-investigations/tariff-actions" }
+        {
+          "name": "CBP IEEPA Duty Refunds (CAPE)",
+          "url": "https://www.cbp.gov/trade/programs-administration/trade-remedies/ieepa-duty-refunds"
+        },
+        {
+          "name": "USTR China Section 301 Tariff Actions",
+          "url": "https://ustr.gov/issue-areas/enforcement/section-301-investigations/tariff-actions"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -370,8 +483,20 @@
         "Why is my product classified under a different code?"
       ],
       "keywords": [
-        "HTS", "HS code", "classification", "CBP Form 28", "Form 29", "CROSS", "binding ruling", "PSC",
-        "归类", "编码", "补税", "海关", "申报", "税则"
+        "HTS",
+        "HS code",
+        "classification",
+        "CBP Form 28",
+        "Form 29",
+        "CROSS",
+        "binding ruling",
+        "PSC",
+        "归类",
+        "编码",
+        "补税",
+        "海关",
+        "申报",
+        "税则"
       ],
       "framework": {
         "empathy": [
@@ -405,7 +530,11 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户收到 CBP 归类质疑或 Form 28/29",
           "text": "Hi {{customer_name}}, I know a reclassification notice feels like the ground moving under you — especially when you've already priced the goods and sold them.\n\nI've read the CBP notice on {{bill_no}}. CBP is proposing a different HTS (Harmonized Tariff Schedule) subheading than the one we declared, which would change the duty rate. This is a classification question, not an accusation of fraud, and it isn't final yet — we have a window to respond with the product specification, materials, and function.\n\nOur broker is pulling the full technical file today and comparing it against CBP's reasoning and published rulings in CROSS (Customs Rulings Online Search System). If the facts support our original code, we'll respond with evidence; if CBP is right, I'll tell you straight and model the cost before you decide on a post-summary correction.\n\nI'll have a written position for you by {{next_update_time}}.",
-          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-hs-classification-followup",
@@ -413,8 +542,10 @@
           "tone": "warm",
           "label_zh": "跟进 · 短消息",
           "use_when": "需要客户补产品资料，或答复期限临近",
-          "text": "On {{container_no}}: our broker has finished the first pass. The key question is the primary function of the unit, and the spec sheet we have is thin on that point. I've asked your team for the product manual and a materials breakdown — that's the evidence that decides this.\n\nNo change to the entry yet. I'll update you by {{next_update_time}}.",
-          "placeholders": ["container_no", "next_update_time"]
+          "text": "On your shipment: our broker has finished the first pass. The key question is the primary function of the unit, and the spec sheet we have is thin on that point. I've asked your team for the product manual and a materials breakdown — that's the evidence that decides this.\n\nNo change to the entry yet. I'll update you by {{next_update_time}}.",
+          "placeholders": [
+            "next_update_time"
+          ]
         },
         {
           "id": "us-hs-classification-close",
@@ -422,8 +553,12 @@
           "tone": "supervisor",
           "label_zh": "收口 · 主管口径",
           "use_when": "答复已提交或 CBP 已裁定，向客户交代结果",
-          "text": "Hi {{customer_name}}, we've filed our response on {{container_no}} with the technical file attached, keeping the original HTS code. CBP hasn't accepted it yet, so I won't call it won.\n\nIf CBP confirms the change, the additional duty would be {{amount}} plus interest, and I'll show you that calculation before anything is billed. If they accept our position, the entry stands as filed.\n\nEither way, you'll hear from me by {{next_update_time}}, and I'll send the ruling reference for your records once it's closed.",
-          "placeholders": ["customer_name", "container_no", "amount", "next_update_time"]
+          "text": "Hi {{customer_name}}, we've filed our response on your shipment with the technical file attached, keeping the original HTS code. CBP hasn't accepted it yet, so I won't call it won.\n\nIf CBP confirms the change, the additional duty would be {{amount}} plus interest, and I'll show you that calculation before anything is billed. If they accept our position, the entry stands as filed.\n\nEither way, you'll hear from me by {{next_update_time}}, and I'll send the ruling reference for your records once it's closed.",
+          "placeholders": [
+            "customer_name",
+            "amount",
+            "next_update_time"
+          ]
         }
       ],
       "alts": [
@@ -432,14 +567,22 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, a reclassification notice is unsettling — I get it, especially when you've already sold the goods at a price built on the old code.\n\nI've read the CBP notice on {{bill_no}} myself. CBP is proposing a different HTS subheading, which would change the duty rate. That's a technical disagreement, not an accusation, and it isn't final: we have a window to respond with the product specification, materials and primary function.\n\nOur broker is building that file now and checking CROSS (Customs Rulings Online Search System) for rulings on comparable goods. If the evidence supports our original code, we'll fight for it; if CBP is right, I'll tell you straight and model the cost before you decide anything.\n\nYou'll have my written position by {{next_update_time}}.",
-          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-hs-classification-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — CBP has proposed a different HTS code for the goods on {{bill_no}}, which would raise the duty rate. It's not final, and we have a response window.\n\nOur broker is pulling the spec, materials and function evidence today and checking comparable CBP rulings in CROSS (Customs Rulings Online Search System). I'll send you a written position by {{next_update_time}}: either we defend the original code, or I show you the cost of the change before anything is filed.\n\nNo entry amendment happens without your sign-off.",
-          "placeholders": ["customer_name", "bill_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "bill_no",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -465,8 +608,14 @@
         ]
       },
       "authorities": [
-        { "name": "CBP Rulings and Legal Decisions", "url": "https://www.cbp.gov/trade/rulings" },
-        { "name": "CBP Determining Duty Rates", "url": "https://www.cbp.gov/trade/programs-administration/determining-duty-rates" }
+        {
+          "name": "CBP Rulings and Legal Decisions",
+          "url": "https://www.cbp.gov/trade/rulings"
+        },
+        {
+          "name": "CBP Determining Duty Rates",
+          "url": "https://www.cbp.gov/trade/programs-administration/determining-duty-rates"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -486,8 +635,21 @@
         "CPSC has our shipment. How long is this going to take?"
       ],
       "keywords": [
-        "PGA", "FDA", "FCC", "CPSC", "USDA", "APHIS", "prior notice", "CPC", "eFiling",
-        "扣留", "合规", "认证", "注册", "检测报告", "放行"
+        "PGA",
+        "FDA",
+        "FCC",
+        "CPSC",
+        "USDA",
+        "APHIS",
+        "prior notice",
+        "CPC",
+        "eFiling",
+        "扣留",
+        "合规",
+        "认证",
+        "注册",
+        "检测报告",
+        "放行"
       ],
       "framework": {
         "empathy": [
@@ -520,8 +682,12 @@
           "tone": "standard",
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次得知 PGA 扣留，情绪尚可控；本条仅适用 FDA prior notice / product code 类扣留",
-          "text": "Hi {{customer_name}}, I'm sorry — a PGA hold is frustrating because the cargo sits while another agency works through its own queue, and you're paying for the wait.\n\nI've checked with our broker. {{container_no}} is at {{port}} and CBP has referred it to a PGA (Partner Government Agency). The hold is with FDA on the prior notice and product code for the entry; that's fixable with documentation, and our broker is preparing the corrected submission today. If the hold turns out to be with CPSC, FCC or USDA instead, tell me and I'll switch to the right checklist.\n\nI can't give you an FDA release date. I can make sure nothing on our side is missing and keep pressure on the file.\n\nI'll update you by {{next_update_time}}, and immediately if the agency needs anything from you.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I'm sorry — a PGA hold is frustrating because the cargo sits while another agency works through its own queue, and you're paying for the wait.\n\nI've checked with our broker. Your shipment is at {{port}} and CBP has referred it to a PGA (Partner Government Agency). The hold is with FDA on the prior notice and product code for the entry; that's fixable with documentation, and our broker is preparing the corrected submission today. If the hold turns out to be with CPSC, FCC or USDA instead, tell me and I'll switch to the right checklist.\n\nI can't give you an FDA release date. I can make sure nothing on our side is missing and keep pressure on the file.\n\nI'll update you by {{next_update_time}}, and immediately if the agency needs anything from you.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-pga-hold-followup",
@@ -529,8 +695,10 @@
           "tone": "warm",
           "label_zh": "跟进 · 短消息",
           "use_when": "资料已补交，客户追问 PGA 何时放行",
-          "text": "Update on {{container_no}}: our broker has refiled the FDA prior notice with the corrected product code and attached the manufacturer's registration. FDA has acknowledged receipt but hasn't issued a may-proceed message yet.\n\nI've asked for a status check tomorrow morning. Next update by {{next_update_time}}, even if it's just to confirm we're still in the queue.",
-          "placeholders": ["container_no", "next_update_time"]
+          "text": "Update on your shipment: our broker has refiled the FDA prior notice with the corrected product code and attached the manufacturer's registration. FDA has acknowledged receipt but hasn't issued a may-proceed message yet.\n\nI've asked for a status check tomorrow morning. Next update by {{next_update_time}}, even if it's just to confirm we're still in the queue.",
+          "placeholders": [
+            "next_update_time"
+          ]
         },
         {
           "id": "us-pga-hold-close",
@@ -538,8 +706,11 @@
           "tone": "supervisor",
           "label_zh": "收口 · 主管口径",
           "use_when": "PGA 放行后说明结果与预防动作",
-          "text": "Hi {{customer_name}}, {{container_no}} has cleared the FDA hold and CBP released it this morning. FDA released it without requiring reconditioning or refusing the goods, and nothing additional was assessed at release.\n\nWe've booked delivery for {{delivery_date}}, and our broker is keeping the correction on file so the next shipment under the same product code doesn't repeat it.\n\nI'm sorry the review sat longer than either of us wanted. If you have more of this product coming, send me the specs before booking and I'll have the entry package pre-checked.",
-          "placeholders": ["customer_name", "container_no", "delivery_date"]
+          "text": "Hi {{customer_name}}, your shipment has cleared the FDA hold and CBP released it this morning. FDA released it without requiring reconditioning or refusing the goods, and nothing additional was assessed at release.\n\nWe've booked delivery for {{delivery_date}}, and our broker is keeping the correction on file so the next shipment under the same product code doesn't repeat it.\n\nI'm sorry the review sat longer than either of us wanted. If you have more of this product coming, send me the specs before booking and I'll have the entry package pre-checked.",
+          "placeholders": [
+            "customer_name",
+            "delivery_date"
+          ]
         }
       ],
       "alts": [
@@ -547,15 +718,23 @@
           "id": "us-pga-hold-alt-warm",
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
-          "text": "Hi {{customer_name}}, I'm sorry — a PGA hold is the worst kind of waiting, because the cargo is here and the delay is in someone else's queue.\n\nI've been through it with our broker. {{container_no}} is at {{port}} and CBP has referred it to FDA for review. The issue we can see is the prior notice and product code on the entry, and that's fixable with the right paperwork; FDA hasn't raised a product issue so far. Our broker is refiling today with the manufacturer's registration attached.\n\nI can't give you an FDA release date, but I can make sure nothing on our side is missing. I'll update you by {{next_update_time}}, and the moment FDA asks for anything from you, you'll hear it from me first.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I'm sorry — a PGA hold is the worst kind of waiting, because the cargo is here and the delay is in someone else's queue.\n\nI've been through it with our broker. Your shipment is at {{port}} and CBP has referred it to FDA for review. The issue we can see is the prior notice and product code on the entry, and that's fixable with the right paperwork; FDA hasn't raised a product issue so far. Our broker is refiling today with the manufacturer's registration attached.\n\nI can't give you an FDA release date, but I can make sure nothing on our side is missing. I'll update you by {{next_update_time}}, and the moment FDA asks for anything from you, you'll hear it from me first.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-pga-hold-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
-          "text": "Hi {{customer_name}} — {{container_no}} is at {{port}} and CBP has referred it to FDA. The hold is about the prior notice and product code, and FDA hasn't raised a product issue so far; our broker is refiling with the corrected documentation today.\n\nThere's no FDA release date I can promise. What I can do is confirm every document is in and chase the file daily. If you have the facility registration number handy, send it; it can save a day.\n\nI'll update you by {{next_update_time}}, and immediately if FDA requests anything from your side.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}} — your shipment is at {{port}} and CBP has referred it to FDA. The hold is about the prior notice and product code, and FDA hasn't raised a product issue so far; our broker is refiling with the corrected documentation today.\n\nThere's no FDA release date I can promise. What I can do is confirm every document is in and chase the file daily. If you have the facility registration number handy, send it; it can save a day.\n\nI'll update you by {{next_update_time}}, and immediately if FDA requests anything from your side.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -581,8 +760,14 @@
         ]
       },
       "authorities": [
-        { "name": "CBP Partner Government Agencies Import Guides", "url": "https://www.cbp.gov/trade/basic-import-export/e-commerce/partner-government-agencies-import-guides" },
-        { "name": "FDA Import Program Tools", "url": "https://www.fda.gov/industry/import-program/import-program-tools" }
+        {
+          "name": "CBP Partner Government Agencies Import Guides",
+          "url": "https://www.cbp.gov/trade/basic-import-export/e-commerce/partner-government-agencies-import-guides"
+        },
+        {
+          "name": "FDA Import Program Tools",
+          "url": "https://www.fda.gov/industry/import-program/import-program-tools"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -602,8 +787,20 @@
         "Is my cargo stuck on the water or on the rail?"
       ],
       "keywords": [
-        "port congestion", "IPI", "rail delay", "ETA", "Los Angeles", "Long Beach", "berth", "chassis",
-        "拥堵", "铁路", "船期", "跳港", "延误", "到港"
+        "port congestion",
+        "IPI",
+        "rail delay",
+        "ETA",
+        "Los Angeles",
+        "Long Beach",
+        "berth",
+        "chassis",
+        "拥堵",
+        "铁路",
+        "船期",
+        "跳港",
+        "延误",
+        "到港"
       ],
       "framework": {
         "empathy": [
@@ -636,8 +833,13 @@
           "tone": "standard",
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次追问 ETA 变化",
-          "text": "Hi {{customer_name}}, I know watching an ETA slip twice is maddening when you've got a sales window and a warehouse team waiting.\n\nHere's what I've verified this morning. The vessel for {{container_no}} is still scheduled into {{port}}, but the terminal is working through a berth backlog, and the rail connection to your inland point is showing extra dwell. The carrier's latest ETA is {{eta_date}}, and I'm treating that as an estimate, not a promise.\n\nOur operations team is checking the vessel and rail status twice a day, and I've pre-booked drayage so we're not waiting on a truck when the container is grounded. If the rail delay grows, I'll put a truck option in front of you with the cost before we move.\n\nI'll update you by {{next_update_time}}, and any ETA change reaches you the same day.",
-          "placeholders": ["customer_name", "container_no", "port", "eta_date", "next_update_time"]
+          "text": "Hi {{customer_name}}, I know watching an ETA slip twice is maddening when you've got a sales window and a warehouse team waiting.\n\nHere's what I've verified this morning. The vessel for your shipment is still scheduled into {{port}}, but the terminal is working through a berth backlog, and the rail connection to your inland point is showing extra dwell. The carrier's latest ETA is {{eta_date}}, and I'm treating that as an estimate, not a promise.\n\nOur operations team is checking the vessel and rail status twice a day, and I've pre-booked drayage so we're not waiting on a truck when the container is grounded. If the rail delay grows, I'll put a truck option in front of you with the cost before we move.\n\nI'll update you by {{next_update_time}}, and any ETA change reaches you the same day.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "eta_date",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-port-rail-delay-followup",
@@ -645,8 +847,11 @@
           "tone": "warm",
           "label_zh": "跟进 · 短消息",
           "use_when": "船已靠泊但铁路错过本周舱位",
-          "text": "Quick update on {{container_no}}: the vessel has berthed at {{port}}, but this week's rail cut-off has already closed, so the inland leg moves to the next available train. That puts us roughly a week behind the original plan.\n\nI'm holding a drayage slot and checking the next rail window daily. I'll come back to you by {{next_update_time}} with a firmer inland date.",
-          "placeholders": ["container_no", "port", "next_update_time"]
+          "text": "Quick update on your shipment: the vessel has berthed at {{port}}, but this week's rail cut-off has already closed, so the inland leg moves to the next available train. That puts us roughly a week behind the original plan.\n\nI'm holding a drayage slot and checking the next rail window daily. I'll come back to you by {{next_update_time}} with a firmer inland date.",
+          "placeholders": [
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-port-rail-delay-close",
@@ -654,8 +859,11 @@
           "tone": "supervisor",
           "label_zh": "收口 · 主管口径",
           "use_when": "货物上铁路或到内陆点，确认派送",
-          "text": "Hi {{customer_name}}, {{container_no}} is finally moving — it loaded on the rail today and is tracking to arrive at the inland ramp ahead of {{delivery_date}}. Delivery is booked for {{delivery_date}}, and I'll confirm the appointment the day before.\n\nI'm sorry this one stacked a berth delay on top of a rail miss; the second one is what cost you the extra week. I've flagged the routing so your next booking avoids that cut-off where we can.\n\nI'll stay on it until it's at your door.",
-          "placeholders": ["customer_name", "container_no", "delivery_date"]
+          "text": "Hi {{customer_name}}, your shipment is finally moving — it loaded on the rail today and is tracking to arrive at the inland ramp ahead of {{delivery_date}}. Delivery is booked for {{delivery_date}}, and I'll confirm the appointment the day before.\n\nI'm sorry this one stacked a berth delay on top of a rail miss; the second one is what cost you the extra week. I've flagged the routing so your next booking avoids that cut-off where we can.\n\nI'll stay on it until it's at your door.",
+          "placeholders": [
+            "customer_name",
+            "delivery_date"
+          ]
         }
       ],
       "alts": [
@@ -663,15 +871,25 @@
           "id": "us-port-rail-delay-alt-warm",
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
-          "text": "Hi {{customer_name}}, I know a slipping ETA is maddening when you've got a sales window and a team waiting on stock.\n\nI've checked the vessel and rail status this morning. The ship for {{container_no}} is still due into {{port}}, but the terminal is working through a berth backlog and the rail connection to your inland point is showing extra dwell. The carrier's latest ETA is {{eta_date}}, and I'm treating it as an estimate.\n\nOur operations team is checking twice a day, and drayage is pre-booked so we don't lose time on a truck. If the rail delay grows, I'll bring you a truck option with the cost before we move.\n\nYou'll hear from me by {{next_update_time}}, and any ETA change the same day.",
-          "placeholders": ["customer_name", "container_no", "port", "eta_date", "next_update_time"]
+          "text": "Hi {{customer_name}}, I know a slipping ETA is maddening when you've got a sales window and a team waiting on stock.\n\nI've checked the vessel and rail status this morning. The ship for your shipment is still due into {{port}}, but the terminal is working through a berth backlog and the rail connection to your inland point is showing extra dwell. The carrier's latest ETA is {{eta_date}}, and I'm treating it as an estimate.\n\nOur operations team is checking twice a day, and drayage is pre-booked so we don't lose time on a truck. If the rail delay grows, I'll bring you a truck option with the cost before we move.\n\nYou'll hear from me by {{next_update_time}}, and any ETA change the same day.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "eta_date",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-port-rail-delay-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
-          "text": "Hi {{customer_name}} — status on {{container_no}}: vessel still due into {{port}} on {{eta_date}}, but there's a berth backlog and the rail leg to your inland point is showing extra dwell.\n\nWe're checking vessel and rail twice a day and have drayage pre-booked. If rail slips further, I'll price a truck move and let you decide before we spend anything. I'm not treating the carrier's ETA as a promise.\n\nNext update by {{next_update_time}}; any ETA change reaches you the same day.",
-          "placeholders": ["customer_name", "container_no", "port", "eta_date", "next_update_time"]
+          "text": "Hi {{customer_name}} — status on your shipment: vessel still due into {{port}} on {{eta_date}}, but there's a berth backlog and the rail leg to your inland point is showing extra dwell.\n\nWe're checking vessel and rail twice a day and have drayage pre-booked. If rail slips further, I'll price a truck move and let you decide before we spend anything. I'm not treating the carrier's ETA as a promise.\n\nNext update by {{next_update_time}}; any ETA change reaches you the same day.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "eta_date",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -697,8 +915,14 @@
         ]
       },
       "authorities": [
-        { "name": "CBP Locate a Port of Entry", "url": "https://www.cbp.gov/about/contact/ports" },
-        { "name": "FMC Detention and Demurrage", "url": "https://www.fmc.gov/detention-and-demurrage/" }
+        {
+          "name": "CBP Locate a Port of Entry",
+          "url": "https://www.cbp.gov/about/contact/ports"
+        },
+        {
+          "name": "FMC Detention and Demurrage",
+          "url": "https://www.fmc.gov/detention-and-demurrage/"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -718,8 +942,20 @@
         "I'm not paying storage because your truck was late."
       ],
       "keywords": [
-        "demurrage", "detention", "storage", "free time", "per diem", "terminal", "chassis", "appointment",
-        "滞箱费", "滞港费", "仓储费", "免费期", "柜租", "费用"
+        "demurrage",
+        "detention",
+        "storage",
+        "free time",
+        "per diem",
+        "terminal",
+        "chassis",
+        "appointment",
+        "滞箱费",
+        "滞港费",
+        "仓储费",
+        "免费期",
+        "柜租",
+        "费用"
       ],
       "framework": {
         "empathy": [
@@ -752,8 +988,12 @@
           "tone": "standard",
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次收到滞箱费账单并提出异议",
-          "text": "Hi {{customer_name}}, I'd be upset too — demurrage is the charge that makes it look like nobody was watching the clock. That's not how I want this handled.\n\nI've pulled the terminal records for {{container_no}}. The container cleared CBP on time, but it sat at {{port}} past free time because the terminal canceled our appointment and the next slot was two days out. Demurrage has been accruing since then. I have the daily rate and the running total, and I'll send you the breakdown rather than a lump sum.\n\nOur drayage team has a firm appointment for tomorrow, and I'm filing a dispute with the terminal for the days lost to their cancellation, with the booking records attached.\n\nI'll update you by {{next_update_time}} with what's been waived and what hasn't.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I'd be upset too — demurrage is the charge that makes it look like nobody was watching the clock. That's not how I want this handled.\n\nI've pulled the terminal records for your shipment. The container cleared CBP on time, but it sat at {{port}} past free time because the terminal canceled our appointment and the next slot was two days out. Demurrage has been accruing since then. I have the daily rate and the running total, and I'll send you the breakdown rather than a lump sum.\n\nOur drayage team has a firm appointment for tomorrow, and I'm filing a dispute with the terminal for the days lost to their cancellation, with the booking records attached.\n\nI'll update you by {{next_update_time}} with what's been waived and what hasn't.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-demurrage-detention-followup",
@@ -761,8 +1001,11 @@
           "tone": "firm",
           "label_zh": "跟进 · 结论导向",
           "use_when": "已提柜止费，争议已提交",
-          "text": "On {{container_no}}: the container is out of the terminal as of this morning, so demurrage stopped accruing. The dispute for the canceled-appointment days is filed and acknowledged; the terminal says five business days to review. I'm also checking the invoice against the Federal Maritime Commission's (FMC) 30-day billing rule; if it's late or incomplete, we can challenge the charge itself.\n\nCurrent exposure is {{amount}}, and I'm not billing any of it until the dispute comes back. Next update by {{next_update_time}}.",
-          "placeholders": ["container_no", "amount", "next_update_time"]
+          "text": "On your shipment: the container is out of the terminal as of this morning, so demurrage stopped accruing. The dispute for the canceled-appointment days is filed and acknowledged; the terminal says five business days to review. I'm also checking the invoice against the Federal Maritime Commission's (FMC) 30-day billing rule; if it's late or incomplete, we can challenge the charge itself.\n\nCurrent exposure is {{amount}}, and I'm not billing any of it until the dispute comes back. Next update by {{next_update_time}}.",
+          "placeholders": [
+            "amount",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-demurrage-detention-close",
@@ -770,8 +1013,11 @@
           "tone": "supervisor",
           "label_zh": "收口 · 主管口径",
           "use_when": "争议结果出来，明确承担与减免",
-          "text": "Hi {{customer_name}}, the terminal has waived the two days lost to their canceled appointment. The remaining demurrage of {{amount}} on {{container_no}} covers the period after the replacement slot, and that one is ours — the drayage booking was late on our side.\n\nI've credited that amount off your account and sent the revised statement. No action needed from you.\n\nI've also changed how we book appointments on this lane so we're not relying on a single slot. I'm sorry you had to chase this.",
-          "placeholders": ["customer_name", "container_no", "amount"]
+          "text": "Hi {{customer_name}}, the terminal has waived the two days lost to their canceled appointment. The remaining demurrage of {{amount}} on your shipment covers the period after the replacement slot, and that one is ours — the drayage booking was late on our side.\n\nI've credited that amount off your account and sent the revised statement. No action needed from you.\n\nI've also changed how we book appointments on this lane so we're not relying on a single slot. I'm sorry you had to chase this.",
+          "placeholders": [
+            "customer_name",
+            "amount"
+          ]
         }
       ],
       "alts": [
@@ -779,15 +1025,23 @@
           "id": "us-demurrage-detention-alt-warm",
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
-          "text": "Hi {{customer_name}}, I'd be angry too — demurrage is the charge that makes it look like nobody was watching the clock, and I don't want you to feel that way about us.\n\nI've pulled the terminal records for {{container_no}}. The container cleared CBP on time, but it sat at {{port}} past free time because the terminal canceled our appointment and the next slot was two days out. The charges have been running since then, and I'll show you the daily rate and the running total rather than a lump sum.\n\nOur drayage team has a firm appointment tomorrow, and I'm disputing the days lost to that cancellation with the terminal's own booking records.\n\nI'll tell you what's been waived and what hasn't by {{next_update_time}}.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}}, I'd be angry too — demurrage is the charge that makes it look like nobody was watching the clock, and I don't want you to feel that way about us.\n\nI've pulled the terminal records for your shipment. The container cleared CBP on time, but it sat at {{port}} past free time because the terminal canceled our appointment and the next slot was two days out. The charges have been running since then, and I'll show you the daily rate and the running total rather than a lump sum.\n\nOur drayage team has a firm appointment tomorrow, and I'm disputing the days lost to that cancellation with the terminal's own booking records.\n\nI'll tell you what's been waived and what hasn't by {{next_update_time}}.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-demurrage-detention-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
-          "text": "Hi {{customer_name}} — on {{container_no}}: it cleared CBP on time but sat at {{port}} past free time after the terminal canceled our appointment and pushed us two days out. Demurrage has been accruing since.\n\nWe have a firm drayage appointment tomorrow and I've filed a dispute for the canceled days, with the terminal's booking records attached. The running total is in the breakdown I'm sending, and nothing gets billed until the dispute is answered. I'm not treating the terminal's clock as your fault.\n\nI'll update you by {{next_update_time}}.",
-          "placeholders": ["customer_name", "container_no", "port", "next_update_time"]
+          "text": "Hi {{customer_name}} — on your shipment: it cleared CBP on time but sat at {{port}} past free time after the terminal canceled our appointment and pushed us two days out. Demurrage has been accruing since.\n\nWe have a firm drayage appointment tomorrow and I've filed a dispute for the canceled days, with the terminal's booking records attached. The running total is in the breakdown I'm sending, and nothing gets billed until the dispute is answered. I'm not treating the terminal's clock as your fault.\n\nI'll update you by {{next_update_time}}.",
+          "placeholders": [
+            "customer_name",
+            "port",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -813,8 +1067,14 @@
         ]
       },
       "authorities": [
-        { "name": "FMC Detention and Demurrage", "url": "https://www.fmc.gov/detention-and-demurrage/" },
-        { "name": "FMC Filing a Shipping Complaint", "url": "https://www.fmc.gov/complaints-and-assistance/filing-a-shipping-complaint/" }
+        {
+          "name": "FMC Detention and Demurrage",
+          "url": "https://www.fmc.gov/detention-and-demurrage/"
+        },
+        {
+          "name": "FMC Filing a Shipping Complaint",
+          "url": "https://www.fmc.gov/complaints-and-assistance/filing-a-shipping-complaint/"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -834,8 +1094,20 @@
         "Will they try again or send it back?"
       ],
       "keywords": [
-        "delivery failed", "address correction", "redelivery", "residential", "liftgate", "pickup", "UPS", "FedEx",
-        "派送失败", "地址错误", "无人签收", "退件", "派送费", "末端"
+        "delivery failed",
+        "address correction",
+        "redelivery",
+        "residential",
+        "liftgate",
+        "pickup",
+        "UPS",
+        "FedEx",
+        "派送失败",
+        "地址错误",
+        "无人签收",
+        "退件",
+        "派送费",
+        "末端"
       ],
       "framework": {
         "empathy": [
@@ -869,7 +1141,12 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次收到派送失败通知",
           "text": "Hi {{customer_name}}, I've seen the failed delivery attempt, and I know that's the most annoying kind of delay — the cargo is in the country, just not where it needs to be.\n\nI've checked the carrier record for {{order_no}}. The driver reached the address on the delivery order, but the suite number was missing and the front desk wouldn't accept a pallet without it. The shipment is back at the local terminal, not lost, and the carrier is holding it for a corrected address.\n\nI'm confirming the suite and a contact number with you now, and I'll rebook delivery for {{delivery_date}}. If you'd rather have it held for pickup, I can arrange that instead.\n\nI'll confirm the new booking by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "delivery_date", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "delivery_date",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-delivery-failed-followup",
@@ -878,7 +1155,11 @@
           "label_zh": "跟进 · 短消息",
           "use_when": "地址已更正，等待二次派送",
           "text": "Update on {{order_no}}: the carrier has the corrected address and the reattempt is booked for {{delivery_date}}. They've waived the first reattempt fee; a second failed attempt would carry a charge, so I've asked them to call ahead.\n\nI'll confirm the driver window by {{next_update_time}}. If anything changes on the address side, tell me before the driver sets out.",
-          "placeholders": ["order_no", "delivery_date", "next_update_time"]
+          "placeholders": [
+            "order_no",
+            "delivery_date",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-delivery-failed-close",
@@ -887,7 +1168,11 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "派送完成，交代费用与整改",
           "text": "Hi {{customer_name}}, {{order_no}} was delivered this afternoon and signed for by your receiving team. I've attached the proof of delivery with the timestamp.\n\nThe address correction cost {{amount}}, which is the carrier's standard fee, and I've absorbed it because we should have caught the missing suite when we confirmed the order.\n\nI've added an address check to our dispatch step so this doesn't repeat. Anything else on this shipment, come straight to me.",
-          "placeholders": ["customer_name", "order_no", "amount"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "amount"
+          ]
         }
       ],
       "alts": [
@@ -896,14 +1181,24 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I'm sorry — a failed delivery is such a frustrating place to be stuck, because the cargo is already in the country and you still can't get your hands on it.\n\nI've checked the carrier record for {{order_no}}. The driver got to the address on the delivery order, but the suite number was missing and the front desk wouldn't take a pallet without it. The shipment is safe at the local terminal, not lost, and the carrier is holding it for a corrected address.\n\nI'm confirming the suite and a contact number with you now and will rebook for {{delivery_date}}. If pickup suits you better, I can arrange that instead.\n\nI'll confirm the new booking by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "delivery_date", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "delivery_date",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-delivery-failed-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — {{order_no}} failed delivery because the address on the delivery order was missing the suite number, and the front desk wouldn't accept the pallet. The shipment is safe at the local terminal.\n\nSend me the suite and a contact number and I'll rebook for {{delivery_date}}; pickup from the terminal is also possible if that's faster. The carrier waived the first reattempt fee, but a second failed attempt would cost another fee, so I'd rather get it right.\n\nI'll confirm the booking by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "delivery_date", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "delivery_date",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -929,7 +1224,10 @@
         ]
       },
       "authorities": [
-        { "name": "FMC Filing a Shipping Complaint", "url": "https://www.fmc.gov/complaints-and-assistance/filing-a-shipping-complaint/" }
+        {
+          "name": "FMC Filing a Shipping Complaint",
+          "url": "https://www.fmc.gov/complaints-and-assistance/filing-a-shipping-complaint/"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -949,8 +1247,20 @@
         "Is this covered? My customer is refusing the goods."
       ],
       "keywords": [
-        "damage", "damage claim", "crushed", "water damage", "inspection", "POD", "insurance", "COGSA",
-        "货损", "破损", "水湿", "挤压", "赔偿", "定损"
+        "damage",
+        "damage claim",
+        "crushed",
+        "water damage",
+        "inspection",
+        "POD",
+        "insurance",
+        "COGSA",
+        "货损",
+        "破损",
+        "水湿",
+        "挤压",
+        "赔偿",
+        "定损"
       ],
       "framework": {
         "empathy": [
@@ -984,7 +1294,11 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次发来破损照片并提出赔偿",
           "text": "Hi {{customer_name}}, I'm sorry — seeing crushed cartons after waiting weeks for the shipment is a gut punch, and I want to sort this properly before you're stuck with unusable stock.\n\nI've opened a damage file for {{order_no}}. From your photos, the damage looks like compression on the lower tiers, and several cartons look affected. I'm not going to guess the cause or the value yet; I need the delivery receipt with the exceptions noted, the packing list, and photos of the pallet wrap and container seal if you have them.\n\nOur claims team is reviewing today, and I've asked the carrier to hold the damaged units for inspection rather than dispose of them. If you need replacement stock urgently, tell me and I'll price an air option separately.\n\nI'll come back to you by {{next_update_time}} with a claim number and next steps.",
-          "placeholders": ["customer_name", "order_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-damage-followup",
@@ -993,7 +1307,11 @@
           "label_zh": "跟进 · 短消息",
           "use_when": "索赔已立案，等待查勘",
           "text": "On {{order_no}}: the claim is filed with the carrier and our cargo insurer, and the surveyor is booked for {{delivery_date}}. Please keep the damaged cartons as they are until he's seen them — photos alone usually aren't enough.\n\nI'll have the surveyor's report within a few days of the visit and will update you by {{next_update_time}}.",
-          "placeholders": ["order_no", "delivery_date", "next_update_time"]
+          "placeholders": [
+            "order_no",
+            "delivery_date",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-damage-close",
@@ -1002,7 +1320,10 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "定损完成，交代索赔金额与后续",
           "text": "Hi {{customer_name}}, the surveyor's report is in: the damage is consistent with compression in transit, and the claim has been accepted for review. We're claiming {{amount}}, which reflects the invoice value of the affected cartons plus handling; the final figure is the insurer's call, not mine.\n\nI'll keep you updated weekly until the settlement lands, and I'll send the payment confirmation the day it does.\n\nI'm sorry this arrived in that condition. If you need to reorder, I'll prioritize the booking and hold the same rate.",
-          "placeholders": ["customer_name", "amount"]
+          "placeholders": [
+            "customer_name",
+            "amount"
+          ]
         }
       ],
       "alts": [
@@ -1011,14 +1332,22 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I'm really sorry — opening a pallet and finding crushed cartons after weeks of waiting is a horrible feeling, and I want to deal with it properly.\n\nI've opened a damage file for {{order_no}}. From the photos, the damage looks like compression on the lower tiers, and several cartons look affected. I won't guess the cause or the value before inspection. I need the delivery receipt with the exceptions noted, the packing list, and photos of the pallet wrap and container seal if you have them.\n\nOur claims team is reviewing today, and I've asked the carrier to hold the damaged units rather than dispose of them. I'll come back by {{next_update_time}} with a claim number and next steps.",
-          "placeholders": ["customer_name", "order_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-damage-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — I've opened a damage file for {{order_no}}. The photos point to compression damage on several cartons, but I won't put a number on it before inspection.\n\nPlease send the delivery receipt with exceptions noted, the packing list, and photos of the pallet wrap and seal. Keep the damaged cartons as they are; the carrier has been asked not to dispose of them.\n\nI'll have a claim number, a surveyor plan and next steps for you by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -1044,7 +1373,10 @@
         ]
       },
       "authorities": [
-        { "name": "46 U.S.C. ch. 307 — liability of water carriers (COGSA)", "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title46/html/USCODE-2024-title46-subtitleIII-chap307.htm" }
+        {
+          "name": "46 U.S.C. ch. 307 — liability of water carriers (COGSA)",
+          "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title46/html/USCODE-2024-title46-subtitleIII-chap307.htm"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -1064,8 +1396,20 @@
         "Did someone steal them in transit?"
       ],
       "keywords": [
-        "shortage", "short shipped", "missing cartons", "seal", "tally", "claim", "warehouse", "POD",
-        "少箱", "短少", "丢件", "短装", "封条", "索赔"
+        "shortage",
+        "short shipped",
+        "missing cartons",
+        "seal",
+        "tally",
+        "claim",
+        "warehouse",
+        "POD",
+        "少箱",
+        "短少",
+        "丢件",
+        "短装",
+        "封条",
+        "索赔"
       ],
       "framework": {
         "empathy": [
@@ -1099,7 +1443,11 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次报告少箱",
           "text": "Hi {{customer_name}}, I know a shortage is worse than a delay — you've paid for goods that simply aren't there, and the count never adds up however many times you check.\n\nI've started a shortage file for {{order_no}}. Your receiving count is short against the packing list, and the seal number on the container matches the one on the bill of lading, so this doesn't look like an in-transit break-in. That points to a loading or tally discrepancy, and I want to verify it properly rather than guess.\n\nOur warehouse is pulling the loading tally and CCTV for the load date, and I've notified the carrier so the claim is on record inside their notice window. I'm also reconciling carton-level scans against your count.\n\nI'll have an initial finding for you by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-shortage-followup",
@@ -1108,7 +1456,11 @@
           "label_zh": "跟进 · 结论导向",
           "use_when": "已核对装柜与扫描，等待拆柜记录",
           "text": "Update on {{order_no}}: the warehouse tally confirms the cartons were loaded, and the scan data shows them in the container at origin. I'm now checking the deconsolidation tally at {{port}} — that's the last point where the count could have changed.\n\nNo conclusion yet, and I won't close this until we find where the cartons left the chain. Next update by {{next_update_time}}.",
-          "placeholders": ["order_no", "port", "next_update_time"]
+          "placeholders": [
+            "order_no",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-shortage-close",
@@ -1117,7 +1469,11 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "找到部分货，其余进入索赔",
           "text": "Hi {{customer_name}}, we've traced the shortage to the deconsolidation stage: the cartons were left behind at the warehouse. They've been located and are booked to ship to you on {{delivery_date}} at our cost.\n\nFor the cartons that can't be located, I've filed the claim for {{amount}} and will pursue it through the carrier and our insurer.\n\nI'm sorry the count came up short. I'll send you the tracking for the recovered cartons as soon as they move.",
-          "placeholders": ["customer_name", "delivery_date", "amount"]
+          "placeholders": [
+            "customer_name",
+            "delivery_date",
+            "amount"
+          ]
         }
       ],
       "alts": [
@@ -1126,14 +1482,22 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I know a shortage is the worst kind of problem — you've paid for goods that aren't there, and the count never comes out right no matter how many times you check.\n\nI've opened a shortage file for {{order_no}}. Your receiving count is short against the packing list, and the seal number matches the bill of lading, so this doesn't look like an in-transit break-in. That points to a loading or deconsolidation discrepancy, and I want to verify it properly instead of guessing.\n\nI've asked our warehouse for the loading tally and CCTV, and I've put the carrier on notice inside their claim window. I'll have an initial finding by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-shortage-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — shortage file opened for {{order_no}}. Your count is short against the packing list, and the seal matches the bill of lading, so it doesn't look like an in-transit break-in.\n\nI've requested the loading tally and CCTV from our warehouse and put the carrier on notice within their claim window. I'm reconciling carton-level scans against your count now, and I'm not closing this until we know where the cartons left the chain.\n\nI'll have an initial finding for you by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -1159,7 +1523,10 @@
         ]
       },
       "authorities": [
-        { "name": "46 U.S.C. ch. 307 — liability of water carriers (COGSA)", "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title46/html/USCODE-2024-title46-subtitleIII-chap307.htm" }
+        {
+          "name": "46 U.S.C. ch. 307 — liability of water carriers (COGSA)",
+          "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title46/html/USCODE-2024-title46-subtitleIII-chap307.htm"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -1179,8 +1546,20 @@
         "I want a refund. This is unacceptable."
       ],
       "keywords": [
-        "urgent", "escalation", "complaint", "refund", "chargeback", "supervisor", "chasing", "feedback",
-        "催件", "投诉", "退款", "差评", "升级", "情绪"
+        "urgent",
+        "escalation",
+        "complaint",
+        "refund",
+        "chargeback",
+        "supervisor",
+        "chasing",
+        "feedback",
+        "催件",
+        "投诉",
+        "退款",
+        "差评",
+        "升级",
+        "情绪"
       ],
       "framework": {
         "empathy": [
@@ -1213,7 +1592,12 @@
           "label_zh": "首次回复 · 直接口径",
           "use_when": "客户情绪已升级，需要主管第一时间接住",
           "text": "Hi {{customer_name}}, I hear you — three weeks of chasing with no straight answer is enough to make anyone furious, and you're right to expect better from us.\n\nI've taken {{order_no}} off the queue myself. I've read the thread and the tracking history this morning, and I'm not going to defend the gaps in our updates; they happened. What I can tell you now is that the shipment is at {{port}} and the hold is a documentation query from CBP, not a loss or a seizure. Our broker is responding today.\n\nFrom here you get a written status every day by 5pm your time until this is delivered, whether or not there's movement. If we miss a commitment, my supervisor is copied on the thread.\n\nFirst update by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "port", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-urgent-chase-followup",
@@ -1222,7 +1606,10 @@
           "label_zh": "跟进 · 短消息",
           "use_when": "已建立每日节奏，当天无实质变化",
           "text": "Status for {{order_no}} today: the broker has answered CBP's query and we're waiting on their review. No movement since yesterday, and I won't pretend otherwise.\n\nTomorrow's update will come by {{next_update_time}}. If you want a call instead of a message, send me a time and I'll make it. I'm not going anywhere.",
-          "placeholders": ["order_no", "next_update_time"]
+          "placeholders": [
+            "order_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-urgent-chase-close",
@@ -1231,7 +1618,12 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "货物放行或派送后，修复关系",
           "text": "Hi {{customer_name}}, {{order_no}} cleared this morning and delivery is set for {{delivery_date}}. I know an apology doesn't recover the time you lost, so I'll keep it short: we handled the updates badly, and I've changed the escalation on your account so you get a named contact and a daily update from the first sign of a hold.\n\nI've also asked our team to review whether a goodwill credit applies. That's a decision for my manager, not something I'll promise on the spot, but you'll have an answer by {{next_update_time}}.\n\nThank you for staying with us through it.",
-          "placeholders": ["customer_name", "order_no", "delivery_date", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "delivery_date",
+            "next_update_time"
+          ]
         }
       ],
       "alts": [
@@ -1240,14 +1632,24 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, you're right to be angry — three weeks of chasing with no straight answer is not good enough, and I'm not going to pretend it was.\n\nI've taken {{order_no}} off the queue myself and read the whole thread this morning. Here's the honest position: the shipment is at {{port}} and the hold is a documentation query from CBP, not a seizure. Our broker is responding today.\n\nFrom now on you get a written update every day by 5pm your time until it's delivered, whether or not anything has moved. If I miss one, my supervisor is already copied on the thread.\n\nFirst update by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "port", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-urgent-chase-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — I've taken {{order_no}} off the queue myself. It's at {{port}} with a CBP documentation query, not a seizure, and our broker is responding today.\n\nI'm not going to defend our update gaps; they were real. From today you get a written status every day by 5pm your time until delivery, my supervisor is copied on the thread, and I'll own this until it's delivered.\n\nFirst update by {{next_update_time}}. If you'd rather have a call, send me a time.",
-          "placeholders": ["customer_name", "order_no", "port", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "port",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -1273,7 +1675,10 @@
         ]
       },
       "authorities": [
-        { "name": "FMC Filing a Shipping Complaint", "url": "https://www.fmc.gov/complaints-and-assistance/filing-a-shipping-complaint/" }
+        {
+          "name": "FMC Filing a Shipping Complaint",
+          "url": "https://www.fmc.gov/complaints-and-assistance/filing-a-shipping-complaint/"
+        }
       ],
       "updated_at": "2026-11-04"
     },
@@ -1293,8 +1698,20 @@
         "The FC rejected my pallets. What now?"
       ],
       "keywords": [
-        "FBA", "appointment", "fulfillment center", "shipment ID", "FNSKU", "pallet", "redelivery", "Amazon",
-        "预约", "入仓", "拒收", "箱标", "托盘", "亚马逊"
+        "FBA",
+        "appointment",
+        "fulfillment center",
+        "shipment ID",
+        "FNSKU",
+        "pallet",
+        "redelivery",
+        "Amazon",
+        "预约",
+        "入仓",
+        "拒收",
+        "箱标",
+        "托盘",
+        "亚马逊"
       ],
       "framework": {
         "empathy": [
@@ -1328,7 +1745,12 @@
           "label_zh": "首次回复 · 标准",
           "use_when": "客户第一次得知 FBA 预约失败",
           "text": "Hi {{customer_name}}, I know a missed FBA appointment is expensive — Amazon doesn't wait, and a redelivery fee on top of a late shipment is the last thing you need.\n\nI've checked with the carrier for {{order_no}}. The appointment was booked, but the fulfillment center rescheduled it because the pallet labels didn't match the shipment ID on the appointment. The load is safe at the carrier's yard near {{port}}, not refused, and we can rebook once the labels are corrected.\n\nOur warehouse team is reprinting the labels to match the shipment ID today, and the carrier is requesting the next available appointment. I'll confirm the new slot by {{next_update_time}}. If the FC offers a drop-trailer option, I'll price it so you can decide.\n\nI won't promise a slot before Amazon confirms it.",
-          "placeholders": ["customer_name", "order_no", "port", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-fba-appointment-followup",
@@ -1337,7 +1759,10 @@
           "label_zh": "跟进 · 短消息",
           "use_when": "已重新贴标，等待 FC 确认预约",
           "text": "On {{order_no}}: the corrected labels are on the pallets and the carrier has submitted the appointment request. Amazon hasn't confirmed a slot yet — the portal shows the request as pending.\n\nI'm checking twice a day and will message you the moment it's confirmed, and by {{next_update_time}} at the latest.",
-          "placeholders": ["order_no", "next_update_time"]
+          "placeholders": [
+            "order_no",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-fba-appointment-close",
@@ -1346,7 +1771,10 @@
           "label_zh": "收口 · 主管口径",
           "use_when": "预约确认或入仓完成，交代费用",
           "text": "Hi {{customer_name}}, the appointment is confirmed for {{delivery_date}} and the carrier has the corrected labels loaded. Amazon's portal shows the shipment linked to the right fulfillment center and shipment ID.\n\nThere may be a redelivery charge from the first missed slot; I'll confirm the amount before it's billed and challenge it if the FC's reschedule was the cause.\n\nI've added a label-to-appointment check before dispatch so this doesn't happen on your next FBA shipment. I'm sorry it cost you a week.",
-          "placeholders": ["customer_name", "delivery_date"]
+          "placeholders": [
+            "customer_name",
+            "delivery_date"
+          ]
         }
       ],
       "alts": [
@@ -1355,14 +1783,24 @@
           "tone": "warm",
           "label_zh": "替代表达 · 共情版",
           "text": "Hi {{customer_name}}, I know a missed FBA appointment hurts twice — Amazon moves on, and you still pay the redelivery fee.\n\nI've been through it with the carrier for {{order_no}}. The appointment was booked, but the FC rescheduled it because the pallet labels didn't match the shipment ID on the appointment. The load is safe at the carrier's yard near {{port}}, not refused, and we can rebook once the labels are corrected.\n\nOur warehouse is reprinting the labels today and the carrier is requesting the next slot. I'll confirm the new appointment by {{next_update_time}} — I won't promise one before Amazon confirms it.",
-          "placeholders": ["customer_name", "order_no", "port", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "port",
+            "next_update_time"
+          ]
         },
         {
           "id": "us-fba-appointment-alt-concise",
           "tone": "concise",
           "label_zh": "替代表达 · 简洁版",
           "text": "Hi {{customer_name}} — on {{order_no}}: the FC rescheduled the appointment because the pallet labels didn't match the shipment ID. The load is safe at the carrier's yard near {{port}}, not refused.\n\nWe're reprinting the labels today and the carrier is requesting the next slot. Any redelivery or storage charge will be confirmed with you before it's billed. If you have the shipment ID handy, send it so we can cross-check every label.\n\nI'll confirm the new appointment for you by {{next_update_time}}.",
-          "placeholders": ["customer_name", "order_no", "port", "next_update_time"]
+          "placeholders": [
+            "customer_name",
+            "order_no",
+            "port",
+            "next_update_time"
+          ]
         }
       ],
       "internal": {
@@ -1388,7 +1826,10 @@
         ]
       },
       "authorities": [
-        { "name": "CBP E-Commerce and De Minimis Rules", "url": "https://www.cbp.gov/trade/basic-import-export/e-commerce" }
+        {
+          "name": "CBP E-Commerce and De Minimis Rules",
+          "url": "https://www.cbp.gov/trade/basic-import-export/e-commerce"
+        }
       ],
       "updated_at": "2026-11-04"
     }
